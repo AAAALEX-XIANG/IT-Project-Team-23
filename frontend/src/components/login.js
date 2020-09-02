@@ -1,6 +1,6 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
-import { login } from "../containers/api"; // { login register }
+import { login } from "../containers/api";
 
 class LoginForm extends React.Component {
     constructor (props) {
@@ -57,9 +57,6 @@ class LoginForm extends React.Component {
             <form onSubmit={this.handleSubmit}>
                 <div className="titleHeader">Log In</div>
                 <br /><br />
-                <div className="subTitle">Don't have an account? <a href="/register">Register</a></div>
-                <br /><br />
-
                 <div className="formDisplay">
                     <label>
                         <div className="subTitle2">Username</div>
@@ -70,6 +67,9 @@ class LoginForm extends React.Component {
                         <div className="subTitle2">Password</div>
                         <input type="password" name="password" value={this.state.password} onChange={this.handleChange} required/>
                     </label>
+                    <br /><br />
+                    <div className="subTitle">Don't have an account? <a href="/register">Register</a></div>
+                    <br /><br />
                     <br /><br />
                     {this.state.wrongAttempt ?
                         <div className="formError">
