@@ -1,6 +1,8 @@
 import React from 'react';
 //import logo from './logo.svg';
 import './App.css';
+
+import Header from "./components/header";
 import LoginPage from "./containers/loginPage";
 import RegPage from "./containers/regPage";
 import { observer } from "mobx-react";
@@ -37,6 +39,7 @@ const App = observer(class App extends React.Component {
   render() {
     return (
         <div className="App">
+          <Header />
           <Router>
             <Switch>
               <Route exact path="/" render={(props) => (
