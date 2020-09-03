@@ -69,7 +69,7 @@ class LoginForm extends React.Component {
                     </label>
                     <br /><br />
                     <div className="subTitle">Don't have an account? <a href="/register">Register</a></div>
-                    <br /><br />
+                    <div className="subTitle">Forgot your password? </div>
                     <br /><br />
                     {this.state.wrongAttempt ?
                         <div className="formError">

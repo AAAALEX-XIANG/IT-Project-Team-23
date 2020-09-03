@@ -5,7 +5,7 @@ const BASE_URL = "http://localhost:3000";
  * Retrieves user information
  */
 export async function getUserInfo(username) {
-    const endpoint = BASE_URL + `/user-management/${username}`;
+    const endpoint = BASE_URL + `/${username}`;
     console.log("getUserInfo");
 
     let res;
@@ -23,7 +23,7 @@ export async function getUserInfo(username) {
  * Retrieves classroom by username
  */
 export async function getUserClassroom(username) {
-    const endpoint = BASE_URL + `/classroom-management/user/${username}`;
+    const endpoint = BASE_URL + `/${username}`;
     console.log("getUserClassroom");
 
     let res;

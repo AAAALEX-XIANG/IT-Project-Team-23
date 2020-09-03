@@ -6,7 +6,7 @@ export default function Loginpage(props) {
     return (
         <div className="pageContainer2">
 
-            <div className="logo"></div>
+            <div className="logo"/>
 
             {/*<div className="floatLeft">*/}
             {/*    <div className="formDisplay"><img src={}alt= /></div>*/}

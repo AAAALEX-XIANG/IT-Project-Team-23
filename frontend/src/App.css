@@ -99,17 +99,17 @@ html, body, #root, .App{
 }
 
 .titleHeader{
-  /* align-self: center; */
+  font-family: "Comic Sans MS", sans-serif;
   text-align: center;
   color: black;
-  font-size: 2.4rem;
-  flex: 1;
+  font-size: 30px;
+
 }
 
 .subTitle{
   /* align-self: center; */
   text-align: center;
-  font-size: 1.2rem;
+  font-size: 18px;
   color: #A5A5A5;
   flex: 1;
 }
@@ -124,6 +124,7 @@ html, body, #root, .App{
 }
 
 .pageContainer2 {
+  text-align: center;
   width: 100%;
   background-color: #ffffff;
 }
@@ -136,8 +137,9 @@ html, body, #root, .App{
 }
 
 .floatRight {
+
   float: right;
-  width: 50%;
+  width: 60%;
   background-color: #ffffff;
 
 }
@@ -177,9 +179,9 @@ input[type="email"]{
 }
 
 input[type=submit] {
-  background-color: rgb(239, 72, 82);
+  background-color: rgb(85, 162, 239);
   color: white;
-  padding: 14px 20px;
+  padding: 15px 80px;
   margin: 8px 0;
   border: none;
   border-radius: 4px;
