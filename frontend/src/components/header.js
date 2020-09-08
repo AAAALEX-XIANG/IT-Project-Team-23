@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import logo from '../asserts/empty.png';
 
 export default function header() {
