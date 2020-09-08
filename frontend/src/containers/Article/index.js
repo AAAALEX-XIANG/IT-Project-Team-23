@@ -7,7 +7,7 @@ export default class Article extends Component {
             <div className="pageContainer">
                 <Navbar />
                 <div className="articleContainer">
-                    here is some article
+                    here is some artifacts
                 </div>
             </div>
         )

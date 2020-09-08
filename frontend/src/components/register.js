@@ -33,6 +33,10 @@ class RegForm extends React.Component {
     async handleSubmit(event) {
         event.preventDefault();
 
+        if(this.state.password !== this.state.password_confirm){
+            alert("Inconsistent password");
+            return;
+        }
         // call the API to verify user
         const {status, res} = await register(
             {
@@ -44,6 +48,7 @@ class RegForm extends React.Component {
                 password_confirm: this.state.password_confirm,
                 // is_teacher: this.state.is_teacher
             });
+        alert(res.reason);
         console.log(status);
         console.log(res);
         this.setState({success: status===200, res: res})

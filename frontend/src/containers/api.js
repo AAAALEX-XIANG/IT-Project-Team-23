@@ -47,7 +47,7 @@ export async function getUserClassroom(username) {
  */
 export async function login(userDetails) {
     const {username, password} = userDetails;
-    const endpoint = BASE_URL + `/user-management/login`;
+    const endpoint = BASE_URL + `/login`;
     console.log("login");
 
     if (!username) {
@@ -87,8 +87,8 @@ export async function login(userDetails) {
  * Registers user from server API
  */
 export async function register(userDetails) {
-    const { first_name, last_name, email, username, password, password_confirm, is_teacher} = userDetails;
-    const endpoint = BASE_URL + `/user-management/register`;
+    const { first_name, last_name, email, username, password} = userDetails;
+    const endpoint = BASE_URL + `/register`;
     console.log("register");
 
     //fetch from server api
@@ -100,13 +100,11 @@ export async function register(userDetails) {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                first_name,
-                last_name,
-                email,
-                username,
-                password,
-                password_confirm,
-                is_teacher
+                firstname: first_name,
+                lastname: last_name,
+                emailaddress: email,
+                username: username,
+                password: password
             })
         });
     } catch(e) {
