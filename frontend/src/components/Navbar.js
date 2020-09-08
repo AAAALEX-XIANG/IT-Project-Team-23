@@ -14,9 +14,6 @@ export default function Navbar(){
         <nav className = "navbar">
             <ul>
                 <li className = "navOption">
-                    {/*TODO: change to /dashboard once login works*/}
-                    {/* TODO: Active link styling*/}
-                    {/* <a href="/test/friends" className="current-page"> Friends </a> */}
                     <NavLink to="/admin/dashboard" className="current-page" activeClassName="selected"> Home </NavLink>
                 </li>
                 <li className = "navOption" >
