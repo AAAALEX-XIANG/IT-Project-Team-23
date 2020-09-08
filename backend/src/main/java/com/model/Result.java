@@ -2,14 +2,14 @@ package com.model;
 
 public class Result {
 
-    private boolean result;
+    private boolean res;
 
     public boolean isResult() {
-        return result;
+        return res;
     }
 
     public void setResult(boolean result) {
-        this.result = result;
+        this.res = result;
     }
 
     
