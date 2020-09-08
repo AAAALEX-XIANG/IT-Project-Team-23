@@ -5,7 +5,7 @@ export default function header() {
     return (
         <header className = "mainHeader">
             <img src={logo} className="logo" alt="logo" />
-            Welcome Fate e-portfolio
+            Welcome to Fate e-portfolio
         </header>
     );
 }

@@ -5,29 +5,33 @@ import ReactDOM from 'react-dom';
 import {BrowserRouter as Router, Redirect, Route, Switch} from "react-router-dom";
 import './index.css';
 import {mainRouter} from "./routes";
+import Header from "./components/header";
 
 
 ReactDOM.render(
   <Router>
-      <Switch>
-          <Route path="/admin" render = {(routerProps) => {
-              return (
-                  <App {...routerProps} />
-              )
-          }} />
-
-          {
-              mainRouter.map(route => {
+      <div className="outApp">
+          <Header />
+          <Switch>
+              <Route path="/admin" render = {(routerProps) => {
                   return (
-                      <Route key={route.pathname} path = {route.pathname} component = {route.component}/>
+                      <App {...routerProps} />
                   )
-              })
-          }
+              }} />
 
-          <Redirect to = "/admin" from="/" exact />
-          <Redirect to = "/404" />
+              {
+                  mainRouter.map(route => {
+                      return (
+                          <Route key={route.pathname} path = {route.pathname} component = {route.component}/>
+                      )
+                  })
+              }
 
-      </Switch>
+              <Redirect to = "/admin" from="/" exact />
+              <Redirect to = "/404" />
+
+          </Switch>
+  </div>
   </Router>,
   document.getElementById('root')
 );

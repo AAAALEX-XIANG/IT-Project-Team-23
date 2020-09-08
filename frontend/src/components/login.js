@@ -31,23 +31,37 @@ class LoginForm extends React.Component {
         // call the API to verify user
         const {status, user} = await login({username: this.state.username, password: this.state.password});
 
+        // if(status===200) {
+        //     this.setState({wrongAttempt: false});
+        //     //change the app user state
+        //     this.props.userStore.isLoggedIn = true;
+        //     this.props.userStore.username = this.state.username;
+        //     this.props.userStore.user = user[0];
+        //     localStorage.setItem("username", this.state.username);
+        //     localStorage.setItem("user", JSON.stringify(user[0]));
+        //
+        //     console.log(status);
+        //     // localStorage.setItem("user", this.state.username);
+        //     //redirect
+        //     this.props.history.push('/');
+        // }
+        //
+        // else {
+        //     this.setState({wrongAttempt: true});
+        // }
+        // console.log(this.state.success);
         if(status===200) {
             this.setState({wrongAttempt: false});
             //change the app user state
-            this.props.userStore.isLoggedIn = true;
-            this.props.userStore.username = this.state.username;
-            this.props.userStore.user = user[0];
-            localStorage.setItem("username", this.state.username);
-            localStorage.setItem("user", JSON.stringify(user[0]));
-
-            console.log(status);
-            // localStorage.setItem("user", this.state.username);
-            //redirect
-            this.props.history.push('/');
+            if(user.result === true){
+                alert("Correct account");
+            }
+            else{
+                this.setState({wrongAttempt: true});
+            }
         }
-
-        else {
-            this.setState({wrongAttempt: true});
+        else{
+            alert("Request Fail");
         }
         console.log(this.state.success);
     }

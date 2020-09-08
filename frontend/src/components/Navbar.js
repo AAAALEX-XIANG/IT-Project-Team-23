@@ -23,7 +23,7 @@ export default function Navbar(){
                     <NavLink to="/admin/setting" className="current-page" activeClassName="selected"> Setting </NavLink>
                 </li>
                 <li className = "navOption" >
-                    <NavLink to="/" onClick={logout} > Logout </NavLink>
+                    <NavLink to="/login" onClick={logout} > Logout </NavLink>
                 </li>
             </ul>
         </nav>

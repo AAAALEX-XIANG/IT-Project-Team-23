@@ -3,13 +3,25 @@ import {Route, Switch, Redirect} from "react-router-dom";
 import {adminRouter} from "./routes";
 import './App.css';
 
-import Header from "./components/header";
 
 class App extends Component{
+
+    componentDidMount() {
+
+        let storedUsername = localStorage.getItem("username");
+        let storedUser = localStorage.getItem("user");
+        if (storedUsername != null && storedUser!=null){
+            console.log(storedUsername);
+            storedUser = JSON.parse(storedUser);
+            this.props.userStore.username = storedUsername;
+            this.props.userStore.isLoggedIn = true;
+            this.props.userStore.user = storedUser;
+        }
+    }
+
     render() {
       return (
           <div className="App">
-            <Header />
             {/*<div>some public aspect</div>*/}
               <Switch>
                 {
@@ -20,7 +32,9 @@ class App extends Component{
                             path={route.pathname}
                             exact={route.exact}
                             render={(routerProps) =>{
-                             return <route.component {...routerProps} />
+                                return <Route path={route.pathname} render={(routerProps) =>{
+                                    return <route.component {...routerProps} />
+                                }} />
                            }}
                         />
                     )
