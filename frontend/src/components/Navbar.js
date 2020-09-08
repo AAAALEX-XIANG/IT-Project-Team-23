@@ -4,9 +4,6 @@ import {
     NavLink,
 } from "react-router-dom";
 
-// import {
-//     Link,
-// } from "react-router-dom";
 
 export default function Navbar(){
     const logout = () => {
@@ -17,16 +14,16 @@ export default function Navbar(){
         <nav className = "navbar">
             <ul>
                 <li className = "navOption">
-                    <NavLink to="/home" className="current-page" activeClassName="selected"> Home </NavLink>
-                </li>
-                <li className = "navOption">
                     {/*TODO: change to /dashboard once login works*/}
                     {/* TODO: Active link styling*/}
                     {/* <a href="/test/friends" className="current-page"> Friends </a> */}
-                    <NavLink to="/dashboard" className="current-page" activeClassName="selected"> Friends </NavLink>
+                    <NavLink to="/admin/dashboard" className="current-page" activeClassName="selected"> Home </NavLink>
                 </li>
                 <li className = "navOption" >
-                    <NavLink to="/activities/your-turn" className="current-page" activeClassName="selected"> Activities </NavLink>
+                    <NavLink to="/admin/article" className="current-page" activeClassName="selected"> Article </NavLink>
+                </li>
+                <li className = "navOption" >
+                    <NavLink to="/admin/setting" className="current-page" activeClassName="selected"> Setting </NavLink>
                 </li>
                 <li className = "navOption" >
                     <NavLink to="/" onClick={logout} > Logout </NavLink>

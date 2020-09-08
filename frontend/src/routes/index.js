@@ -1,6 +1,7 @@
 import {
     Dashboard,
     Loginpage,
+    regPage,
     NotFound,
     Setting,
     ArticleList,
@@ -10,6 +11,9 @@ import {
 export const mainRouter = [{
     pathname: '/login',
     component: Loginpage
+},{
+    pathname: '/register',
+    component: regPage
 },{
     pathname: '/404',
     component: NotFound
