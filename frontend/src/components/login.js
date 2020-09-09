@@ -1,6 +1,16 @@
 import React from "react";
-import { withRouter } from "react-router-dom";
-import { login } from "../containers/api";
+import { withRouter, Redirect } from "react-router-dom";
+import { login } from "../containers/accountApi";
+// import { login } from "../action/user";
+import { connect } from "react-redux";
+
+
+// const mapState = state => ({
+//     isLogin: state.user.isLogin,
+//     isLoading: state.user.isLoading
+// })
+
+// connect(mapState)
 
 class LoginForm extends React.Component {
     constructor (props) {
@@ -30,31 +40,12 @@ class LoginForm extends React.Component {
 
         // call the API to verify user
         const {status, user} = await login({username: this.state.username, password: this.state.password});
-
-        // if(status===200) {
-        //     this.setState({wrongAttempt: false});
-        //     //change the app user state
-        //     this.props.userStore.isLoggedIn = true;
-        //     this.props.userStore.username = this.state.username;
-        //     this.props.userStore.user = user[0];
-        //     localStorage.setItem("username", this.state.username);
-        //     localStorage.setItem("user", JSON.stringify(user[0]));
-        //
-        //     console.log(status);
-        //     // localStorage.setItem("user", this.state.username);
-        //     //redirect
-        //     this.props.history.push('/');
-        // }
-        //
-        // else {
-        //     this.setState({wrongAttempt: true});
-        // }
-        // console.log(this.state.success);
         if(status===200) {
             this.setState({wrongAttempt: false});
             //change the app user state
+            
             if(user.result === true){
-                alert("Correct account");
+                this.props.history.push('/admin/dashboard');
             }
             else{
                 this.setState({wrongAttempt: true});
@@ -63,10 +54,12 @@ class LoginForm extends React.Component {
         else{
             alert("Request Fail");
         }
-        console.log(this.state.success);
+        console.log(user.result);
+        
     }
 
     render() {
+
         return (
             <form onSubmit={this.handleSubmit}>
                 <div className="titleHeader">Log In</div>

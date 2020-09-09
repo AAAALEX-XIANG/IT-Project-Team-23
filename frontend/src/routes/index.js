@@ -1,6 +1,6 @@
 import {
     Dashboard,
-    Loginpage,
+    loginPage,
     regPage,
     NotFound,
     Setting,
@@ -10,7 +10,7 @@ import {
 
 export const mainRouter = [{
     pathname: '/login',
-    component: Loginpage
+    component: loginPage
 },{
     pathname: '/register',
     component: regPage

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Form, Input, Button } from 'antd';
+import { Form, Input, Button, List, Avatar } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import Navbar from "../../components/Navbar";
 
@@ -19,6 +19,16 @@ const formItemLayoutWithOutLabel = {
         sm: { span: 20, offset: 4 },
     },
 };
+const data = [
+    {
+        title: 'Title 1',
+        description: "There is some sentences"
+    },
+    {
+        title: 'Title 2',
+        description: "There is some sentences"
+    }
+];
 
 export default class Setting extends Component {
     render() {
@@ -27,6 +37,21 @@ export default class Setting extends Component {
                 <Navbar />
 
                 <Form name="dynamic_form_item" {...formItemLayoutWithOutLabel}>
+
+                    <List
+                        itemLayout="horizontal"
+                        dataSource={data}
+                        renderItem={item => (
+                            <List.Item>
+                                <List.Item.Meta
+                                    avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
+                                    title={<a href="/404">{item.title}</a>}
+                                    description={item.description}
+                                />
+                            </List.Item>
+                        )}
+                    />
+
                     <Form.List name="names">
                         {(fields, { add, remove }) => {
                             return (
@@ -72,7 +97,7 @@ export default class Setting extends Component {
                                             }}
                                             style={{ width: '60%' }}
                                         >
-                                            <PlusOutlined /> Add Catalogue
+                                            <PlusOutlined />Add Catalogue
                                         </Button>
                                         <Button
                                             type="dashed"

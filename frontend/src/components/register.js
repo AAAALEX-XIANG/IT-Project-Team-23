@@ -1,6 +1,6 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
-import { register } from "../containers/api";
+import { register } from "../containers/accountApi";
 
 class RegForm extends React.Component {
     constructor (props) {
@@ -45,7 +45,6 @@ class RegForm extends React.Component {
                 email: this.state.email,
                 username: this.state.username,
                 password: this.state.password,
-                password_confirm: this.state.password_confirm,
                 // is_teacher: this.state.is_teacher
             });
         alert(res.reason);
@@ -53,7 +52,7 @@ class RegForm extends React.Component {
         console.log(res);
         this.setState({success: status===200, res: res})
         if(this.state.success) {
-            this.props.history.push('/home');
+            this.props.history.push('/admin');
         }
 
     }
