@@ -1,6 +1,6 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
-import { register } from "../containers/api";
+import { register } from "../containers/accountApi";
 
 class RegForm extends React.Component {
     constructor (props) {
@@ -33,11 +33,11 @@ class RegForm extends React.Component {
     async handleSubmit(event) {
         event.preventDefault();
 
-        // call the API to verify user
         if(this.state.password !== this.state.password_confirm){
             alert("Inconsistent password");
             return;
         }
+        // call the API to verify user
         const {status, res} = await register(
             {
                 first_name: this.state.first_name,
@@ -52,7 +52,7 @@ class RegForm extends React.Component {
         console.log(res);
         this.setState({success: status===200, res: res})
         if(this.state.success) {
-            this.props.history.push('/home');
+            this.props.history.push('/admin');
         }
 
     }

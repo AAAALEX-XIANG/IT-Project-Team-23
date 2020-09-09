@@ -1,5 +1,5 @@
 //import { useState, useEffect } from "react";
-const BASE_URL = "http://localhost:8080/Team-Of-Fate/ePortfolio";
+const BASE_URL = "http://localhost:8080/api/account";
 
 /**
  * Retrieves user information
@@ -49,7 +49,9 @@ export async function login(userDetails) {
     const {username, password} = userDetails;
     const endpoint = BASE_URL + `/login`;
     console.log("login");
-
+    let requestBody = new FormData();
+    requestBody.append("email",username);
+    requestBody.append("password", password);
     if (!username) {
         alert("please enter your username"); //TODO: change to not alert
         return;
@@ -68,13 +70,7 @@ export async function login(userDetails) {
     try {
         res = await fetch(endpoint, {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                emailaddress: username,
-                password: password
-            })
+            body: requestBody
         });
     } catch(e) {
         console.log(e);
@@ -104,7 +100,7 @@ export async function register(userDetails) {
                 lastname: last_name,
                 emailaddress: email,
                 username: username,
-                password: password,
+                password: password
             })
         });
     } catch(e) {

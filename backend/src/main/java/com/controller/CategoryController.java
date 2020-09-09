@@ -3,7 +3,7 @@ package com.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.model.AllArtifactRequest;
+
 import com.model.AllCategoryRequest;
 import com.model.Artifact;
 import com.model.Category;
@@ -67,9 +67,9 @@ public class CategoryController {
     }
 
     @GetMapping("/showArtifacts")
-    public List<String> showArtifact(@RequestBody AllArtifactRequest request) {
+    public List<String> showArtifact(@RequestBody CategoryRequest request) {
         User user = userRepository.findByEmailaddress(request.getEmail());
-        Category category = user.existCategory(request.getCategory());
+        Category category = user.existCategory(request.getCategoryName());
         List<String> output = new ArrayList<>();
         for (Artifact i : category.getArtifacts()) {
             output.add(i.getTitle());

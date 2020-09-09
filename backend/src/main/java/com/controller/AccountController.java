@@ -2,7 +2,6 @@ package com.controller;
 
 import java.util.List;
 
-import com.model.LoginRequest;
 import com.model.RegisterRequest;
 import com.model.RegisterResult;
 import com.model.Result;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin("http://localhost:3000")
@@ -38,7 +38,7 @@ public class AccountController {
     }
 
     @PostMapping("/login")
-    public Result login(@RequestBody LoginRequest loginRequest) {
-        return accountService.login(loginRequest);
+    public Result login(@RequestParam String email, @RequestParam String password) {
+        return accountService.login(email,password);
     }
 }

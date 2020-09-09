@@ -1,6 +1,6 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
-import { login } from "../containers/api";
+import { login } from "../containers/accountApi";
 
 class LoginForm extends React.Component {
     constructor (props) {
@@ -30,12 +30,11 @@ class LoginForm extends React.Component {
 
         // call the API to verify user
         const {status, user} = await login({username: this.state.username, password: this.state.password});
-
         if(status===200) {
             this.setState({wrongAttempt: false});
             //change the app user state
             if(user.result === true){
-                alert("Correct account");
+                this.props.history.push('/admin');
             }
             else{
                 this.setState({wrongAttempt: true});
@@ -45,6 +44,7 @@ class LoginForm extends React.Component {
             alert("Request Fail");
         }
         console.log(this.state.success);
+        
     }
 
     render() {

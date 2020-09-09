@@ -2,7 +2,6 @@ package com.service;
 
 import java.util.List;
 
-import com.model.LoginRequest;
 import com.model.RegisterRequest;
 import com.model.RegisterResult;
 import com.model.Result;
@@ -39,14 +38,14 @@ public class AccountService {
         return userRepository.findAll();
     }
 
-    public Result login(LoginRequest request){
+    public Result login(String email, String password){
         Result result = new Result();
-        User user = userRepository.findByEmailaddress(request.getEmailaddress());
+        User user = userRepository.findByEmailaddress(email);
         if (user == null) {
             result.setResult(false);
             return result;
         }
-        if (!user.getPassword().equals(request.getPassword())) {
+        if (!user.getPassword().equals(password)) {
             result.setResult(false);
             return result;
         } else {
