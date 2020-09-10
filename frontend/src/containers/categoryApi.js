@@ -1,7 +1,7 @@
 const BASE_URL = "http://localhost:8080/api/categories";
 
 export async function addCategory(request) {
-    const { email, categoryName} = request;
+    const { email, categoryName } = request;
     const endpoint = BASE_URL + `/addCategory`;
 
     //fetch from server api

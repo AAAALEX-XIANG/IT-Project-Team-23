@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
-import {Form, Button, Upload,Radio, Input, Select,Divider} from 'antd';
+import {Form, Upload,Radio, Input, Select,Divider} from 'antd';
 import "antd/dist/antd.css";
-import { InboxOutlined, PlusOutlined  } from '@ant-design/icons';
+import { InboxOutlined } from '@ant-design/icons';
 import { upload } from "../../containers/artifactApi";
 import { addCategory } from "../../containers/categoryApi"
 
 import Navbar from "../../components/Navbar";
-import { Redirect } from 'react-router-dom';
+//import { Redirect } from 'react-router-dom';
 
 const { Option } = Select;
 let index = 0;
@@ -34,7 +34,7 @@ const normFile = e => {
 export default class Article extends Component {
 
     state = {
-        items: ['1', '2'],
+        items: [],
         name: '',
     };
 
@@ -51,8 +51,13 @@ export default class Article extends Component {
             items: [...items, name || `New item ${index++}`],
             name: '',
         });
-        addCategory({email: this.state.email, categoryName: this.state.name});
+        addCategory({email: localStorage.getItem('email'), categoryName: this.state.name});
     };
+
+    uploadFiles = () => {
+        console.log("add files...");
+        upload({ email:localStorage.getItem('email'), category: this.state.name, title:"tit", description:"desc", attachment:"files"})
+    }
 
     render() {
         const { items, name } = this.state;
@@ -127,9 +132,9 @@ export default class Article extends Component {
                             offset: 6,
                         }}
                     >   
-                    <Button type="primary" htmlType="submit">
+                    <button onClick={this.uploadFiles}>
                         Submit
-                    </Button>
+                    </button>
                         
                     </Form.Item>
                 </Form>

@@ -44,7 +44,7 @@ const App = observer(class App extends React.Component {
               <Router>
                   <Switch>
                       <Route exact path="/" render={(props) => (
-                          !(localStorage.getItem('email')===null) ? <Redirect to="/login"/> : <Redirect to="/admin/dashboard"/> 
+                          !(localStorage.getItem('email')===null) ? <Redirect to="/admin/dashboard"/> : <Redirect to="/login"/>
                       )}
                       />
 
@@ -79,7 +79,7 @@ const App = observer(class App extends React.Component {
                       />
 
                       <Route exact path="/login" render={(props) => (
-                          !(localStorage.getItem('email')===null) ?
+                          (localStorage.getItem('email')===null) ?
                           <Dashboard isLoggedIn={this.props.userStore.isLoggedIn} email={this.props.userStore.email} userStore = {this.props.userStore}/>
                           : <Redirect to="/login"/> )}
                       />
