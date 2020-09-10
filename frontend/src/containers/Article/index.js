@@ -1,8 +1,15 @@
 import React, {Component} from 'react';
-import {Form, Button, Upload,Radio, Input} from 'antd';
+import {Form, Button, Upload,Radio, Input, Select,Divider} from 'antd';
 import "antd/dist/antd.css";
-import { InboxOutlined } from '@ant-design/icons';
+import { InboxOutlined, PlusOutlined  } from '@ant-design/icons';
+import { upload } from "../../containers/artifactApi";
+import { addCategory } from "../../containers/categoryApi"
+
 import Navbar from "../../components/Navbar";
+import { Redirect } from 'react-router-dom';
+
+const { Option } = Select;
+let index = 0;
 
 const formItemLayout = {
     labelCol: {
@@ -22,8 +29,33 @@ const normFile = e => {
 
     return e && e.fileList;
 };
+
+
 export default class Article extends Component {
+
+    state = {
+        items: ['1', '2'],
+        name: '',
+    };
+
+    onNameChange = event => {
+        this.setState({
+            name: event.target.value,
+        });
+    };
+
+    addItem = () => {
+        console.log('addItem');
+        const { items, name } = this.state;
+        this.setState({
+            items: [...items, name || `New item ${index++}`],
+            name: '',
+        });
+        addCategory({email: this.state.email, categoryName: this.state.name});
+    };
+
     render() {
+        const { items, name } = this.state;
         return (
             <div className="pageContainer">
                 <Navbar />
@@ -35,11 +67,35 @@ export default class Article extends Component {
                             Upload Document
                         </div>
                     </Form.Item>
+
                     <Form.Item label="Title">
                         <Input placeholder="Enter Title" />
                     </Form.Item>
+
                     <Form.Item label="Description">
                         <Input placeholder=" " />
+                    </Form.Item>
+
+                    <Form.Item label="Select the catagory">
+                        <Select
+                            style={{ width: 240 }}
+                            placeholder="add new catagory"
+                            dropdownRender={menu => (
+                                <div>
+                                    {menu}
+                                    <Divider style={{ margin: '4px 0' }} />
+                                    <div style={{ display: 'flex', flexWrap: 'nowrap', padding: 8 }}>
+                                        <Input style={{ flex: 'auto' }} value={name} onChange={this.onNameChange} />
+                                        <button onClick={this.addItem}> Add item </button>
+                                       
+                                    </div>
+                                </div>
+                            )}
+                        >
+                            {items.map(item => (
+                                <Option key={item}>{item}</Option>
+                            ))}
+                        </Select>
                     </Form.Item>
 
                     <Form.Item name="radio-group" label="Make Private">
@@ -70,10 +126,11 @@ export default class Article extends Component {
                             span: 12,
                             offset: 6,
                         }}
-                    >
-                        <Button type="primary" htmlType="submit">
-                            Submit
-                        </Button>
+                    >   
+                    <Button type="primary" htmlType="submit">
+                        Submit
+                    </Button>
+                        
                     </Form.Item>
                 </Form>
             </div>

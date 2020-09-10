@@ -17,8 +17,8 @@ export default class Dashboard extends Component {
         }
     }
 
-    async fetchInfo(username) {
-        const {userInfo, error} = await getUserInfo(username);
+    async fetchInfo(email) {
+        const {userInfo, error} = await getUserInfo(email);
         this.setState({userInfo: userInfo, isLoaded: true, error: error});
         console.log(userInfo);
     }
@@ -26,7 +26,7 @@ export default class Dashboard extends Component {
     componentDidMount() {
         if (this.props.isLoggedIn) {
             console.log(this);
-            this.fetchInfo(this.props.username);
+            this.fetchInfo(this.props.email);
         }
     }
 
@@ -35,7 +35,7 @@ export default class Dashboard extends Component {
         console.log(this.props);
         if (!(this.props.isLoggedIn===prevProps.isLoggedIn)) {
             console.log(this);
-            this.fetchInfo(this.props.username);
+            this.fetchInfo(this.props.email);
         }
     }
 

@@ -1,4 +1,3 @@
-
 const BASE_URL = "http://localhost:8080/api/categories";
 
 export async function addCategory(request) {
