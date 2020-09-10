@@ -1,12 +1,22 @@
 import React, {Component} from 'react';
+<<<<<<< HEAD
 import {Form, Button, Upload,Radio, Input, Select,Divider} from 'antd';
 import "antd/dist/antd.css";
 import { InboxOutlined, PlusOutlined  } from '@ant-design/icons';
+=======
+import {Form, Upload,Radio, Input, Select,Divider} from 'antd';
+import "antd/dist/antd.css";
+import { InboxOutlined } from '@ant-design/icons';
+>>>>>>> d52c83d3506513f90fc81884cf2d74934ff42f70
 import { upload } from "../../containers/artifactApi";
 import { addCategory } from "../../containers/categoryApi"
 
 import Navbar from "../../components/Navbar";
+<<<<<<< HEAD
 import { Redirect } from 'react-router-dom';
+=======
+//import { Redirect } from 'react-router-dom';
+>>>>>>> d52c83d3506513f90fc81884cf2d74934ff42f70
 
 const { Option } = Select;
 let index = 0;
@@ -34,7 +44,11 @@ const normFile = e => {
 export default class Article extends Component {
 
     state = {
+<<<<<<< HEAD
         items: ['1', '2'],
+=======
+        items: [],
+>>>>>>> d52c83d3506513f90fc81884cf2d74934ff42f70
         name: '',
     };
 
@@ -51,9 +65,20 @@ export default class Article extends Component {
             items: [...items, name || `New item ${index++}`],
             name: '',
         });
+<<<<<<< HEAD
         addCategory({email: this.state.email, categoryName: this.state.name});
     };
 
+=======
+        addCategory({email: localStorage.getItem('email'), categoryName: this.state.name});
+    };
+
+    uploadFiles = () => {
+        console.log("add files...");
+        upload({ email:localStorage.getItem('email'), category: this.state.name, title:"tit", description:"desc", attachment:"files"})
+    }
+
+>>>>>>> d52c83d3506513f90fc81884cf2d74934ff42f70
     render() {
         const { items, name } = this.state;
         return (
@@ -127,9 +152,15 @@ export default class Article extends Component {
                             offset: 6,
                         }}
                     >   
+<<<<<<< HEAD
                     <Button type="primary" htmlType="submit">
                         Submit
                     </Button>
+=======
+                    <button onClick={this.uploadFiles}>
+                        Submit
+                    </button>
+>>>>>>> d52c83d3506513f90fc81884cf2d74934ff42f70
                         
                     </Form.Item>
                 </Form>

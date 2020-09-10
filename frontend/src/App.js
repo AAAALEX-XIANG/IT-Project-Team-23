@@ -18,8 +18,6 @@ import {
     Redirect,
     Switch,
     Route
-    // Link,
-    // useParams
 } from "react-router-dom";
 
 const App = observer(class App extends React.Component {
@@ -45,12 +43,15 @@ const App = observer(class App extends React.Component {
               <Router>
                   <Switch>
                       <Route exact path="/" render={(props) => (
-                          !(localStorage.getItem('email')===null) ? <Redirect to="/login"/> : <Redirect to="/admin/dashboard"/> 
+                          !(localStorage.getItem('email')===null) ? <Redirect to="/admin/dashboard"/> : <Redirect to="/login"/>
+
                       )}
                       />
 
                       <Route exact path="/login" render={(props) => (
+
                           !(localStorage.getItem('email')===null) ? <Redirect to="/duplogin"/> : <LoginPage userStore = {this.props.userStore}/>)}
+
                       />
 
                       <Route exact path="/register" render={(props) => (
@@ -84,7 +85,7 @@ const App = observer(class App extends React.Component {
                           <DupLogin isLoggedIn={this.props.userStore.isLoggedIn} email={this.props.userStore.email} userStore = {this.props.userStore}/>
                           :<Redirect to="/admin"/> )}
                       />
-                    {/* <Redirect to = "/admin" from="/" exact /> */}
+
                     <Redirect to = "/404" />
                   </Switch>
               </Router>

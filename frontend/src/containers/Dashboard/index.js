@@ -20,7 +20,11 @@ export default class Dashboard extends Component {
     async fetchInfo(email) {
         const {userInfo, error} = await getUserInfo(email);
         this.setState({userInfo: userInfo, isLoaded: true, error: error});
+<<<<<<< HEAD
         // console.log(userInfo);
+=======
+        console.log(userInfo);
+>>>>>>> d52c83d3506513f90fc81884cf2d74934ff42f70
     }
 
     componentDidMount() {
