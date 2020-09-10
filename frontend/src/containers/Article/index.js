@@ -2,20 +2,14 @@ import React, {Component} from 'react';
 import {Form, Button, Upload,Radio, Input, Select,Divider} from 'antd';
 import "antd/dist/antd.css";
 import { InboxOutlined, PlusOutlined  } from '@ant-design/icons';
+import { upload } from "../../containers/artifactApi";
+import { addCategory } from "../../containers/categoryApi"
 
 import Navbar from "../../components/Navbar";
+import { Redirect } from 'react-router-dom';
 
 const { Option } = Select;
 let index = 0;
-
-const props = {
-    action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
-    onChange({file, fileList}) {
-        if (file.status !== 'uploading') {
-            console.log(file, fileList);
-        }
-    }
-}
 
 const formItemLayout = {
     labelCol: {
@@ -35,7 +29,10 @@ const normFile = e => {
 
     return e && e.fileList;
 };
+
+
 export default class Article extends Component {
+
     state = {
         items: ['1', '2'],
         name: '',
@@ -54,6 +51,7 @@ export default class Article extends Component {
             items: [...items, name || `New item ${index++}`],
             name: '',
         });
+        addCategory({email: this.state.email, categoryName: this.state.name});
     };
 
     render() {
@@ -78,22 +76,18 @@ export default class Article extends Component {
                         <Input placeholder=" " />
                     </Form.Item>
 
-                    <Form.Item label="Select the catalogue">
+                    <Form.Item label="Select the catagory">
                         <Select
                             style={{ width: 240 }}
-                            placeholder="add new catalogue"
+                            placeholder="add new catagory"
                             dropdownRender={menu => (
                                 <div>
                                     {menu}
                                     <Divider style={{ margin: '4px 0' }} />
                                     <div style={{ display: 'flex', flexWrap: 'nowrap', padding: 8 }}>
                                         <Input style={{ flex: 'auto' }} value={name} onChange={this.onNameChange} />
-                                        <a
-                                            style={{ flex: 'none', padding: '8px', display: 'block', cursor: 'pointer' }}
-                                            onClick={this.addItem}
-                                        >
-                                            <PlusOutlined /> Add item
-                                        </a>
+                                        <button onClick={this.addItem}> Add item </button>
+                                       
                                     </div>
                                 </div>
                             )}
@@ -117,8 +111,7 @@ export default class Article extends Component {
                                    getValueFromEvent={normFile}
                                    noStyle
                         >
-                            <Upload.Dragger {...props}>
-                            {/*<Upload.Dragger name="files" action="/upload.do">*/}
+                            <Upload.Dragger name="files" action="/upload.do">
                                 <p className="ant-upload-drag-icon">
                                     <InboxOutlined />
                                 </p>
@@ -133,11 +126,11 @@ export default class Article extends Component {
                             span: 12,
                             offset: 6,
                         }}
-                        action="/upload" method="post"
-                    >
-                        <Button type="primary" htmlType="submit">
-                            Submit
-                        </Button>
+                    >   
+                    <Button type="primary" htmlType="submit">
+                        Submit
+                    </Button>
+                        
                     </Form.Item>
                 </Form>
             </div>
