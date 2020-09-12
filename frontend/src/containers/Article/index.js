@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Form, Upload,Radio, Input, Select,Divider, message} from 'antd';
 import "antd/dist/antd.css";
-import { InboxOutlined } from '@ant-design/icons';
+import { InboxOutlined, SortAscendingOutlined } from '@ant-design/icons';
 import { upload } from "../../containers/artifactApi";
 import { addCategory, showCategory } from "../../containers/categoryApi"
 
@@ -33,8 +33,10 @@ const formItemLayout = {
 // };
 
 let file = [];
-let categories = showCategory({email: localStorage.getItem('email')});
-console.log(categories);
+let categories = showCategory({email: localStorage.getItem('email')}).then(
+    categories => console.log(Array.from(categories.res.categories))
+);
+
 
 const props = {
     name: 'file',
@@ -57,10 +59,17 @@ const props = {
 };
 
 
-export default class Article extends Component {
 
+export default class Article extends Component {
+    categories = showCategory({email: localStorage.getItem('email')}).then(
+        categories =>
+            this.setState({
+                items: categories.res.categories,
+            })
+    );
     state = {
-        items: categories,
+        //items: categories.res.categories,
+        items: [],
         name: '',
         title: '', 
         description: '', 
@@ -70,6 +79,7 @@ export default class Article extends Component {
         this.setState({
             name: event.target.value,
         });
+        console.log(categories);
     };
 
     onCategoryChange = event => {
@@ -144,6 +154,7 @@ export default class Article extends Component {
                                 </div>
                             )}
                         >
+
                             {items.map(item => (
                                 <Option key={item}>{item}</Option>
                             ))}

@@ -2,7 +2,7 @@ package com.model;
 import java.util.List;
 
 public class CategoryResult {
-    
+
 
     private List<String> categories;
 
@@ -14,5 +14,5 @@ public class CategoryResult {
         this.categories = categories;
     }
 
-    
+
 }

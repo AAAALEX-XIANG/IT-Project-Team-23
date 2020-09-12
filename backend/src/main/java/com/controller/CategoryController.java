@@ -3,7 +3,6 @@ package com.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import com.model.AllCategoryRequest;
 import com.model.Artifact;
 import com.model.Category;
@@ -15,6 +14,7 @@ import com.repositories.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -62,16 +62,11 @@ public class CategoryController {
         List<String> output = new ArrayList<>();
         for (Category i : user.getCategories()) {
             output.add(i.getName());
-        }
+        };
         CategoryResult result = new CategoryResult();
         result.setCategories(output);
         return result;
     }
-
-
-
-
-
 
     @PostMapping("/showArtifacts")
     public List<String> showArtifact(@RequestBody CategoryRequest request) {
