@@ -50,12 +50,7 @@ class LoginForm extends React.Component {
         //     alert("Request Fail");
         }
 
-<<<<<<< HEAD
-        // console.log(this.state.success);
-        // console.log(this);
-=======
         console.log(this.state.success);
->>>>>>> d52c83d3506513f90fc81884cf2d74934ff42f70
         
     }
 

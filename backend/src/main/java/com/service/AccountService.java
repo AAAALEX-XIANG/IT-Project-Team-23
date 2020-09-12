@@ -2,8 +2,8 @@ package com.service;
 
 import java.util.List;
 
+import com.model.Profile;
 import com.model.RegisterRequest;
-import com.model.RegisterResult;
 import com.model.Result;
 import com.model.User;
 import com.repositories.UserRepository;
@@ -18,9 +18,9 @@ public class AccountService {
     @Autowired
     private UserRepository userRepository;
     
-    public RegisterResult register(RegisterRequest request){
+    public Result register(RegisterRequest request){
         User ifRegistered = userRepository.findByEmailaddress(request.getEmailaddress());
-        RegisterResult result = new RegisterResult();
+        Result result = new Result();
         if (ifRegistered != null) {
             result.setResult(false);
             result.setReason("Emailaddress already exists!");
@@ -28,10 +28,18 @@ public class AccountService {
         }
         result.setResult(true);
         result.setReason("Success");
-        User user = new User(request.getFirstname(), request.getLastname(), request.getPassword(),
-                request.getEmailaddress(), request.getUsername());
+        Profile profile = new Profile(request.getFirstname(), request.getLastname(), request.getUsername());
+        User user = new User(request.getEmailaddress(), request.getPassword(), profile);
         userRepository.save(user);
         return result;
+    }
+
+    public Profile getUserProfile(String email) {
+        User user = userRepository.findByEmailaddress(email);
+        if (user == null) {
+            return null;
+        }
+        return user.getProfile();
     }
 
     public List<User> getAllUsers(){
@@ -43,13 +51,16 @@ public class AccountService {
         User user = userRepository.findByEmailaddress(email);
         if (user == null) {
             result.setResult(false);
+            result.setReason("Failure");
             return result;
         }
         if (!user.getPassword().equals(password)) {
             result.setResult(false);
+            result.setReason("Failure");
             return result;
         } else {
             result.setResult(true);
+            result.setReason("Success");
             return result;
         }
     }

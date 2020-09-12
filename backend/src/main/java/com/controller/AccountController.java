@@ -3,7 +3,6 @@ package com.controller;
 import java.util.List;
 
 import com.model.RegisterRequest;
-import com.model.RegisterResult;
 import com.model.Result;
 import com.model.User;
 import com.service.AccountService;
@@ -33,12 +32,12 @@ public class AccountController {
 
     // register
     @PostMapping("/register")
-    public RegisterResult register(@RequestBody final RegisterRequest request) {    
+    public Result register(@RequestBody final RegisterRequest request) {
         return accountService.register(request);
     }
 
     @PostMapping("/login")
     public Result login(@RequestParam String email, @RequestParam String password) {
-        return accountService.login(email,password);
+        return accountService.login(email, password);
     }
 }

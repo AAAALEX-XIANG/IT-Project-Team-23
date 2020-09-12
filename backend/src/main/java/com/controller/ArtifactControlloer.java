@@ -34,32 +34,34 @@ public class ArtifactControlloer {
     private UserRepository userRepository;
     //Upload a artifact under a User's Category
     @PostMapping("/upload")
-    public Result upload(@RequestParam String email, 
+    public MultipartFile upload(@RequestParam String email, 
     @RequestParam String category, @RequestParam String title, 
-    @RequestParam String description, @RequestParam(required = false) MultipartFile attachment) throws IOException {
+    @RequestParam String description, @RequestParam(required = false) MultipartFile[] attachment) throws IOException {
         Result result = new Result();
         Artifact artifact = new Artifact(title,description);
         User user = userRepository.findByEmailaddress(email);
         Category cat = user.existCategory(category);
         try {
             if(attachment != null){
-                Attachment one = new Attachment(attachment.getOriginalFilename(), attachment.getContentType(),
-                new Binary(attachment.getBytes()), attachment.getSize());
-                artifact.addAttachment(one);
+                for (MultipartFile file : attachment) {
+                    Attachment one = new Attachment(file.getOriginalFilename(), file.getContentType(),
+                    new Binary(file.getBytes()), file.getSize());
+                    artifact.addAttachment(one);
+                }
             }
             cat.addArtifact(artifact);
             result.setResult(true);
             userRepository.save(user);
-            return result;
+            return attachment[0];
 
         } catch (IOException ex) {
             ex.printStackTrace();
             result.setResult(false);
-            return result;
+            return null;
         }
     }
 
-    @GetMapping("/view-artifact")
+    @PostMapping("/view-artifact")
     public ViewArtifactResult viewArtifact(@RequestBody ViewArtifact request){
         User user = userRepository.findByEmailaddress(request.getEmail());
         Category category = user.existCategory(request.getCategory());
@@ -89,7 +91,7 @@ public class ArtifactControlloer {
         return result;
     }
 
-    @GetMapping("/get-attachment")
+    @PostMapping("/get-attachment")
     public ViewAttachmentResult viewAttachment(@RequestBody ViewAttachmentRequest request){
         User user = userRepository.findByEmailaddress(request.getEmail());
         Category category = user.existCategory(request.getCategory());

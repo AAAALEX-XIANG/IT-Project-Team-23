@@ -1,11 +1,6 @@
-<<<<<<< HEAD
-import { useState, useEffect } from "react";
-const BASE_URL = "http://localhost:8080/api/account";
-var PROXY_URL = 'https://cors-anywhere.herokuapp.com/';
-=======
 //import { useState, useEffect } from "react";
 const BASE_URL = "http://localhost:8080/api/account";
->>>>>>> d52c83d3506513f90fc81884cf2d74934ff42f70
+//var PROXY_URL = 'https://cors-anywhere.herokuapp.com/';
 
 /**
  * Retrieves user information
@@ -16,11 +11,8 @@ export async function getUserInfo(email) {
 
     let res;
     try {
-<<<<<<< HEAD
-        res = await fetch(PROXY_URL + endpoint);
-=======
+        //res = await fetch(PROXY_URL + endpoint);
         res = await fetch(endpoint);
->>>>>>> d52c83d3506513f90fc81884cf2d74934ff42f70
     } catch(e) {
         console.log(e);
         return {error: e};
@@ -76,12 +68,9 @@ export async function login(userDetails) {
     try {
         res = await fetch(endpoint, {
             method: "POST",
-<<<<<<< HEAD
             // headers: {
             //     'Access-Control-Allow-Origin': '*'
             // },
-=======
->>>>>>> d52c83d3506513f90fc81884cf2d74934ff42f70
             body: requestBody
         });
     } catch(e) {

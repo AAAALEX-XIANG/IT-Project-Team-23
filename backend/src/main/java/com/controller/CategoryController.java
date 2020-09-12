@@ -3,11 +3,11 @@ package com.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import com.model.AllCategoryRequest;
 import com.model.Artifact;
 import com.model.Category;
 import com.model.CategoryRequest;
+import com.model.CategoryResult;
 import com.model.Result;
 import com.model.User;
 import com.repositories.UserRepository;
@@ -56,17 +56,19 @@ public class CategoryController {
         return result;
     }
 
-    @GetMapping("/showCategories")
-    public List<String> showCategory(@RequestBody AllCategoryRequest request) {
+    @PostMapping("/showCategories")
+    public CategoryResult showCategory(@RequestBody AllCategoryRequest request) {
         User user = userRepository.findByEmailaddress(request.getEmail());
         List<String> output = new ArrayList<>();
         for (Category i : user.getCategories()) {
             output.add(i.getName());
-        }
-        return output;
+        };
+        CategoryResult result = new CategoryResult();
+        result.setCategories(output);
+        return result;
     }
 
-    @GetMapping("/showArtifacts")
+    @PostMapping("/showArtifacts")
     public List<String> showArtifact(@RequestBody CategoryRequest request) {
         User user = userRepository.findByEmailaddress(request.getEmail());
         Category category = user.existCategory(request.getCategoryName());
