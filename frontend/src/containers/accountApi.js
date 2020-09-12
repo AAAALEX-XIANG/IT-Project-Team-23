@@ -1,15 +1,17 @@
 //import { useState, useEffect } from "react";
 const BASE_URL = "http://localhost:8080/api/account";
+//var PROXY_URL = 'https://cors-anywhere.herokuapp.com/';
 
 /**
  * Retrieves user information
  */
-export async function getUserInfo(username) {
-    const endpoint = BASE_URL + `/${username}`;
+export async function getUserInfo(email) {
+    const endpoint = BASE_URL + `/${email}`;
     console.log("getUserInfo");
 
     let res;
     try {
+        //res = await fetch(PROXY_URL + endpoint);
         res = await fetch(endpoint);
     } catch(e) {
         console.log(e);
@@ -19,24 +21,24 @@ export async function getUserInfo(username) {
     return {userInfo: await res.json()}
 }
 
-/**
- * Retrieves classroom by username
- */
-export async function getUserClassroom(username) {
-    const endpoint = BASE_URL + `/${username}`;
-    console.log("getUserClassroom");
+// /**
+//  * Retrieves classroom by username
+//  */
+// export async function getUserClassroom(username) {
+//     const endpoint = BASE_URL + `/${username}`;
+//     console.log("getUserClassroom");
 
-    let res;
-    try {
-        res = await fetch(endpoint);
-    } catch(e) {
-        console.log(e);
-        return {error:e};
-    }
-    console.log(await res.status);
-    console.log(await res.json());
-    return {userClass: await res.json()}
-}
+//     let res;
+//     try {
+//         res = await fetch(endpoint);
+//     } catch(e) {
+//         console.log(e);
+//         return {error:e};
+//     }
+//     console.log(await res.status);
+//     console.log(await res.json());
+//     return {userClass: await res.json()}
+// }
 
 
 /*=========================================================================*/
@@ -46,37 +48,36 @@ export async function getUserClassroom(username) {
  * Verifies user login from server API
  */
 export async function login(userDetails) {
-    const {username, password} = userDetails;
+    const {email, password} = userDetails;
     const endpoint = BASE_URL + `/login`;
-    console.log("login");
+
     let requestBody = new FormData();
-    requestBody.append("email",username);
+    requestBody.append("email",email);
     requestBody.append("password", password);
-    if (!username) {
-        alert("please enter your username"); //TODO: change to not alert
+    if (!email) {
+        alert("please enter your email"); //TODO: change to not alert
         return;
     }
     if (!password) {
         alert("please enter your password"); //TODO
         return;
 
-        // console.log({
-        //     username,
-        //     password
-        // });
     }
     //fetch from server api
     let res;
     try {
         res = await fetch(endpoint, {
             method: "POST",
+            // headers: {
+            //     'Access-Control-Allow-Origin': '*'
+            // },
             body: requestBody
         });
     } catch(e) {
         console.log(e);
         return {error: e};
     }
-    return {status: await res.status, user: await res.json()};
+    return {status: res.status, user: await res.json()};
 }
 
 /**
@@ -107,6 +108,6 @@ export async function register(userDetails) {
         console.log(e);
         return {error: e};
     }
-    console.log(await res);
-    return {status: await res.status, res: await res.json()};
+    console.log(res);
+    return {status: res.status, res: await res.json()};
 }

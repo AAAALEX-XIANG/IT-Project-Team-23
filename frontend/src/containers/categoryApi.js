@@ -1,4 +1,3 @@
-
 const BASE_URL = "http://localhost:8080/api/categories";
 
 export async function addCategory(request) {
@@ -61,7 +60,7 @@ export async function showCategory(request){
     let res;
     try {
         res = await fetch(endpoint, {
-            method: "GET",
+            method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
@@ -86,7 +85,7 @@ export async function showArtifacts(request){
     let res;
     try {
         res = await fetch(endpoint, {
-            method: "GET",
+            method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },

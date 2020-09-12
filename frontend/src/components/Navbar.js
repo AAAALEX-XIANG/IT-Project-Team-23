@@ -7,7 +7,6 @@ import {
 
 export default function Navbar(){
     const logout = () => {
-        // localStorage.setItem("username",null);
         localStorage.clear();
     }
     return (
@@ -17,7 +16,7 @@ export default function Navbar(){
                     <NavLink to="/admin/dashboard" className="current-page" activeClassName="selected"> Home </NavLink>
                 </li>
                 <li className = "navOption" >
-                    <NavLink to="/admin/article" className="current-page" activeClassName="selected"> Article </NavLink>
+                    <NavLink to="/admin/article" className="current-page" activeClassName="selected"> Artifact </NavLink>
                 </li>
                 <li className = "navOption" >
                     <NavLink to="/admin/setting" className="current-page" activeClassName="selected"> Setting </NavLink>

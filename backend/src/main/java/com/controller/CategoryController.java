@@ -56,7 +56,7 @@ public class CategoryController {
         return result;
     }
 
-    @GetMapping("/showCategories")
+    @PostMapping("/showCategories")
     public List<String> showCategory(@RequestBody AllCategoryRequest request) {
         User user = userRepository.findByEmailaddress(request.getEmail());
         List<String> output = new ArrayList<>();
@@ -66,7 +66,7 @@ public class CategoryController {
         return output;
     }
 
-    @GetMapping("/showArtifacts")
+    @PostMapping("/showArtifacts")
     public List<String> showArtifact(@RequestBody CategoryRequest request) {
         User user = userRepository.findByEmailaddress(request.getEmail());
         Category category = user.existCategory(request.getCategoryName());

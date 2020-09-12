@@ -1,8 +1,17 @@
 import React, {Component} from 'react';
-import {Form, Button, Upload,Radio, Input} from 'antd';
+import {Form, Upload,Radio, Input, Select,Divider, message} from 'antd';
 import "antd/dist/antd.css";
 import { InboxOutlined } from '@ant-design/icons';
+import { upload } from "../../containers/artifactApi";
+import { addCategory, showCategory } from "../../containers/categoryApi"
+
+
 import Navbar from "../../components/Navbar";
+//import { Redirect } from 'react-router-dom';
+
+const { Option } = Select;
+const { Dragger } = Upload;
+let index = 0;
 
 const formItemLayout = {
     labelCol: {
@@ -13,17 +22,92 @@ const formItemLayout = {
     },
 };
 
-const normFile = e => {
-    console.log('Upload event:', e);
+// const normFile = e => {
+//     console.log('Upload event:', e);
 
-    if (Array.isArray(e)) {
-        return e;
+//     if (Array.isArray(e)) {
+//         return e;
+//     }
+
+//     return e && e.fileList;
+// };
+
+let file = [];
+let categories = showCategory({email: localStorage.getItem('email')});
+console.log(categories);
+
+const props = {
+    name: 'file',
+    multiple: true,
+    action: 'http://localhost:8080/api/cache/upload/aaaalex@foxmail.com',
+    onChange(info) {
+      const { status } = info.file;
+      if (status !== 'uploading') {
+        console.log(info.file, info.fileList);
+      }
+      if (status === 'done') {
+        file = info.fileList;
+        console.log("file:::",file);
+        
+        message.success(`${info.file.name} file uploaded successfully.`);
+      } else if (status === 'error') {
+        message.error(`${info.file.name} file upload failed.`);
+      }
+    },
+};
+
+
+export default class Article extends Component {
+
+    state = {
+        items: categories,
+        name: '',
+        title: '', 
+        description: '', 
+    };
+
+    onNameChange = event => {
+        this.setState({
+            name: event.target.value,
+        });
+    };
+
+    onCategoryChange = event => {
+        this.setState({
+            name: event,
+        });
+        console.log("event",event);
+    };
+
+    onTitleChange = event => {
+        this.setState({
+            title: event.target.value,
+        });
     }
 
-    return e && e.fileList;
-};
-export default class Article extends Component {
+    onDescriptionChange = event => {
+        this.setState({
+            description: event.target.value,
+        });
+    }
+
+    addItem = () => {
+        console.log('addItem');
+        const { items, name } = this.state;
+        this.setState({
+            items: [...items, name || `New item ${index++}`],
+            name: '',
+        });
+        addCategory({email: localStorage.getItem('email'), categoryName: this.state.name});
+    };
+
+    uploadFiles = () => {
+        upload({ email:localStorage.getItem('email'), category: this.state.name, title:this.state.title, description: this.state.description, attachment: file})
+    }
+
     render() {
+        const { items, title, description } = this.state;
+        
         return (
             <div className="pageContainer">
                 <Navbar />
@@ -35,11 +119,35 @@ export default class Article extends Component {
                             Upload Document
                         </div>
                     </Form.Item>
+
                     <Form.Item label="Title">
-                        <Input placeholder="Enter Title" />
+                        <Input placeholder="Enter Title" style={{ flex: 'auto' }} value={title} onChange={this.onTitleChange} />
                     </Form.Item>
+
                     <Form.Item label="Description">
-                        <Input placeholder=" " />
+                        <Input placeholder="Enter Description" style={{ flex: 'auto' }} value={description} onChange={this.onDescriptionChange} />
+                    </Form.Item>
+
+                    <Form.Item label="Select the catagory">
+                        <Select
+                            onChange={this.onCategoryChange}
+                            style={{ width: 240 }}
+                            placeholder="add new catagory"
+                            dropdownRender={menu => (
+                                <div>
+                                    {menu} 
+                                    <Divider style={{ margin: '4px 0' }} />
+                                    <div style={{ display: 'flex', flexWrap: 'nowrap', padding: 8 }}>
+                                        <Input style={{ flex: 'auto' }} onChange={this.onNameChange} />
+                                        <button onClick={this.addItem}> Add item </button>
+                                    </div>
+                                </div>
+                            )}
+                        >
+                            {items.map(item => (
+                                <Option key={item}>{item}</Option>
+                            ))}
+                        </Select>
                     </Form.Item>
 
                     <Form.Item name="radio-group" label="Make Private">
@@ -50,19 +158,16 @@ export default class Article extends Component {
                     </Form.Item>
 
                     <Form.Item label="Dragger">
-                        <Form.Item name="dragger"
-                                   valuePropName="fileList"
-                                   getValueFromEvent={normFile}
-                                   noStyle
-                        >
-                            <Upload.Dragger name="files" action="/upload.do">
-                                <p className="ant-upload-drag-icon">
-                                    <InboxOutlined />
-                                </p>
-                                <p className="ant-upload-text">Click or drag file to this area to upload</p>
-                                <p className="ant-upload-hint">Support for a single or bulk upload.</p>
-                            </Upload.Dragger>
-                        </Form.Item>
+                    <Dragger {...props}>
+                        <p className="ant-upload-drag-icon">
+                            <InboxOutlined />
+                        </p>
+                        <p className="ant-upload-text">Click or drag file to this area to upload</p>
+                        <p className="ant-upload-hint">
+                            Support for a single or bulk upload. Strictly prohibit from uploading company data or other
+                            band files
+                        </p>
+                    </Dragger>
                     </Form.Item>
 
                     <Form.Item
@@ -70,10 +175,11 @@ export default class Article extends Component {
                             span: 12,
                             offset: 6,
                         }}
-                    >
-                        <Button type="primary" htmlType="submit">
-                            Submit
-                        </Button>
+                    >   
+                    <button onClick={this.uploadFiles}>
+                        Submit
+                    </button>
+                        
                     </Form.Item>
                 </Form>
             </div>

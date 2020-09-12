@@ -1,138 +1,100 @@
-import React, {Component} from 'react';
-import {Route, Switch, Redirect} from "react-router-dom";
-import {adminRouter} from "./routes";
+import React from 'react';
 import './App.css';
 
+//import Navbar from './components/Navbar';
 
-class App extends Component{
+import Header from "./components/header";
+import Dashboard from "./containers/Dashboard/index";
+import Setting from "./containers/Setting/index";
+import Artifact from "./containers/Article/index"
+import LoginPage from "./containers/loginPage";
+import RegPage from "./containers/regPage";
+import DupLogin from "./containers/DupLogin";
+
+import { observer } from "mobx-react";
+
+import {
+    BrowserRouter as Router,
+    Redirect,
+    Switch,
+    Route
+} from "react-router-dom";
+
+const App = observer(class App extends React.Component {
 
     componentDidMount() {
 
-        let storedUsername = localStorage.getItem("username");
-        let storedUser = localStorage.getItem("user");
-        if (storedUsername != null && storedUser!=null){
+        let storedUsername = localStorage.getItem("email");
+        //let storedUser = localStorage.getItem("user");
+        if (storedUsername != null){
             console.log(storedUsername);
-            storedUser = JSON.parse(storedUser);
-            this.props.userStore.username = storedUsername;
+            //storedUser = JSON.parse(storedUser);
+            this.props.userStore.email = storedUsername; //TODO: REPLACE W JWT
             this.props.userStore.isLoggedIn = true;
-            this.props.userStore.user = storedUser;
+            //this.props.userStore.user = storedUser;
         }
     }
 
+    //TODO: page not found
     render() {
-      return (
+        return (
           <div className="App">
-            {/*<div>some public aspect</div>*/}
-              <Switch>
-                {
-                  adminRouter.map(route =>{
-                    return (
-                        <Route
-                            key={route.pathname}
-                            path={route.pathname}
-                            exact={route.exact}
-                            render={(routerProps) =>{
-                                return <Route path={route.pathname} render={(routerProps) =>{
-                                    return <route.component {...routerProps} />
-                                }} />
-                           }}
-                        />
-                    )
-                  })
-                }
-                <Redirect to={adminRouter[0].pathname} from='/admin' exact />
-              </Switch>
+              <Header />
+              <Router>
+                  <Switch>
+                      <Route exact path="/" render={(props) => (
+                          !(localStorage.getItem('email')===null) ? <Redirect to="/admin/dashboard"/> : <Redirect to="/login"/>
+
+                      )}
+                      />
+
+                      <Route exact path="/login" render={(props) => (
+
+                          !(localStorage.getItem('email')===null) ? <Redirect to="/duplogin"/> : <LoginPage userStore = {this.props.userStore}/>)}
+
+                      />
+
+                      <Route exact path="/register" render={(props) => (
+                          !(localStorage.getItem('email')===null) ? <Redirect to="/login"/> : <RegPage userStore = {this.props.userStore}/>)}
+                      />
+
+                      <Route exact path="/admin" render={(props) => (
+                          <Redirect to="/admin/dashboard"/> )}
+                      />
+
+                      <Route exact path="/admin/dashboard" render={(props) => (
+                          !(localStorage.getItem('email')===null) ?
+                          <Dashboard isLoggedIn={this.props.userStore.isLoggedIn} email={this.props.userStore.email} userStore = {this.props.userStore}/>
+                          : <Redirect to="/login"/> )}
+                      />
+
+                      <Route exact path="/admin/setting" render={(props) => (
+                          !(localStorage.getItem('email')===null) ?
+                          <Setting isLoggedIn={this.props.userStore.isLoggedIn} email={this.props.userStore.email} userStore = {this.props.userStore}/>
+                          : <Redirect to="/login"/> )}
+                      />
+
+                      <Route exact path="/admin/article" render={(props) => (
+                          !(localStorage.getItem('email')===null) ?
+                          <Artifact isLoggedIn={this.props.userStore.isLoggedIn} email={this.props.userStore.email} userStore = {this.props.userStore}/>
+                          : <Redirect to="/login"/> )}
+                      />
+
+                      <Route exact path="/duplogin" render={(props) => (
+                          !(localStorage.getItem('email')===null) ?
+                          <DupLogin isLoggedIn={this.props.userStore.isLoggedIn} email={this.props.userStore.email} userStore = {this.props.userStore}/>
+                          :<Redirect to="/admin"/> )}
+                      />
+
+                    <Redirect to = "/404" />
+                  </Switch>
+              </Router>
           </div>
-      );
+        );
     }
-}
+})
+
+
 
 
 export default App;
-
-// import React from 'react';
-// import './App.css';
-//
-// import Header from "./components/header";
-// import LoginPage from "./containers/loginPage";
-// import RegPage from "./containers/regPage";
-// import { observer } from "mobx-react";
-// import Home from "./containers/Home";
-//
-// import {mainRouter,adminRouter} from "./routes";
-//
-// import {
-//   BrowserRouter as Router,
-//   Redirect,
-//   Switch,
-//   Route
-//   // Link,
-//   // useParams
-// } from "react-router-dom";
-//
-//
-// const App = observer(class App extends React.Component {
-//   componentDidMount() {
-//
-//     let storedUsername = localStorage.getItem("username");
-//     let storedUser = localStorage.getItem("user");
-//     if (storedUsername != null && storedUser!=null){
-//       console.log(storedUsername);
-//       storedUser = JSON.parse(storedUser);
-//       this.props.userStore.username = storedUsername;
-//       this.props.userStore.isLoggedIn = true;
-//       this.props.userStore.user = storedUser;
-//     }
-//   }
-//
-//   //TODO: page not found
-//   render() {
-//     return (
-//         <div className="App">
-//           <Header />
-//           <Router>
-//             <Switch>
-//               <Route exact path="/" render={(props) => (
-//                   !(localStorage.getItem('username')===null) ? <Redirect to="/"/> : <Redirect to="/login"/>
-//               )}
-//               />
-//
-//               <Route exact path="/login" render={(props) => (
-//                   !(localStorage.getItem('username')===null) ? <Redirect to="/"/> : <LoginPage userStore = {this.props.userStore}/>)}
-//               />
-//
-//               <Route exact path="/register" render={(props) => (
-//                   !(localStorage.getItem('username')===null) ? <Redirect to="/"/> : <RegPage userStore = {this.props.userStore}/>)}
-//               />
-//
-//               <Route exact path="/admin" render={(props) => (
-//                   !(localStorage.getItem('username')===null) ?
-//                       <Home isLoggedIn={this.props.userStore.isLoggedIn} username={this.props.userStore.username} userStore = {this.props.userStore}/>
-//                       : <Redirect to="/login"/> )}
-//               />
-//
-//               {
-//                 mainRouter.map(route => {
-//                   return <Route key={route.pathname} path = {route.pathname} component = {route.component}/>
-//                 })
-//               }
-//               {
-//                 adminRouter.map(route =>{
-//                   return <Route path={route.pathname} render={(routerProps) =>{
-//                     return <route.component {...routerProps} />
-//                   }} />
-//                 })
-//               }
-//               <Redirect to = "/admin" from="/" exact />
-//               <Redirect to = "/404" />
-//
-//
-//             </Switch>
-//           </Router>
-//         </div>
-//     );
-//   }
-// })
-//
-//
-// export default App;

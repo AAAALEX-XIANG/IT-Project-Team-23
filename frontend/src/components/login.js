@@ -6,7 +6,7 @@ class LoginForm extends React.Component {
     constructor (props) {
         super (props);
         this.state = {
-            username:"",
+            email:"",
             password:"",
             wrongAttempt: false
         };
@@ -29,20 +29,27 @@ class LoginForm extends React.Component {
         event.preventDefault();
 
         // call the API to verify user
-        const {status, user} = await login({username: this.state.username, password: this.state.password});
+        const {status, user} = await login({email: this.state.email, password: this.state.password});
         if(status===200) {
             this.setState({wrongAttempt: false});
-            //change the app user state
-            if(user.result === true){
-                this.props.history.push('/admin');
+
+            if(user.result){
+                this.props.userStore.isLoggedIn = true;
+                this.props.userStore.email = this.state.email;
+                //this.props.userStore.user = user[0];
+                localStorage.setItem("email", this.state.email);
+                //localStorage.setItem("user", JSON.stringify(user[0]));
+    
+                //redirect
+                this.props.history.push('/admin/dashboard');
             }
             else{
                 this.setState({wrongAttempt: true});
             }
+        // }else{
+        //     alert("Request Fail");
         }
-        else{
-            alert("Request Fail");
-        }
+
         console.log(this.state.success);
         
     }
@@ -54,8 +61,8 @@ class LoginForm extends React.Component {
                 <br /><br />
                 <div className="formDisplay">
                     <label>
-                        <div className="subTitle2">Username</div>
-                        <input type="text" name="username" value={this.state.username} onChange={this.handleChange} required/>
+                        <div className="subTitle2">Email</div>
+                        <input type="text" name="email" value={this.state.email} onChange={this.handleChange} required/>
                     </label>
                     <br /><br />
                     <label>
@@ -68,7 +75,7 @@ class LoginForm extends React.Component {
                     <br /><br />
                     {this.state.wrongAttempt ?
                         <div className="formError">
-                            Please check your username and password
+                            Please check your email and password
                         </div> : null
                     }
                     <input type="submit" value="Log In" />

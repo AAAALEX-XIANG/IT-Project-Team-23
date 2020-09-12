@@ -45,14 +45,15 @@ class RegForm extends React.Component {
                 email: this.state.email,
                 username: this.state.username,
                 password: this.state.password,
+                password_confirm: this.state.password_confirm
                 // is_teacher: this.state.is_teacher
             });
-        alert(res.reason);
+      //alert(res.reason);
         console.log(status);
         console.log(res);
         this.setState({success: status===200, res: res})
         if(this.state.success) {
-            this.props.history.push('/admin');
+            this.props.history.push('/login');
         }
 
     }
