@@ -41,7 +41,7 @@ let categories = showCategory({email: localStorage.getItem('email')}).then(
 const props = {
     name: 'file',
     multiple: true,
-    action: 'http://localhost:8080/api/cache/upload/aaaalex@foxmail.com',
+    action: 'http://localhost:8080/api/cache/upload/HongyiGu@foxmail.com',
     onChange(info) {
       const { status } = info.file;
       if (status !== 'uploading') {

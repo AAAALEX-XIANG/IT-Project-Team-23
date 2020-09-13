@@ -1,8 +1,6 @@
 package com.model;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.bson.types.Binary;
 import org.bson.types.ObjectId;
@@ -18,19 +16,18 @@ public class UserCache {
     
     private String emailaddress;
 
-    private List<Attachment> attachments;
+    private Attachment attachments;
 
     
 
     public UserCache(String emailaddress) {
         this.emailaddress = emailaddress;
-        this.attachments = new ArrayList<>();
     }
 
-    public void addAttachment(MultipartFile file) throws IOException {
+    public void setAttachment(MultipartFile file) throws IOException {
         Attachment one = new Attachment(file.getOriginalFilename(), file.getContentType(),
                     new Binary(file.getBytes()), file.getSize());
-        attachments.add(one);
+        this.attachments=one;
     }
 
     public String getEmailaddress() {
@@ -41,21 +38,8 @@ public class UserCache {
         this.emailaddress = emailaddress;
     }
 
-    public List<Attachment> getAttachments() {
+    public Attachment getAttachments() {
         return attachments;
-    }
-
-    public void setAttachments(List<Attachment> attachments) {
-        this.attachments = attachments;
-    }
-
-    public Attachment findAttachment(String name){
-        for(Attachment one:attachments){
-            if(name.equals(one.getFilename())){
-                return one;
-            }
-        }
-        return null;
     }
 
 }

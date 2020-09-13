@@ -8,14 +8,12 @@ import com.model.Attachment;
 import com.model.Category;
 import com.model.Result;
 import com.model.User;
-import com.model.UserCache;
 import com.model.ViewArtifact;
 import com.model.ViewArtifactResult;
 import com.model.ViewAttachmentRequest;
 import com.model.ViewAttachmentResult;
-import com.repositories.CacheRepository;
 import com.repositories.UserRepository;
-
+import com.service.CacheService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -35,7 +33,7 @@ public class ArtifactControlloer {
     @Autowired
     private UserRepository userRepository;
     @Autowired
-    private CacheRepository cacheRepository;
+    private CacheService cacheService;
     //Upload a artifact under a User's Category
     @PostMapping("/upload")
     public Result upload(@RequestParam String email, 
@@ -43,14 +41,9 @@ public class ArtifactControlloer {
     @RequestParam String description, @RequestParam(required = false) List<String> attachment) {
         Result result = new Result();
         Artifact artifact = new Artifact(title,description);
-        UserCache cache = cacheRepository.findByEmailaddress(email);
         User user = userRepository.findByEmailaddress(email);
         Category cat = user.existCategory(category);
-        if(attachment != null){
-            for (String file : attachment) {
-                artifact.addAttachment(cache.findAttachment(file));
-            }
-        }
+        artifact.setAttachments(cacheService.getFileFromCache(email, attachment));
         cat.addArtifact(artifact);
         result.setResult(true);
         result.setReason("Success");
