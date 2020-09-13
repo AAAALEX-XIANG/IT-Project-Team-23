@@ -41,8 +41,7 @@ class LoginForm extends React.Component {
                 //this.props.userStore.user = user[0];
                 localStorage.setItem("email", this.state.email);
 
-                // eslint-disable-next-line no-useless-concat
-                const actionURL =  'http://localhost:8080/api/cache/clear/' + `${localStorage.getItem('email')}`;
+                const actionURL =  `http://localhost:8080/api/cache/clear/${localStorage.getItem('email')}`;
                 fetch(actionURL, {
                     method: "GET"
                 });

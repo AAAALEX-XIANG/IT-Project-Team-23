@@ -8,7 +8,7 @@ import {
 export default function Navbar(){
     const logout = () => {
         // eslint-disable-next-line no-useless-concat
-        const actionURL =  'http://localhost:8080/api/cache/clear/' + `${localStorage.getItem('email')}`;
+        const actionURL =  `http://localhost:8080/api/cache/clear/${localStorage.getItem('email')}`;
         fetch(actionURL, {
             method: "GET"
         });

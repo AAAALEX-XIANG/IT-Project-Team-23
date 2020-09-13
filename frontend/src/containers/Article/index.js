@@ -36,8 +36,7 @@ let file = [];
 const props = {
     name: 'file',
     multiple: true,
-    // eslint-disable-next-line no-useless-concat
-    action: 'http://localhost:8080/api/cache/upload/' + `${localStorage.getItem('email')}`,
+    action: `http://localhost:8080/api/cache/upload/${localStorage.getItem('email')}`,
     onChange(info) {
       const { status } = info.file;
       if (status !== 'uploading') {
@@ -63,7 +62,7 @@ export default class Article extends Component {
             })
     );
     state = {
-        //items: categories.res.categories,
+
         items: [],
         name: '',
         title: '', 
