@@ -30,17 +30,23 @@ class LoginForm extends React.Component {
 
         // call the API to verify user
         const {status, user} = await login({email: this.state.email, password: this.state.password});
+
         if(status===200) {
             this.setState({wrongAttempt: false});
 
             if(user.result){
+
                 this.props.userStore.isLoggedIn = true;
                 this.props.userStore.email = this.state.email;
                 //this.props.userStore.user = user[0];
                 localStorage.setItem("email", this.state.email);
-                //localStorage.setItem("user", JSON.stringify(user[0]));
-    
-                //redirect
+
+                // eslint-disable-next-line no-useless-concat
+                const actionURL =  'http://localhost:8080/api/cache/clear/' + `${localStorage.getItem('email')}`;
+                fetch(actionURL, {
+                    method: "GET"
+                });
+
                 this.props.history.push('/admin/dashboard');
             }
             else{

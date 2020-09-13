@@ -7,6 +7,11 @@ import {
 
 export default function Navbar(){
     const logout = () => {
+        // eslint-disable-next-line no-useless-concat
+        const actionURL =  'http://localhost:8080/api/cache/clear/' + `${localStorage.getItem('email')}`;
+        fetch(actionURL, {
+            method: "GET"
+        });
         localStorage.clear();
     }
     return (
@@ -19,7 +24,7 @@ export default function Navbar(){
                     <NavLink to="/admin/article" className="current-page" activeClassName="selected"> Artifact </NavLink>
                 </li>
                 <li className = "navOption" >
-                    <NavLink to="/admin/setting" className="current-page" activeClassName="selected"> Setting </NavLink>
+                    <NavLink to="/admin/category" className="current-page" activeClassName="selected"> Category </NavLink>
                 </li>
                 <li className = "navOption" >
                     <NavLink to="/login" onClick={logout} > Logout </NavLink>

@@ -1,13 +1,11 @@
 import React, {Component} from 'react';
 import {Form, Upload,Radio, Input, Select,Divider, message} from 'antd';
 import "antd/dist/antd.css";
-import { InboxOutlined, SortAscendingOutlined } from '@ant-design/icons';
+import { InboxOutlined} from '@ant-design/icons';
 import { upload } from "../../containers/artifactApi";
 import { addCategory, showCategory } from "../../containers/categoryApi"
 
-
 import Navbar from "../../components/Navbar";
-//import { Redirect } from 'react-router-dom';
 
 const { Option } = Select;
 const { Dragger } = Upload;
@@ -33,15 +31,13 @@ const formItemLayout = {
 // };
 
 let file = [];
-let categories = showCategory({email: localStorage.getItem('email')}).then(
-    categories => console.log(Array.from(categories.res.categories))
-);
-
+//let categories = [];
 
 const props = {
     name: 'file',
     multiple: true,
-    action: 'http://localhost:8080/api/cache/upload/aaaalex@foxmail.com',
+    // eslint-disable-next-line no-useless-concat
+    action: 'http://localhost:8080/api/cache/upload/' + `${localStorage.getItem('email')}`,
     onChange(info) {
       const { status } = info.file;
       if (status !== 'uploading') {
@@ -57,7 +53,6 @@ const props = {
       }
     },
 };
-
 
 
 export default class Article extends Component {
@@ -79,7 +74,6 @@ export default class Article extends Component {
         this.setState({
             name: event.target.value,
         });
-        console.log(categories);
     };
 
     onCategoryChange = event => {
@@ -112,7 +106,19 @@ export default class Article extends Component {
     };
 
     uploadFiles = () => {
-        upload({ email:localStorage.getItem('email'), category: this.state.name, title:this.state.title, description: this.state.description, attachment: file})
+        
+        var i;
+        var myFile = [];
+        for(i=0;i<file.length;i++){
+            myFile.push(file[i].name);
+        }
+        
+        upload({ email:localStorage.getItem('email'), category: this.state.name, title:this.state.title, description: this.state.description, attachment: myFile})
+        console.log(myFile);
+
+        window.location.replace('/admin/dashboard');
+
+        
     }
 
     render() {
@@ -138,11 +144,11 @@ export default class Article extends Component {
                         <Input placeholder="Enter Description" style={{ flex: 'auto' }} value={description} onChange={this.onDescriptionChange} />
                     </Form.Item>
 
-                    <Form.Item label="Select the catagory">
+                    <Form.Item label="Select the category">
                         <Select
                             onChange={this.onCategoryChange}
                             style={{ width: 240 }}
-                            placeholder="add new catagory"
+                            placeholder="add new category"
                             dropdownRender={menu => (
                                 <div>
                                     {menu} 

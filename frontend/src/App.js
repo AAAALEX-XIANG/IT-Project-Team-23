@@ -68,7 +68,7 @@ const App = observer(class App extends React.Component {
                           : <Redirect to="/login"/> )}
                       />
 
-                      <Route exact path="/admin/setting" render={(props) => (
+                      <Route exact path="/admin/category" render={(props) => (
                           !(localStorage.getItem('email')===null) ?
                           <Setting isLoggedIn={this.props.userStore.isLoggedIn} email={this.props.userStore.email} userStore = {this.props.userStore}/>
                           : <Redirect to="/login"/> )}
