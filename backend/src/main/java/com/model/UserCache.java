@@ -49,4 +49,13 @@ public class UserCache {
         this.attachments = attachments;
     }
 
+    public Attachment findAttachment(String name){
+        for(Attachment one:attachments){
+            if(name.equals(one.getFilename())){
+                return one;
+            }
+        }
+        return null;
+    }
+
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CacheRepository extends MongoRepository<UserCache, String>{
     public UserCache findByEmailaddress(String emailaddress);
+    public void deleteByEmailaddress(String emailaddress);
 
 
 }

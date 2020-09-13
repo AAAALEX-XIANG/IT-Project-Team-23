@@ -9,6 +9,8 @@ import com.repositories.CacheRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
+
 @Service
 public class CacheService {
 
@@ -32,6 +34,14 @@ public class CacheService {
         result.setReason("Success");
         result.setResult(true);
         cacheRepository.save(userCache);
+        return result;
+    }
+
+    public Result clear(String email){
+        cacheRepository.deleteByEmailaddress(email);
+        Result result = new Result();
+        result.setReason("Success");
+        result.setResult(true);
         return result;
     }
 

@@ -26,4 +26,15 @@ public class CacheController {
     public Result uploadCache(@PathVariable String email, @RequestParam MultipartFile file) throws IOException {
         return cacheService.upload(email,file);
     }
+
+    @PostMapping("/clear/{email}")
+    public Result clearCache(@PathVariable String email){
+        if(email == null){
+            Result result = new Result();
+            result.setReason("Don't get email address");
+            result.setResult(false);
+            return result;
+        }
+        return cacheService.clear(email);
+    }
 }
