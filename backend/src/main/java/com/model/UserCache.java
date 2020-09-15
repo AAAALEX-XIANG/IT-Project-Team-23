@@ -39,7 +39,7 @@ public class UserCache {
     }
 
     public Attachment getAttachments() {
-        return attachments;
+        return new Attachment(attachments.getFilename(),attachments.getFiletype(),attachments.getContent(),attachments.getSize());
     }
 
 }

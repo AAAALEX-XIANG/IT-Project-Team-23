@@ -1,8 +1,12 @@
 package com.controller;
 
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import com.model.AllCategoryRequest;
 import com.model.Artifact;
 import com.model.Attachment;
 import com.model.Category;
@@ -34,6 +38,30 @@ public class ArtifactControlloer {
     private UserRepository userRepository;
     @Autowired
     private CacheService cacheService;
+    
+
+    @PostMapping("/show-Category-Artifact")
+    public Map<String,Map<String, List<String>>> showCategoryArtifact(@RequestBody AllCategoryRequest request){
+        Map<String,Map<String, List<String>>> output = new HashMap<>();
+        User user = userRepository.findByEmailaddress(request.getEmail());
+        for(Category i : user.getCategories()){
+            Map<String, List<String>> innerOutput = new HashMap<>();
+            for(Artifact x: i.getArtifacts()){              
+                List<String> innerList = new ArrayList<>();
+                for(Attachment y : x.getAttachments()){
+                    innerList.add(y.getFilename());
+                }
+                innerOutput.put(x.getTitle(),innerList);
+            }
+            output.put(i.getName(),innerOutput);
+        }
+        return output;
+    }
+
+
+
+
+
     //Upload a artifact under a User's Category
     @PostMapping("/upload")
     public Result upload(@RequestParam String email, 
