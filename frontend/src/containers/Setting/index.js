@@ -1,102 +1,77 @@
 import React, {Component} from 'react';
-import { Form, Input, Button } from 'antd';
-import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import { Collapse } from 'antd';
+//import { showCategory, deleteCategory, showArtifacts } from "../../containers/categoryApi"
+import { getCategoryArtifact } from "../../containers/artifactApi"
+
 import Navbar from "../../components/Navbar";
 
-const formItemLayout = {
-    labelCol: {
-        xs: { span: 24 },
-        sm: { span: 4 },
-    },
-    wrapperCol: {
-        xs: { span: 24 },
-        sm: { span: 20 },
-    },
-};
-const formItemLayoutWithOutLabel = {
-    wrapperCol: {
-        xs: { span: 24, offset: 0 },
-        sm: { span: 20, offset: 4 },
-    },
-};
+const { Panel } = Collapse;
+
+let categories=[];
+let files = [];
 
 export default class Setting extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            items: [],
+            artifactItems: [],
+            files: {}
+        };
+        this.showAllCate = this.showAllCate.bind(this);
+    }
+
+    componentWillUnmount() {
+        this.setState({
+            items: [],
+            artifactItems: [],
+            files: {}
+        })
+        console.log("clear");
+    }
+    componentDidMount() {
+        this.showAllCate();
+        console.log("loading");
+    }
+    
+    showAllCate = () => {
+
+        files = getCategoryArtifact({email: localStorage.getItem('email')}).then(
+            files => 
+                // console.log(files.res)
+                this.setState({
+                    files: files.res
+                })
+        )
+    }
+    
     render() {
+        const { files } = this.state;
+        let cates = [];
+        for (var key in files) {
+            cates.push(key);
+        }
+
         return (
             <div className="pageContainer">
                 <Navbar />
+                    
+                    <Collapse>
 
-                <Form name="dynamic_form_item" {...formItemLayoutWithOutLabel}>
-                    <Form.List name="names">
-                        {(fields, { add, remove }) => {
-                            return (
-                                <div>
-                                    <br /><br /><br /><br /><br />
-                                    {fields.map((field, index) => (
-                                        <Form.Item
-                                            {...(index === 0 ? formItemLayout : formItemLayoutWithOutLabel)}
-                                            label={index === 0 ? 'My Catalogue' : ''}
-                                            required={false}
-                                            key={field.key}
-                                        >
-                                            <Form.Item
-                                                {...field}
-                                                validateTrigger={['onChange', 'onBlur']}
-                                                rules={[
-                                                    {
-                                                        required: true,
-                                                        whitespace: true,
-                                                        message: "Please input your catalogue's name.",
-                                                    },
-                                                ]}
-                                                noStyle
-                                            >
-                                                <Input placeholder="Catalogue Name" style={{ width: '60%' }} />
-                                            </Form.Item>
-                                            {fields.length > 1 ? (
-                                                <MinusCircleOutlined
-                                                    className="dynamic-delete-button"
-                                                    style={{ margin: '0 8px' }}
-                                                    onClick={() => {
-                                                        remove(field.name);
-                                                    }}
-                                                />
-                                            ) : null}
-                                        </Form.Item>
-                                    ))}
-                                    <Form.Item>
-                                        <Button
-                                            type="dashed"
-                                            onClick={() => {
-                                                add();
-                                            }}
-                                            style={{ width: '60%' }}
-                                        >
-                                            <PlusOutlined /> Add Catalogue
-                                        </Button>
-                                        <Button
-                                            type="dashed"
-                                            onClick={() => {
-                                                add('The head Catalogue', 0);
-                                            }}
-                                            style={{ width: '60%', marginTop: '20px' }}
-                                        >
-                                            <PlusOutlined /> Add Catalogue at head
-                                        </Button>
-                                    </Form.Item>
-                                </div>
-                            );
-                        }}
-                    </Form.List>
-
-                    <Form.Item>
-                        <Button type="primary" htmlType="submit">
-                            Submit
-                        </Button>
-                    </Form.Item>
-                </Form>
+                        {cates.map(item => (
+                        <Panel header={item} key={item}>
+                                    {files[item].map(item => (
+                                 <Panel header={item} key={item}>
+                                    <p>{item}</p>
+                                </Panel>
+                            ))}
+                        </Panel>
+                    ))}
+    
+                 </Collapse>
             </div>
         )
     }
 }
-
+        
+        

@@ -2,6 +2,7 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import { login } from "../containers/accountApi";
 
+let clearURL = 'https://fate-server.herokuapp.com/api/cache/clear/';
 class LoginForm extends React.Component {
     constructor (props) {
         super (props);
@@ -41,7 +42,7 @@ class LoginForm extends React.Component {
                 //this.props.userStore.user = user[0];
                 localStorage.setItem("email", this.state.email);
 
-                const actionURL =  `http://localhost:8080/api/cache/clear/${localStorage.getItem('email')}`;
+                const actionURL = clearURL +`${localStorage.getItem('email')}`;
                 fetch(actionURL, {
                     method: "GET"
                 });

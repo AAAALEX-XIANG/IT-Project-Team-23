@@ -31,12 +31,13 @@ const formItemLayout = {
 // };
 
 let file = [];
+let baseURL = 'https://fate-server.herokuapp.com/api/cache/upload';
 //let categories = [];
 
 const props = {
     name: 'file',
     multiple: true,
-    action: `http://localhost:8080/api/cache/upload/${localStorage.getItem('email')}`,
+    action: baseURL + `/${localStorage.getItem('email')}`,
     onChange(info) {
       const { status } = info.file;
       if (status !== 'uploading') {
@@ -51,6 +52,7 @@ const props = {
         message.error(`${info.file.name} file upload failed.`);
       }
     },
+    
 };
 
 
@@ -62,7 +64,7 @@ export default class Article extends Component {
             })
     );
     state = {
-
+        value: '',
         items: [],
         name: '',
         title: '', 
@@ -72,14 +74,16 @@ export default class Article extends Component {
     onNameChange = event => {
         this.setState({
             name: event.target.value,
+            value: event.target.value
         });
     };
-
+    
     onCategoryChange = event => {
         this.setState({
             name: event,
         });
         console.log("event",event);
+        // console.log('email:::', props.action);
     };
 
     onTitleChange = event => {
@@ -100,8 +104,10 @@ export default class Article extends Component {
         this.setState({
             items: [...items, name || `New item ${index++}`],
             name: '',
+            value: ''
         });
         addCategory({email: localStorage.getItem('email'), categoryName: this.state.name});
+    
     };
 
     uploadFiles = () => {
@@ -116,12 +122,11 @@ export default class Article extends Component {
         console.log(myFile);
 
         window.location.replace('/admin/dashboard');
-
         
     }
 
     render() {
-        const { items, title, description } = this.state;
+        const { items, title, description, value } = this.state;
         
         return (
             <div className="pageContainer">
@@ -153,7 +158,7 @@ export default class Article extends Component {
                                     {menu} 
                                     <Divider style={{ margin: '4px 0' }} />
                                     <div style={{ display: 'flex', flexWrap: 'nowrap', padding: 8 }}>
-                                        <Input style={{ flex: 'auto' }} onChange={this.onNameChange} />
+                                        <Input value = {value} style={{ flex: 'auto' }} onChange={this.onNameChange} />
                                         <button onClick={this.addItem}> Add item </button>
                                     </div>
                                 </div>

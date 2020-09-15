@@ -1,5 +1,5 @@
 //import { useState, useEffect } from "react";
-const BASE_URL = "http://localhost:8080/api/account";
+const BASE_URL = "https://fate-server.herokuapp.com/api/account";
 //var PROXY_URL = 'https://cors-anywhere.herokuapp.com/';
 
 /**
