@@ -32,22 +32,36 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin("http://localhost:3000")
 @RestController
 @RequestMapping("api/artifacts")
-public class ArtifactControlloer {
+public class ArtifactController {
 
     @Autowired
     private UserRepository userRepository;
     @Autowired
     private CacheService cacheService;
     
-
     @PostMapping("/show-Category-Artifact")
-    public Map<String,Map<String, List<String>>> showCategoryArtifact(@RequestBody AllCategoryRequest request){
+    public Map<String,List<String>> showCategoryArtifact(@RequestBody AllCategoryRequest request){
+        Map<String,List<String>> output = new HashMap<>();
+        User user = userRepository.findByEmailaddress(request.getEmail());
+        for(Category i : user.getCategories()){
+            List<String> artifacts = new ArrayList<>();
+            for(Artifact x: i.getArtifacts()){
+                artifacts.add(x.getTitle());
+            }
+            output.put(i.getName(),artifacts);
+        }
+        return output;
+    }
+    
+    @PostMapping("/show-Category-Artifact-Attachment")
+    public Map<String,Map<String, List<String>>> showCategoryArtifactAttachments(@RequestBody AllCategoryRequest request){
         Map<String,Map<String, List<String>>> output = new HashMap<>();
         User user = userRepository.findByEmailaddress(request.getEmail());
         for(Category i : user.getCategories()){
             Map<String, List<String>> innerOutput = new HashMap<>();
             for(Artifact x: i.getArtifacts()){              
                 List<String> innerList = new ArrayList<>();
+                innerList.add(x.getDescription());
                 for(Attachment y : x.getAttachments()){
                     innerList.add(y.getFilename());
                 }
