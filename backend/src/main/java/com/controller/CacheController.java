@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-@CrossOrigin("http://localhost:3000")
+@CrossOrigin("*")
 @RestController
 @RequestMapping(value = "api/cache")
 public class CacheController {
@@ -25,23 +25,11 @@ public class CacheController {
     // get all user account
     @PostMapping("/upload/{email}")
     public Result uploadCache(@PathVariable String email, @RequestParam MultipartFile file) throws IOException {
-        if(email == null){
-            Result result = new Result();
-            result.setReason("Don't get email address");
-            result.setResult(false);
-            return result;
-        }
         return cacheService.upload(email,file);
     }
 
     @GetMapping("/clear/{email}")
     public Result clearCache(@PathVariable String email){
-        if(email == null){
-            Result result = new Result();
-            result.setReason("Don't get email address");
-            result.setResult(false);
-            return result;
-        }
         return cacheService.clear(email);
     }
 }

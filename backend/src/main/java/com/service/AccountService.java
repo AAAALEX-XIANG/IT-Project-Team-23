@@ -34,13 +34,7 @@ public class AccountService {
         return result;
     }
 
-    public Profile getUserProfile(String email) {
-        User user = userRepository.findByEmailaddress(email);
-        if (user == null) {
-            return null;
-        }
-        return user.getProfile();
-    }
+    
 
     public List<User> getAllUsers(){
         return userRepository.findAll();
