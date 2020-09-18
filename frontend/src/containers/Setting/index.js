@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Collapse } from 'antd';
+import { Button, Collapse } from 'antd';
 //import { showCategory, deleteCategory, showArtifacts } from "../../containers/categoryApi"
 import { getCategoryArtifact } from "../../containers/artifactApi"
 
@@ -9,13 +9,10 @@ const { Panel } = Collapse;
 
 let categories=[];
 let files = [];
-
 export default class Setting extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            items: [],
-            artifactItems: [],
             files: {}
         };
         this.showAllCate = this.showAllCate.bind(this);
@@ -23,8 +20,6 @@ export default class Setting extends Component {
 
     componentWillUnmount() {
         this.setState({
-            items: [],
-            artifactItems: [],
             files: {}
         })
         console.log("clear");
@@ -47,10 +42,18 @@ export default class Setting extends Component {
     
     render() {
         const { files } = this.state;
-        let cates = [];
-        for (var key in files) {
-            cates.push(key);
+        let cates = []
+        let categories = new Map();
+
+        for (var cate in files) {
+            cates.push(cate);
+            let artifacts = [];
+            for (var title in files[cate]){
+                artifacts.push(title);
+            }
+            categories.set(cate, artifacts);
         }
+        
 
         return (
             <div className="pageContainer">
@@ -60,13 +63,24 @@ export default class Setting extends Component {
 
                         {cates.map(item => (
                         <Panel header={item} key={item}>
-                                    {files[item].map(item => (
-                                 <Panel header={item} key={item}>
-                                    <p>{item}</p>
+                            <Collapse>
+
+                                {categories.get(item).map(title => (
+                                <Panel header={title} key={title}>
+                                    Description:
+                                    <p>{files[item][title][0]}</p>
+                                    Attachments:
+                                    {files[item][title].slice(1).map(item => (
+                                    <Panel header={item} key={item}>
+                                        <p>{item}</p>
+                                    </Panel>
+                                    ))}
                                 </Panel>
-                            ))}
+                                ))}
+
+                                </Collapse>
                         </Panel>
-                    ))}
+                        ))}
     
                  </Collapse>
             </div>

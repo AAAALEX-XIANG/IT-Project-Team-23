@@ -111,7 +111,7 @@ export async function getAttachment(request) {
 
 export async function getCategoryArtifact(request) {
     const { email} = request;
-    const endpoint = BASE_URL + `/show-Category-Artifact`;
+    const endpoint = BASE_URL + `/show-Category-Artifact-Attachment`;
 
     //fetch from server api
     let res;
