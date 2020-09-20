@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { Button, Collapse } from 'antd';
-import { DownloadOutlined } from '@ant-design/icons';
+import { DownloadOutlined, PictureOutlined } from '@ant-design/icons';
 //import { showCategory, deleteCategory, showArtifacts } from "../../containers/categoryApi"
 import { getCategoryArtifact, getAttachment } from "../../containers/artifactApi"
 
@@ -49,20 +49,36 @@ export default class Setting extends Component {
         // Decode Base64 to binary and show some information about the file
         var b64 = request.content;
         var type = request.filetype;
-        
-        var obj = document.createElement('object');
-        obj.style.width = '100%';
-        obj.style.height = '842pt';
-        obj.type = type;
-        obj.data = 'data:' + type + ';base64,' + b64;
-        document.body.appendChild(obj);
+        let foo = document.getElementsByClassName("pageContainer")[0];
+        if (foo.hasChildNodes()) {
+            let children = foo.childNodes;
+            for (let i = 0; i < children.length; i++) {
+                console.log(children[i].nodeName);
+                if(children[i].nodeName === 'OBJECT'){
+                    foo.removeChild(children[i]);
+                }
+                if(children[i].nodeName === 'A'){
+                    foo.removeChild(children[i]);
+                    break;
+                }
+            }
+            var firstobj = document.createElement('object');
+            firstobj.class = "viewContainer";
+            firstobj.style.width = '45%';
+            firstobj.style.height = '45%';
+            firstobj.style.cssFloat = "right";
+            firstobj.type = type;
+            firstobj.data = 'data:' + type + ';base64,' + b64;
+            foo.appendChild(firstobj);
 
-        // Insert a link that allows the user to download the PDF file
-        var link = document.createElement('a');
-        link.innerHTML = 'Download file';
-        link.download = request.filename;
-        link.href = 'data:application/octet-stream;base64,' + b64;
-        document.body.appendChild(link);
+            // Insert a link that allows the user to download the PDF file
+            var link = document.createElement('a');
+            link.style.cssFloat = "right";
+            link.innerHTML = 'Download file';
+            link.download = request.filename;
+            link.href = 'data:application/octet-stream;base64,' + b64;
+            foo.appendChild(link);
+        } 
     }
 
     downloadAttachment(item){
@@ -106,8 +122,8 @@ export default class Setting extends Component {
                                             <p>{file}
                                         
                                             <Button onClick={()=>this.downloadAttachment({email: localStorage.getItem("email"), category: item, artifact: title, attachment:file})}
-                                            id= "downloadBtn" type="primary" shape="round" icon={<DownloadOutlined />}>
-                                            View
+                                                    id= "downloadBtn" type="primary" shape="round" icon={<PictureOutlined />}>
+                                                View
                                             </Button>
 
                                             </p>
