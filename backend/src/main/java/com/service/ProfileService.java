@@ -25,6 +25,7 @@ public class ProfileService {
         if (image == null) {
             result.setReason("Empty File!");
             result.setResult(false);
+            return result;
         }
         String filetype = image.getContentType();
         String type = filetype.substring(0, filetype.lastIndexOf("/"));

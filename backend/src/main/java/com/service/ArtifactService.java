@@ -55,6 +55,7 @@ public class ArtifactService {
             for(Artifact x: i.getArtifacts()){              
                 List<String> innerList = new ArrayList<>();
                 innerList.add(x.getDescription());
+                innerList.add(x.getPrivacy());
                 for(Attachment y : x.getAttachments()){
                     innerList.add(y.getFilename());
                 }
@@ -68,9 +69,9 @@ public class ArtifactService {
 
 
     //While User click submit with title, description and a list of attachments, backend can get a list of names remaining for uploading from cache
-    public Result upload(String email, String category, String title, String description, List<String> attachment) {
+    public Result upload(String email, String category, String title, String description, List<String> attachment, String privacy) {
         Result result = new Result();
-        Artifact artifact = new Artifact(title,description);
+        Artifact artifact = new Artifact(title,description,privacy);
         User user = userRepository.findByEmailaddress(email);
         Category cat = user.existCategory(category);
         artifact.setAttachments(cacheService.getFileFromCache(email, attachment));

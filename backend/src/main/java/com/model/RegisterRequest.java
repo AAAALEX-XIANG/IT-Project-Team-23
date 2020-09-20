@@ -2,6 +2,7 @@ package com.model;
 
 public class RegisterRequest {
 
+    private String studentId;
     private String firstname;
     private String lastname;
     private String password;
@@ -46,6 +47,14 @@ public class RegisterRequest {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getStudentId() {
+        return studentId;
+    }
+
+    public void setStudentId(String studentId) {
+        this.studentId = studentId;
     }
 
 }

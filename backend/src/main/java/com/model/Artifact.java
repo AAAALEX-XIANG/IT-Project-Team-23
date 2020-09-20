@@ -7,6 +7,7 @@ public class Artifact {
     private String title;
     private String description;
     private List<Attachment> attachments;
+    private String privacy;
 
     public String getTitle() {
         return title;
@@ -24,10 +25,11 @@ public class Artifact {
         this.description = description;
     }
 
-    public Artifact(String title, String description) {
+    public Artifact(String title, String description, String privacy) {
         this.title = title;
         this.description = description;
         this.attachments = new ArrayList<>();
+        this.privacy = privacy;
     }
 
     public void addAttachment(Attachment attachment){
@@ -53,5 +55,13 @@ public class Artifact {
 
     public void setAttachments(List<Attachment> attachments) {
         this.attachments = attachments;
+    }
+
+    public String getPrivacy() {
+        return privacy;
+    }
+
+    public void setPrivacy(String privacy) {
+        this.privacy = privacy;
     }
 }

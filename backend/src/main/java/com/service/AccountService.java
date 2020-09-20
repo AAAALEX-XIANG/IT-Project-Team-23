@@ -19,11 +19,17 @@ public class AccountService {
     private UserRepository userRepository;
     
     public Result register(RegisterRequest request){
-        User ifRegistered = userRepository.findByEmailaddress(request.getEmailaddress());
+        User ifRegisteredEmail = userRepository.findByEmailaddress(request.getEmailaddress());
+        User ifRegisteredId  = userRepository.findByStudentId(request.getStudentId());
         Result result = new Result();
-        if (ifRegistered != null) {
+        if (ifRegisteredEmail != null) {
             result.setResult(false);
             result.setReason("Emailaddress already exists!");
+            return result;
+        }
+        if (ifRegisteredId != null) {
+            result.setResult(false);
+            result.setReason("Student ID already exists!");
             return result;
         }
         result.setResult(true);

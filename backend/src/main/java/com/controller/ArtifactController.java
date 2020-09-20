@@ -48,8 +48,8 @@ public class ArtifactController {
     @PostMapping("/upload")
     public Result upload(@RequestParam String email, 
     @RequestParam String category, @RequestParam String title, 
-    @RequestParam String description, @RequestParam(required = false) List<String> attachment) {
-        return artifactService.upload(email, category, title, description, attachment);
+    @RequestParam String description, @RequestParam(required = false) List<String> attachment,@RequestParam String privacy) {
+        return artifactService.upload(email, category, title, description, attachment, privacy);
     }
 
 

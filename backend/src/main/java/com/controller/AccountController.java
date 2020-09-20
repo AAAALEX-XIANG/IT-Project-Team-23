@@ -32,7 +32,7 @@ public class AccountController {
 
     // register
     @PostMapping("/register")
-    public Result register(@RequestBody final RegisterRequest request) {
+    public Result register(@RequestBody RegisterRequest request) {
         return accountService.register(request);
     }
 
