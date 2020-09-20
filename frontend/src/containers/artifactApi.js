@@ -105,7 +105,7 @@ export async function getAttachment(request) {
         return {error: e};
     }
     console.log(await res);
-    //sample res:{"filename" : "aaa","content": "Base64", "filetype" : "pdf", "size": "15640"}
+    //sample res:{"filename" : "aaa","content": "Base64", "filetype" : "application/pdf", "size": "15640"}
     return {status: await res.status, res: await res.json()};
 }
 

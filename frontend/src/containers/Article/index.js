@@ -20,19 +20,9 @@ const formItemLayout = {
     },
 };
 
-// const normFile = e => {
-//     console.log('Upload event:', e);
-
-//     if (Array.isArray(e)) {
-//         return e;
-//     }
-
-//     return e && e.fileList;
-// };
 
 let file = [];
 let baseURL = 'https://fate-server.herokuapp.com/api/cache/upload';
-//let categories = [];
 
 const props = {
     name: 'file',
