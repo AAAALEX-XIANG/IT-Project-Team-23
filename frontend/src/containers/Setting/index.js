@@ -100,7 +100,7 @@ export default class Setting extends Component {
                                     Description:
                                     <p>{files[item][title][0]}</p>
                                     Attachments:
-                                    {files[item][title].slice(1).map(file => (
+                                    {files[item][title].slice(2).map(file => (
                                         <div key = {file}>
                                             <p>{file}
                                         

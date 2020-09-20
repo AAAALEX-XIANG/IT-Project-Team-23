@@ -9,6 +9,7 @@ class RegForm extends React.Component {
             first_name: "",
             last_name: "",
             email: "",
+            studentId: "",
             username: "",
             password: "",
             password_confirm: "",
@@ -42,11 +43,11 @@ class RegForm extends React.Component {
             {
                 first_name: this.state.first_name,
                 last_name: this.state.last_name,
+                studentId: this.state.studentId,
                 email: this.state.email,
                 username: this.state.username,
                 password: this.state.password,
                 password_confirm: this.state.password_confirm
-                // is_teacher: this.state.is_teacher
             });
       //alert(res.reason);
         console.log(status);
@@ -74,6 +75,11 @@ class RegForm extends React.Component {
                 </label>
                 <br />
                 <label>
+                    <div className="subTitle2">Student ID</div>
+                    <input type="text" name="studentId" value={this.state.studentId} onChange={this.handleChange} required/>
+                </label>
+                <br />
+                <label>
                     <div className="subTitle2">Email</div>
                     <input type="email" name="email" value={this.state.email} onChange={this.handleChange} required/>
                 </label>
@@ -96,10 +102,7 @@ class RegForm extends React.Component {
                 {/*<label>*/}
                 {/*    <div className="subTitle">Are you a Teacher?</div>*/}
                 {/*</label>*/}
-                {/*<br />*/}
-                {/*<input type="radio" name="is_teacher" value="false" onChange={this.handleChange} required /><label>No</label>*/}
-                {/*<input type="radio" name="is_teacher" value="true" onChange={this.handleChange} required /><label>Yes</label><br />*/}
-                {/*<br />*/}
+                
                 {!this.state.success &&
                 <div className="formError">
                     {this.state.res}

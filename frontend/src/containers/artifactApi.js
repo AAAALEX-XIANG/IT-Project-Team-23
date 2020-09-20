@@ -2,13 +2,14 @@ const BASE_URL = "https://fate-server.herokuapp.com/api/artifacts";
 
 
 export async function upload(request) {
-    const { email, category, title, description, attachment} = request;
+    const { email, category, title, description, attachment, privacy} = request;
     let formData = new FormData();
     formData.append("email",email);
     formData.append("category",category);
     formData.append("title",title);
     formData.append("description",description);
     formData.append("attachment",attachment);
+    formData.append("privacy",privacy);
     const endpoint = BASE_URL + `/upload`;
 
     //fetch from server api

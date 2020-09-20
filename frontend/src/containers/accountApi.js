@@ -84,7 +84,7 @@ export async function login(userDetails) {
  * Registers user from server API
  */
 export async function register(userDetails) {
-    const { first_name, last_name, email, username, password} = userDetails;
+    const { first_name, last_name, email, username, password, studentId } = userDetails;
     const endpoint = BASE_URL + `/register`;
     console.log("register");
 
@@ -99,6 +99,7 @@ export async function register(userDetails) {
             body: JSON.stringify({
                 firstname: first_name,
                 lastname: last_name,
+                studentId: studentId,
                 emailaddress: email,
                 username: username,
                 password: password

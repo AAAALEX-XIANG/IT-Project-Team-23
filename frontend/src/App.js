@@ -21,10 +21,6 @@ import {
 } from "react-router-dom";
 
 const App = observer(class App extends React.Component {
-    constructor(props){
-        super(props)
-        this.state = {}
-    }
 
     componentDidMount() {
 

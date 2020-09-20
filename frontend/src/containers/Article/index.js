@@ -58,7 +58,8 @@ export default class Article extends Component {
         items: [],
         name: '',
         title: '', 
-        description: '', 
+        description: '',
+        privacy: '' 
     };
 
     onNameChange = event => {
@@ -70,7 +71,7 @@ export default class Article extends Component {
     
     onCategoryChange = event => {
         this.setState({
-            name: event,
+            name: event
         });
         console.log("event",event);
         // console.log('email:::', props.action);
@@ -78,14 +79,21 @@ export default class Article extends Component {
 
     onTitleChange = event => {
         this.setState({
-            title: event.target.value,
+            title: event.target.value
         });
     }
 
     onDescriptionChange = event => {
         this.setState({
-            description: event.target.value,
+            description: event.target.value
         });
+    }
+
+    onPrivacyChange = event => {
+        this.setState({
+            privacy: event.target.value
+        });
+        
     }
 
     addItem = () => {
@@ -108,8 +116,9 @@ export default class Article extends Component {
             myFile.push(file[i].name);
         }
         
-        upload({ email:localStorage.getItem('email'), category: this.state.name, title:this.state.title, description: this.state.description, attachment: myFile})
+        upload({ email:localStorage.getItem('email'), category: this.state.name, title:this.state.title, description: this.state.description, attachment: myFile, privacy: this.state.privacy})
         console.log(myFile);
+        console.log(this.state.privacy);
 
         window.location.replace('/admin/dashboard');
         
@@ -162,9 +171,13 @@ export default class Article extends Component {
                     </Form.Item>
 
                     <Form.Item name="radio-group" label="Make Private">
+                        {/*<br />*/}
+                        {/*<input type="radio" name="is_teacher" value="false" onChange={this.handleChange} required /><label>No</label>*/}
+                        {/*<input type="radio" name="is_teacher" value="true" onChange={this.handleChange} required /><label>Yes</label><br />*/}
+                        {/*<br />*/}
                         <Radio.Group>
-                            <Radio value="a">Public</Radio>
-                            <Radio value="b">Private</Radio>
+                            <Radio value = "public" onChange={this.onPrivacyChange}>Public</Radio>
+                            <Radio value="private" onChange={this.onPrivacyChange}>Private</Radio>
                         </Radio.Group>
                     </Form.Item>
 
