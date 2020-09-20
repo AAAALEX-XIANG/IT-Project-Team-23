@@ -120,20 +120,13 @@ export default class Article extends Component {
         console.log(myFile);
         console.log(this.state.privacy);
 
-<<<<<<< HEAD
-        //window.location.replace('/admin/dashboard');
-=======
         window.location.replace('/admin/dashboard');
->>>>>>> 27f7671d2267ae8ef63204979cd978e4160af56a
-        
     }
 
     render() {
-<<<<<<< HEAD
-        const { items, title, description, value, privacy } = this.state;
-=======
+       // const { items, title, description, value, privacy } = this.state;
+
         const { items, title, description, value } = this.state;
->>>>>>> 27f7671d2267ae8ef63204979cd978e4160af56a
         
         return (
             <div className="pageContainer">
@@ -179,6 +172,10 @@ export default class Article extends Component {
                     </Form.Item>
 
                     <Form.Item name="radio-group" label="Make Private">
+                        {/*<br />*/}
+                        {/*<input type="radio" name="is_teacher" value="false" onChange={this.handleChange} required /><label>No</label>*/}
+                        {/*<input type="radio" name="is_teacher" value="true" onChange={this.handleChange} required /><label>Yes</label><br />*/}
+                        {/*<br />*/}
                         <Radio.Group>
                             <Radio value = "public" onChange={this.onPrivacyChange}>Public</Radio>
                             <Radio value="private" onChange={this.onPrivacyChange}>Private</Radio>
