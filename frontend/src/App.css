@@ -21,12 +21,17 @@ html, body, #root, .App{
   z-index: 1;
   font-size: small;
   font-family: "Comic Sans MS", sans-serif;
+  flex-wrap: nowrap;
 }
 
 .mainHeader .logo{
   height: 35px;
   margin-left: 2.5em;
   margin-right: 0.5em;
+}
+
+.mainHeader .userMsg{
+  float: right;
 }
 
 .pageGrid {

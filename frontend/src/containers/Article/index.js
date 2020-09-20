@@ -20,24 +20,14 @@ const formItemLayout = {
     },
 };
 
-// const normFile = e => {
-//     console.log('Upload event:', e);
-
-//     if (Array.isArray(e)) {
-//         return e;
-//     }
-
-//     return e && e.fileList;
-// };
 
 let file = [];
-//let categories = [];
+let baseURL = 'https://fate-server.herokuapp.com/api/cache/upload';
 
 const props = {
     name: 'file',
     multiple: true,
-    // eslint-disable-next-line no-useless-concat
-    action: 'http://localhost:8080/api/cache/upload/' + `${localStorage.getItem('email')}`,
+    action: baseURL + `/${localStorage.getItem('email')}`,
     onChange(info) {
       const { status } = info.file;
       if (status !== 'uploading') {
@@ -52,6 +42,7 @@ const props = {
         message.error(`${info.file.name} file upload failed.`);
       }
     },
+    
 };
 
 
@@ -63,36 +54,46 @@ export default class Article extends Component {
             })
     );
     state = {
-        //items: categories.res.categories,
+        value: '',
         items: [],
         name: '',
         title: '', 
-        description: '', 
+        description: '',
+        privacy: '' 
     };
 
     onNameChange = event => {
         this.setState({
             name: event.target.value,
+            value: event.target.value
         });
     };
-
+    
     onCategoryChange = event => {
         this.setState({
-            name: event,
+            name: event
         });
         console.log("event",event);
+        // console.log('email:::', props.action);
     };
 
     onTitleChange = event => {
         this.setState({
-            title: event.target.value,
+            title: event.target.value
         });
     }
 
     onDescriptionChange = event => {
         this.setState({
-            description: event.target.value,
+            description: event.target.value
         });
+    }
+
+    onPrivacyChange = event => {
+        this.setState({
+            privacy: event.target.value
+        });
+        
     }
 
     addItem = () => {
@@ -101,8 +102,10 @@ export default class Article extends Component {
         this.setState({
             items: [...items, name || `New item ${index++}`],
             name: '',
+            value: ''
         });
         addCategory({email: localStorage.getItem('email'), categoryName: this.state.name});
+    
     };
 
     uploadFiles = () => {
@@ -113,16 +116,16 @@ export default class Article extends Component {
             myFile.push(file[i].name);
         }
         
-        upload({ email:localStorage.getItem('email'), category: this.state.name, title:this.state.title, description: this.state.description, attachment: myFile})
+        upload({ email:localStorage.getItem('email'), category: this.state.name, title:this.state.title, description: this.state.description, attachment: myFile, privacy: this.state.privacy})
         console.log(myFile);
+        console.log(this.state.privacy);
 
-        window.location.replace('/admin/dashboard');
-
+        //window.location.replace('/admin/dashboard');
         
     }
 
     render() {
-        const { items, title, description } = this.state;
+        const { items, title, description, value, privacy } = this.state;
         
         return (
             <div className="pageContainer">
@@ -154,7 +157,7 @@ export default class Article extends Component {
                                     {menu} 
                                     <Divider style={{ margin: '4px 0' }} />
                                     <div style={{ display: 'flex', flexWrap: 'nowrap', padding: 8 }}>
-                                        <Input style={{ flex: 'auto' }} onChange={this.onNameChange} />
+                                        <Input value = {value} style={{ flex: 'auto' }} onChange={this.onNameChange} />
                                         <button onClick={this.addItem}> Add item </button>
                                     </div>
                                 </div>
@@ -169,8 +172,8 @@ export default class Article extends Component {
 
                     <Form.Item name="radio-group" label="Make Private">
                         <Radio.Group>
-                            <Radio value="a">Public</Radio>
-                            <Radio value="b">Private</Radio>
+                            <Radio value = "public" onChange={this.onPrivacyChange}>Public</Radio>
+                            <Radio value="private" onChange={this.onPrivacyChange}>Private</Radio>
                         </Radio.Group>
                     </Form.Item>
 

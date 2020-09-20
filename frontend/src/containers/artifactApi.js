@@ -1,14 +1,15 @@
-const BASE_URL = "http://localhost:8080/api/artifacts";
+const BASE_URL = "https://fate-server.herokuapp.com/api/artifacts";
 
 
 export async function upload(request) {
-    const { email, category, title, description, attachment} = request;
+    const { email, category, title, description, attachment, privacy} = request;
     let formData = new FormData();
     formData.append("email",email);
     formData.append("category",category);
     formData.append("title",title);
     formData.append("description",description);
     formData.append("attachment",attachment);
+    formData.append("privacy",privacy);
     const endpoint = BASE_URL + `/upload`;
 
     //fetch from server api
@@ -22,7 +23,7 @@ export async function upload(request) {
         console.log(e);
         return {error: e};
     }
-    console.log(await res);
+    // console.log(await res);
     //sample res:{"res" : true}
     return {status: await res.status, res: await res.json()};
 }
@@ -49,7 +50,7 @@ export async function viewArtifact(request) {
         console.log(e);
         return {error: e};
     }
-    console.log(await res);
+    // console.log(await res);
     //sample res:{"title" : Worked at google,"Description" : "....", "Attachment" : "fileName.pdf"}
     return {status: await res.status, res: await res.json()};
 }
@@ -76,7 +77,7 @@ export async function deleteArtifact(request) {
         console.log(e);
         return {error: e};
     }
-    console.log(await res);
+    // console.log(await res);
     //sample res:{"res" : "true"}
     return {status: await res.status, res: await res.json()};
 }
@@ -105,6 +106,30 @@ export async function getAttachment(request) {
         return {error: e};
     }
     console.log(await res);
-    //sample res:{"filename" : "aaa","content": "Base64", "filetype" : "pdf", "size": "15640"}
+    //sample res:{"filename" : "aaa","content": "Base64", "filetype" : "application/pdf", "size": "15640"}
+    return {status: await res.status, res: await res.json()};
+}
+
+export async function getCategoryArtifact(request) {
+    const { email} = request;
+    const endpoint = BASE_URL + `/show-Category-Artifact-Attachment`;
+
+    //fetch from server api
+    let res;
+    try {
+        res = await fetch(endpoint, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                email: email,
+            })
+        });
+    } catch(e) {
+        console.log(e);
+        return {error: e};
+    }
+    console.log(await res);
     return {status: await res.status, res: await res.json()};
 }
