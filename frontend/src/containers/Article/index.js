@@ -120,12 +120,20 @@ export default class Article extends Component {
         console.log(myFile);
         console.log(this.state.privacy);
 
+<<<<<<< HEAD
         //window.location.replace('/admin/dashboard');
+=======
+        window.location.replace('/admin/dashboard');
+>>>>>>> 27f7671d2267ae8ef63204979cd978e4160af56a
         
     }
 
     render() {
+<<<<<<< HEAD
         const { items, title, description, value, privacy } = this.state;
+=======
+        const { items, title, description, value } = this.state;
+>>>>>>> 27f7671d2267ae8ef63204979cd978e4160af56a
         
         return (
             <div className="pageContainer">
