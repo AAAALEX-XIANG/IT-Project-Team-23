@@ -1,0 +1,66 @@
+package com.service;
+
+import java.util.List;
+
+import com.md5Util.md5Util;
+import com.model.Profile;
+import com.model.RegisterRequest;
+import com.model.Result;
+import com.model.User;
+import com.repositories.UserRepository;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+//Service for handling queries for the database.
+@Service
+public class AccountService {
+
+    @Autowired
+    private UserRepository userRepository;
+    
+    public Result register(RegisterRequest request){
+        User ifRegisteredEmail = userRepository.findByEmailaddress(request.getEmailaddress());
+        User ifRegisteredId  = userRepository.findByStudentId(request.getStudentId());
+        Result result = new Result();
+        if (ifRegisteredEmail != null) {
+            result.setResult(false);
+            result.setReason("Emailaddress already exists!");
+            return result;
+        }
+        if (ifRegisteredId != null) {
+            result.setResult(false);
+            result.setReason("Student ID already exists!");
+            return result;
+        }
+        result.setResult(true);
+        result.setReason("Success");
+        Profile profile = new Profile(request.getFirstname(), request.getLastname(), request.getUsername());
+        User user = new User(request.getEmailaddress(), md5Util.md5(request.getPassword()), profile);
+        userRepository.save(user);
+        return result;
+    }
+
+    public List<User> getAllUsers(){
+        return userRepository.findAll();
+    }
+
+    public Result login(String email, String password){
+        Result result = new Result();
+        User user = userRepository.findByEmailaddress(email);
+        if (user == null) {
+            result.setResult(false);
+            result.setReason("Failure");
+            return result;
+        }
+        if (!user.getPassword().equals(md5Util.md5(password))) {
+            result.setResult(false);
+            result.setReason("Failure");
+            return result;
+        } else {
+            result.setResult(true);
+            result.setReason("Success");
+            return result;
+        }
+    }
+}
