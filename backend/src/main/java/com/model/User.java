@@ -23,7 +23,8 @@ public class User {
     private Profile profile;
     private List<Category> categories;
 
-    public User(String emailaddress, String password, Profile profile) {
+    public User(String studentId,String emailaddress, String password, Profile profile) {
+        this.studentId = studentId;
         this.emailaddress = emailaddress;
         this.password = password;
         this.profile = profile;
