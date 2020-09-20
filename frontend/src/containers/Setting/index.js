@@ -20,6 +20,7 @@ export default class Setting extends Component {
         };
         this.showAllCate = this.showAllCate.bind(this);
         this.downloadAttachment = this.downloadAttachment.bind(this);
+        this.downloadFile = this.downloadFile.bind(this);
     }
 
     componentWillUnmount() {

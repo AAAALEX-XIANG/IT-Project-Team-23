@@ -30,28 +30,26 @@ class LoginForm extends React.Component {
         event.preventDefault();
 
         // call the API to verify user
-        const {status, user} = await login({email: this.state.email, password: this.state.password});
+        const {status} = await login({email: this.state.email, password: this.state.password});
 
         if(status===200) {
             this.setState({wrongAttempt: false});
 
-            if(user.result){
+            this.props.userStore.isLoggedIn = true;
+            this.props.userStore.email = this.state.email;
+            //this.props.userStore.user = user[0];
+            localStorage.setItem("email", this.state.email);
 
-                this.props.userStore.isLoggedIn = true;
-                this.props.userStore.email = this.state.email;
-                //this.props.userStore.user = user[0];
-                localStorage.setItem("email", this.state.email);
+            const actionURL = clearURL +`${localStorage.getItem('email')}`;
+            fetch(actionURL, {
+                method: "GET"
+            });
 
-                const actionURL = clearURL +`${localStorage.getItem('email')}`;
-                fetch(actionURL, {
-                    method: "GET"
-                });
-
-                this.props.history.push('/admin/dashboard');
-            }
-            else{
-                this.setState({wrongAttempt: true});
-            }
+            this.props.history.push('/admin/dashboard');
+            
+        }else{
+            this.setState({wrongAttempt: true});
+            
         // }else{
         //     alert("Request Fail");
         }
@@ -84,7 +82,7 @@ class LoginForm extends React.Component {
                             Please check your email and password
                         </div> : null
                     }
-                    <input type="submit" value="Log In" />
+                    <input type="submit" value="Log In"/>
                 </div>
             </form>
         );

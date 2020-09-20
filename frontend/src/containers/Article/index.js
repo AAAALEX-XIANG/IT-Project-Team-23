@@ -29,6 +29,7 @@ const props = {
     multiple: true,
     action: baseURL + `/${localStorage.getItem('email')}`,
     onChange(info) {
+        console.log(props.action);
       const { status } = info.file;
       if (status !== 'uploading') {
         console.log(info.file, info.fileList);
@@ -47,20 +48,63 @@ const props = {
 
 
 export default class Article extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            value: '',
+            items: [],
+            name: '',
+            title: '', 
+            description: '',
+            privacy: '' 
+        };
+    }
+
+    componentWillUnmount() {
+        this.setState({
+            value: '',
+            items: [],
+            name: '',
+            title: '', 
+            description: '',
+            privacy: ''
+        })
+        this.onNameChange = this.onNameChange.bind(this);
+        this.onCategoryChange = this.onCategoryChange.bind(this);
+        this.onTitleChange = this.onTitleChange.bind(this);
+        this.onDescriptionChange = this.onDescriptionChange.bind(this);
+        this.onPrivacyChange = this.onPrivacyChange.bind(this);
+        this.addItem = this.addItem.bind(this);
+        this.uploadFiles = this.uploadFiles.bind(this);
+        console.log("clear artifact");
+    }
+
+    componentDidMount() {
+        this.setState({
+            value: '',
+            items: [],
+            name: '',
+            title: '', 
+            description: '',
+            privacy: ''
+        })
+        this.onNameChange = this.onNameChange.bind(this);
+        this.onCategoryChange = this.onCategoryChange.bind(this);
+        this.onTitleChange = this.onTitleChange.bind(this);
+        this.onDescriptionChange = this.onDescriptionChange.bind(this);
+        this.onPrivacyChange = this.onPrivacyChange.bind(this);
+        this.addItem = this.addItem.bind(this);
+        this.uploadFiles = this.uploadFiles.bind(this);
+        console.log("load artifact");
+    }
+    
     categories = showCategory({email: localStorage.getItem('email')}).then(
         categories =>
             this.setState({
                 items: categories.res.categories,
             })
     );
-    state = {
-        value: '',
-        items: [],
-        name: '',
-        title: '', 
-        description: '',
-        privacy: '' 
-    };
+    
 
     onNameChange = event => {
         this.setState({
@@ -127,7 +171,9 @@ export default class Article extends Component {
        // const { items, title, description, value, privacy } = this.state;
 
         const { items, title, description, value } = this.state;
-        
+        if (props.action === baseURL + `/null`) {
+            window.location.replace('/admin/article');
+        }
         return (
             <div className="pageContainer">
                 <Navbar />
