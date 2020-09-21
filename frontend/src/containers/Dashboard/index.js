@@ -5,6 +5,7 @@ import ProfileBox from '../../components/ProfileBox'
 
 import { getUserInfo } from "../accountApi";
 
+const email = localStorage.getItem('email');
 export default class Dashboard extends Component {
     constructor(props){
         super(props);
@@ -41,6 +42,11 @@ export default class Dashboard extends Component {
 
     render() {
         const {userInfo, /**userClass,**/ isLoaded, error} = this.state;
+
+        if (email === `/null`) {
+            window.location.replace('/admin/dashboard');
+        }
+
         if (error) { //couldn't fetch data from server
             return(
                 <div className="pageContainer">

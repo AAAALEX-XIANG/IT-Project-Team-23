@@ -12,6 +12,7 @@ let categories=[];
 let files = [];
 let attachment = [];
 let file = []
+
 export default class Setting extends Component {
     constructor(props) {
         super(props);
@@ -57,33 +58,59 @@ export default class Setting extends Component {
                 if(children[i].nodeName === 'OBJECT'){
                     foo.removeChild(children[i]);
                 }
-                if(children[i].nodeName === 'A'){
+                // if(children[i].nodeName === 'A'){
+                //     foo.removeChild(children[i]);
+                //     break;
+                // }
+            }
+            // Insert a link that allows the user to download the PDF file
+            var link = document.createElement('a');
+            link.style.cssFloat = "right";
+            //link.innerHTML = 'Download file';
+            link.download = request.filename;
+            link.href = 'data:application/octet-stream;base64,' + b64;
+            foo.appendChild(link).click();
+        } 
+    }
+
+    viewFile(request) {
+        // Decode Base64 to binary and show some information about the file
+        var b64 = request.content;
+        var type = request.filetype;
+        let foo = document.getElementsByClassName("pageContainer")[0];
+        if (foo.hasChildNodes()) {
+            let children = foo.childNodes;
+            for (let i = 0; i < children.length; i++) {
+                console.log(children[i].nodeName);
+                if(children[i].nodeName === 'OBJECT'){
+                    foo.removeChild(children[i]);
+                } else if(children[i].nodeName === 'A'){
                     foo.removeChild(children[i]);
                     break;
                 }
+                
             }
+            // view file
             var firstobj = document.createElement('object');
             firstobj.class = "viewContainer";
-            firstobj.style.width = '45%';
-            firstobj.style.height = '45%';
+            firstobj.style.width = '60%';
+            firstobj.style.height = '50%';
             firstobj.style.cssFloat = "right";
             firstobj.type = type;
             firstobj.data = 'data:' + type + ';base64,' + b64;
             foo.appendChild(firstobj);
 
-            // Insert a link that allows the user to download the PDF file
-            var link = document.createElement('a');
-            link.style.cssFloat = "right";
-            link.innerHTML = 'Download file';
-            link.download = request.filename;
-            link.href = 'data:application/octet-stream;base64,' + b64;
-            foo.appendChild(link);
         } 
     }
 
     downloadAttachment(item){
         file = getAttachment(item).then(
             file => this.downloadFile(file.res)
+        )
+    }
+    viewAttachment(item) {
+        file = getAttachment(item).then(
+            file => this.viewFile(file.res)
         )
     }
     
@@ -120,10 +147,14 @@ export default class Setting extends Component {
                                     {files[item][title].slice(2).map(file => (
                                         <div key = {file}>
                                             <p>{file}
-                                        
-                                            <Button onClick={()=>this.downloadAttachment({email: localStorage.getItem("email"), category: item, artifact: title, attachment:file})}
+                                    
+                                            <Button onClick={()=>this.viewAttachment({email: localStorage.getItem("email"), category: item, artifact: title, attachment:file})}
                                                     id= "downloadBtn" type="primary" shape="round" icon={<PictureOutlined />}>
                                                 View
+                                            </Button>
+                                            <Button onClick={()=>this.downloadAttachment({email: localStorage.getItem("email"), category: item, artifact: title, attachment:file})}
+                                                    id= "downloadBtn" type="primary" shape="round" icon={<DownloadOutlined />}>
+                                                download
                                             </Button>
 
                                             </p>
