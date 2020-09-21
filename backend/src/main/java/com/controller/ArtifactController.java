@@ -62,4 +62,11 @@ public class ArtifactController {
     public ViewAttachmentResult viewAttachment(@RequestBody ViewAttachmentRequest request){
         return artifactService.viewAttachment(request);
     }
+
+
+    @PostMapping("/change-privacy")
+    public Result switchPrivacy(@RequestParam String email,@RequestParam String category, 
+    @RequestParam String artifact, @RequestParam String privacy ){
+        return artifactService.switchPrivacy(email,category,artifact,privacy);
+    }
 }

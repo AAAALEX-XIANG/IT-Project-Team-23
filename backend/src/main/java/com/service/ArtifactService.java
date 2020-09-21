@@ -112,4 +112,22 @@ public class ArtifactService {
         return output;
     }
 
+
+    public Result switchPrivacy(String email, String category, String artifact, String privacy){
+        User user = userRepository.findByEmailaddress(email);
+        Result result = new Result();
+        if(user == null){
+            result.setReason("Email is not correct");
+            result.setResult(false);
+            return result;
+        }
+        Category cate = user.existCategory(category);
+        Artifact artifactOne = cate.getArtifacts(artifact);
+        artifactOne.setPrivacy(privacy);
+        userRepository.save(user);
+        result.setReason("Success");
+        result.setResult(true);
+        return result;
+    }
+
 }

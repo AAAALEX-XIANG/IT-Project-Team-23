@@ -22,7 +22,7 @@ public class CacheController {
     @Autowired
     private CacheService cacheService;
 
-    // get all user account
+    //Upload an attachment to cache space
     @PostMapping("/upload/{email}")
     public Result uploadCache(@PathVariable String email, @RequestParam MultipartFile file) throws IOException {
         return cacheService.upload(email,file);
