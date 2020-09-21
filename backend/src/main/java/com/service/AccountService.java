@@ -2,7 +2,7 @@ package com.service;
 
 import java.util.List;
 
-import com.md5Util.md5Util;
+import com.Encoder.md5Util;
 import com.model.Profile;
 import com.model.RegisterRequest;
 import com.model.Result;

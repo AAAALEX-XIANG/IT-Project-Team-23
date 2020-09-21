@@ -1,4 +1,4 @@
-package com.md5Util;
+package com.Encoder;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
