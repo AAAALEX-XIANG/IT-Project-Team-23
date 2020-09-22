@@ -20,5 +20,5 @@ public interface UserRepository extends MongoRepository<User, String>{
     public List<User> findUserByLastname(String lastname);
     
     @Query(value = "{ 'profile.username': '?0' }")
-    public List<User> findUserByUsername(String lastname);
+    public List<User> findUserByUsername(String username);
 }
