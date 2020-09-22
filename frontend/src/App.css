@@ -230,3 +230,50 @@ form a {
   cursor: not-allowed;
   opacity: 0.5;
 }
+
+/* profile page */
+.profileHeadings{
+  text-align: left;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #666;
+  margin-left: 10px;
+}
+
+.profileInfo{
+  text-align: left;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #666;
+  padding-left: 30px;
+  padding-top: 20px;
+}
+
+.grid-container {
+  height: 90vh;
+  width: 1100px;
+  display: grid;
+  grid-template-columns:35% 65%;
+  grid-gap: 10px;
+  background-color: wheat;
+  padding: 10px 10px;
+}
+
+.grid-container > div {
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 20px 0;
+}
+
+.buttonBox{
+  margin-top: 90px;
+  margin-bottom: 30px;
+}
+
+.avatarBox{
+  transform: translate(20%, 10%);
+}
+
+.Button{
+  margin-bottom: 30px;
+}
+

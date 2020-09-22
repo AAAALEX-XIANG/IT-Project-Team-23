@@ -1,44 +1,32 @@
-//import { useState, useEffect } from "react";
 const BASE_URL = "https://fate-server.herokuapp.com/api/account";
-//var PROXY_URL = 'https://cors-anywhere.herokuapp.com/';
+
 
 /**
  * Retrieves user information
  */
-export async function getUserInfo(email) {
-    const endpoint = BASE_URL + `/${email}`;
-    console.log("getUserInfo");
-
-    let res;
-    try {
-        //res = await fetch(PROXY_URL + endpoint);
-        res = await fetch(endpoint);
-    } catch(e) {
-        console.log(e);
-        return {error: e};
-    }
-    console.log(await res.status);
-    return {userInfo: await res.json()}
-}
-
-// /**
-//  * Retrieves classroom by username
-//  */
-// export async function getUserClassroom(username) {
-//     const endpoint = BASE_URL + `/${username}`;
-//     console.log("getUserClassroom");
+// export async function getUserInfo(email) {
+//     const endpoint = BASE_URL + `/${email}`;
+//     console.log("getUserInfo");
 
 //     let res;
 //     try {
-//         res = await fetch(endpoint);
+//         res = await fetch(endpoint, {
+//             method: "POST",
+//             headers: {
+//                 "Content-Type": "application/json"
+//             },
+//             body: JSON.stringify({
+//                 email: email
+//             })
+//         });
 //     } catch(e) {
 //         console.log(e);
-//         return {error:e};
+//         return {error: e};
 //     }
 //     console.log(await res.status);
-//     console.log(await res.json());
-//     return {userClass: await res.json()}
+//     return {userInfo: await res.json()}
 // }
+
 
 
 /*=========================================================================*/

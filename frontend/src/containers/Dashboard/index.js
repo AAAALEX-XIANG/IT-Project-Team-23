@@ -1,33 +1,37 @@
 import React, {Component} from 'react';
 import Navbar from '../../components/Navbar';
-import WelcomeHeader from '../../components/WelcomeHeader'
-import ProfileBox from '../../components/ProfileBox'
+import ProfileBox from '../../components/ProfileBox';
+import {viewProfile} from '../profileApi';
 
-import { getUserInfo } from "../accountApi";
 
-const email = localStorage.getItem('email');
+let userInfo = null;
 export default class Dashboard extends Component {
     constructor(props){
         super(props);
         
         this.state = {
             userInfo : null,
-            //userClass: null,
             isLoaded: false,
             error: null
         }
     }
 
-    async fetchInfo(email) {
-        const {userInfo, error} = await getUserInfo(email);
-        this.setState({userInfo: userInfo, isLoaded: true, error: error});
-        // console.log(userInfo);
+    fetchInfo(email) {
+        userInfo = viewProfile({email:localStorage.getItem('email')}).then(
+            userInfo =>
+            this.setState({userInfo: userInfo, isLoaded: true})
+            //console.log(userInfo)
+        );
+        
     }
+
+    
+
 
     componentDidMount() {
         if (this.props.isLoggedIn) {
             console.log(this);
-            this.fetchInfo(this.props.email);
+            this.fetchInfo(localStorage.getItem('email'));
         }
     }
 
@@ -36,16 +40,12 @@ export default class Dashboard extends Component {
         console.log(this.props);
         if (!(this.props.isLoggedIn===prevProps.isLoggedIn)) {
             console.log(this);
-            this.fetchInfo(this.props.email);
+            this.fetchInfo(localStorage.getItem('email'));
         }
     }
 
     render() {
-        const {userInfo, /**userClass,**/ isLoaded, error} = this.state;
-
-        if (email === `/null`) {
-            window.location.replace('/admin/dashboard');
-        }
+        const {userInfo, isLoaded, error} = this.state;
 
         if (error) { //couldn't fetch data from server
             return(
@@ -67,25 +67,14 @@ export default class Dashboard extends Component {
             );
         } else {
             return(
-                <div id="container">
-                    <div id="center" className="column">
-                        <div id="rows">
-                            <WelcomeHeader welName = {userInfo[0].first_name} />
-                        </div>
-                        <div id="rows">
-                            <ProfileBox
-                                fullName = {userInfo[0].first_name + " " + userInfo[0].last_name}
-                                pUsername = {userInfo[0].username}
-                            />
-                        </div>
-                    </div>
-                    <div id="left" className="column">
-                        <div id="navContainer">
-                            <Navbar />
-                        </div>
-                    </div>
-                    <div id="right" className="column">
-                    </div>
+                <div className="pageContainer">
+                    <Navbar />
+                    <ProfileBox
+                        email = {localStorage.getItem('email')}
+                        username = {userInfo.res.username}
+                        firstname = {userInfo.res.firstname}
+                        lastname = {userInfo.res.lastname}
+                    />
                 </div>
             );
         }
