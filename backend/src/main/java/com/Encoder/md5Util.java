@@ -14,7 +14,7 @@ public class md5Util {
         catch (NoSuchAlgorithmException e) { 
             e.printStackTrace();
         } 
-        String md5code = new BigInteger(1, encodePassword).toString(16);// 16进制数字 
+        String md5code = new BigInteger(1, encodePassword).toString(16); 
         return md5code; 
     } 
 }
