@@ -1,6 +1,9 @@
 package com.service;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import com.model.Avatar;
 import com.model.Profile;
@@ -60,4 +63,13 @@ public class ProfileService {
         }
         return user.getProfile();
     }
+
+    /***public String generateLink(String email, String studentId){
+       //getting current date time using calendar class
+       DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss"); 
+       Calendar calobj = Calendar.getInstance();
+       String date = df.format(calobj.getTime());
+       String output = email + studentId + date;
+       return md5(output);
+    }***/
 }
