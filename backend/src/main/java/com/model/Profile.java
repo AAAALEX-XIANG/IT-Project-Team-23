@@ -5,12 +5,14 @@ public class Profile {
     private String firstname;
     private String lastname;
     private String username;
-    private Avatar avatar;
+	private Avatar avatar;
+	private String link;
 
     public Profile(String firstname, String lastname, String username) {
         this.firstname = firstname;
         this.lastname = lastname;
-        this.username = username;
+		this.username = username;
+		this.link = "";
     }
 
 	public String getFirstname() {
@@ -47,6 +49,14 @@ public class Profile {
 
 	public void setAvatar(Avatar avatar) {
 		this.avatar = avatar;
+	}
+
+	public String getLink() {
+		return link;
+	}
+
+	public void setLink(String link) {
+		this.link = link;
 	}
 
 }

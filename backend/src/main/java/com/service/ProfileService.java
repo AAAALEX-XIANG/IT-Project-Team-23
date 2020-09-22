@@ -1,7 +1,11 @@
 package com.service;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
+import com.encoder.Md5Util;
 import com.model.Avatar;
 import com.model.Profile;
 import com.model.Result;
@@ -59,5 +63,36 @@ public class ProfileService {
             return null;
         }
         return user.getProfile();
+    }
+
+    public Result updateProfile(String email, String firstname, String lastname, String username) {
+        User user = userRepository.findByEmailaddress(email);
+        Result result = new Result();
+        if (user == null) {
+            result.setResult(false);
+            return result;
+        }
+        user.getProfile().setFirstname(firstname);
+        user.getProfile().setLastname(lastname);
+        user.getProfile().setUsername(username);
+        userRepository.save(user);
+        result.setReason("Update success!");
+        result.setResult(true);
+        return result;
+    } 
+
+
+    public String generateLink(String email){
+       User user = userRepository.findByEmailaddress(email);
+       String studentId = user.getStudentId();
+       Profile profile = user.getProfile();
+       //getting current date time using calendar class
+       DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss"); 
+       Calendar calobj = Calendar.getInstance();
+       String date = df.format(calobj.getTime());
+       String output = email + studentId + date;
+       profile.setLink(output);
+       userRepository.save(user);
+       return Md5Util.md5(output);
     }
 }

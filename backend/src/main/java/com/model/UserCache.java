@@ -2,6 +2,8 @@ package com.model;
 
 import java.io.IOException;
 
+import com.service.FileEncodeService;
+
 import org.bson.types.Binary;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
@@ -26,7 +28,7 @@ public class UserCache {
 
     public void setAttachment(MultipartFile file) throws IOException {
         Attachment one = new Attachment(file.getOriginalFilename(), file.getContentType(),
-                    new Binary(file.getBytes()), file.getSize());
+                     FileEncodeService.encodeFile(file.getOriginalFilename(), new Binary(file.getBytes())), file.getSize());
         this.attachments=one;
     }
 

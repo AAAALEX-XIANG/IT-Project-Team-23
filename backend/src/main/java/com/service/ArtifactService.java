@@ -107,7 +107,7 @@ public class ArtifactService {
         ViewAttachmentResult output = new ViewAttachmentResult();
         output.setFilename(attachment.getFilename());
         output.setFiletype(attachment.getFiletype());
-        output.setContent(Base64.getEncoder().encodeToString(attachment.getContent().getData()));
+        output.setContent(Base64.getEncoder().encodeToString(FileEncodeService.decodeFile(attachment.getFilename(), attachment.getContent()).getData()));
         output.setSize(attachment.getSize());
         return output;
     }

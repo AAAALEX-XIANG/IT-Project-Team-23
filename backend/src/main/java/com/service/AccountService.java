@@ -2,6 +2,7 @@ package com.service;
 
 import java.util.List;
 
+import com.encoder.Md5Util;
 import com.model.Profile;
 import com.model.RegisterRequest;
 import com.model.Result;
@@ -35,7 +36,7 @@ public class AccountService {
         result.setResult(true);
         result.setReason("Success");
         Profile profile = new Profile(request.getFirstname(), request.getLastname(), request.getUsername());
-        User user = new User(request.getStudentId(),request.getEmailaddress(), request.getPassword(), profile);
+        User user = new User(request.getEmailaddress(), Md5Util.md5(request.getPassword()), request.getStudentId(),profile);
         userRepository.save(user);
         return result;
     }
@@ -54,7 +55,7 @@ public class AccountService {
             result.setReason("Failure");
             return result;
         }
-        if (!user.getPassword().equals(password)) {
+        if (!user.getPassword().equals(Md5Util.md5(password))) {
             result.setResult(false);
             result.setReason("Failure");
             return result;
