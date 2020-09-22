@@ -36,7 +36,7 @@ public class AccountService {
         result.setResult(true);
         result.setReason("Success");
         Profile profile = new Profile(request.getFirstname(), request.getLastname(), request.getUsername());
-        User user = new User(request.getEmailaddress(), md5Util.md5(request.getPassword()), profile);
+        User user = new User(request.getEmailaddress(), md5Util.md5(request.getPassword()), request.getStudentId(),profile);
         userRepository.save(user);
         return result;
     }

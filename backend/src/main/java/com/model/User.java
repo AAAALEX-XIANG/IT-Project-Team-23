@@ -3,8 +3,6 @@ package com.model;
 import java.util.ArrayList;
 import java.util.List;
 
-
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
@@ -15,18 +13,17 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "User")
 public class User {
 
-    @Id
     private String studentId;
-
     private String password;
     private String emailaddress;
     private Profile profile;
     private List<Category> categories;
 
-    public User(String emailaddress, String password, Profile profile) {
+    public User(String emailaddress, String password, String studentId, Profile profile) {
         this.emailaddress = emailaddress;
         this.password = password;
         this.profile = profile;
+        this.studentId = studentId;
         this.categories = new ArrayList<>();
     }
 

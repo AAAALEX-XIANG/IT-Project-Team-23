@@ -12,6 +12,4 @@ public interface CacheRepository extends MongoRepository<UserCache, String>{
     public UserCache findByEmailaddress(String emailaddress);
     public void deleteByEmailaddress(String emailaddress);
     public List<UserCache> findAllByEmailaddress(String emailaddress);
-
-
 }

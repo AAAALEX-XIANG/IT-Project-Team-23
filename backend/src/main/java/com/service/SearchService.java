@@ -8,8 +8,10 @@ import com.repositories.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 @Service
 public class SearchService {
+
     @Autowired 
     private UserRepository userRepository;
     public List<User> showUser(String info) {
@@ -30,26 +32,32 @@ public class SearchService {
             }
         }
         if (userFirstname!= null) {
+            System.out.println("firstname:" + users);
             for (User i: userFirstname) {
+                System.out.println("firstname:" + users.contains(i));
                 if (!users.contains(i)) {
                     users.add(i);
                 }
             }
         }
         if (userLastname!= null) {
+            System.out.println("lastname:" + users);
             for (User i: userLastname) {
+                System.out.println("lastname:" + users.contains(i));
                 if (!users.contains(i)) {
                     users.add(i);
                 }
             }
         }
         if (userUsername!= null) {
+            System.out.println("username:" + users);
             for (User i: userUsername) {
+                System.out.println("username:" + users.contains(i));
                 if (!users.contains(i)) {
                     users.add(i);
                 }
             }
-        }
+        } 
         return users;
     }
 }
