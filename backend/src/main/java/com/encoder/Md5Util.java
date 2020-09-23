@@ -10,16 +10,14 @@ public class Md5Util {
         throw new IllegalStateException("Utility class");
     }
 
-
-    public static String md5(String password) { 
-        byte[] encodePassword= null; 
-        try { 
-            encodePassword = MessageDigest.getInstance("md5").digest( 
-            password.getBytes()); 
-        } 
-        catch (NoSuchAlgorithmException e) { 
+    // Static method for hashing strings
+    public static String md5(String password) {
+        byte[] encodePassword = null;
+        try {
+            encodePassword = MessageDigest.getInstance("md5").digest(password.getBytes());
+        } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
-        } 
-        return new BigInteger(1, encodePassword).toString(16); 
-    } 
+        }
+        return new BigInteger(1, encodePassword).toString(16);
+    }
 }

@@ -15,12 +15,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-
 @CrossOrigin("*")
 @RestController
 @RequestMapping("api/profile")
 public class ProfileController {
-
 
     @Autowired
     private ProfileService profileService;
@@ -31,9 +29,9 @@ public class ProfileController {
     }
 
     @PostMapping("/updateAvatar/{email}")
-    public Result updateAvatar(@PathVariable String email, @RequestParam(required = false) MultipartFile avatar)
+    public Result updateAvatar(@PathVariable String email, @RequestParam(required = false) MultipartFile image)
             throws IOException {
-        return profileService.updateAvatar(email, avatar);
+        return profileService.updateAvatar(email, image);
     }
 
     @PostMapping("/deleteAvatar")
@@ -42,12 +40,13 @@ public class ProfileController {
     }
 
     @PostMapping("/updateProfile")
-    public Result updateProfile(@RequestParam String email, @RequestParam String firstname, @RequestParam String lastname, @RequestParam String username) {
+    public Result updateProfile(@RequestParam String email, @RequestParam String firstname,
+            @RequestParam String lastname, @RequestParam String username) {
         return profileService.updateProfile(email, firstname, lastname, username);
     }
 
     @PostMapping("/generate-link")
-    public String generateLink(@RequestParam String email){
+    public String generateLink(@RequestParam String email) {
         return profileService.generateLink(email);
     }
 }

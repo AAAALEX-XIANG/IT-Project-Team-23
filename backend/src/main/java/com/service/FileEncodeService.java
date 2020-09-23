@@ -1,6 +1,5 @@
 package com.service;
 
-
 import java.nio.charset.StandardCharsets;
 
 import com.encoder.Md5Util;
@@ -9,12 +8,9 @@ import org.bson.types.Binary;
 
 public class FileEncodeService {
 
-
     private FileEncodeService() {
         throw new IllegalStateException("Utility class");
     }
-
-
 
     public static Binary encodeFile(String filename, Binary content) {
         String md5 = Md5Util.md5(filename);
@@ -22,14 +18,13 @@ public class FileEncodeService {
         int position = 3;
         for (int i = 0; i < md5.length(); i++) {
             if ((position + i) <= encodeContent.length()) {
-                encodeContent = encodeContent.substring(0, position + i) + md5.charAt(i) + encodeContent.substring(position + i);
+                encodeContent = encodeContent.substring(0, position + i) + md5.charAt(i)
+                        + encodeContent.substring(position + i);
                 position += 3;
             }
         }
         return new Binary(encodeContent.getBytes(StandardCharsets.ISO_8859_1));
     }
-
-    
 
     public static Binary decodeFile(String filename, Binary content) {
         String md5 = Md5Util.md5(filename);
@@ -43,5 +38,5 @@ public class FileEncodeService {
         }
         return new Binary(decodeContent.getBytes(StandardCharsets.ISO_8859_1));
     }
-    
+
 }

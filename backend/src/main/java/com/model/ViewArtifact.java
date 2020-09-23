@@ -1,12 +1,11 @@
 package com.model;
 
-
 public class ViewArtifact {
-    
+
     private String email;
 
     private String category;
-    
+
     private String artifact;
 
     public String getEmail() {

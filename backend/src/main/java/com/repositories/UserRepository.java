@@ -9,15 +9,20 @@ import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserRepository extends MongoRepository<User, String>{
+public interface UserRepository extends MongoRepository<User, String> {
     public User findByEmailaddress(String emailaddress);
+
     public User findByStudentId(String studentId);
+
     @Query(value = "{ 'profile.firstname': '?0' }")
     public List<User> findUserByFirstname(String firstname);
 
     @Query(value = "{ 'profile.lastname': '?0' }")
     public List<User> findUserByLastname(String lastname);
-    
+
     @Query(value = "{ 'profile.username': '?0' }")
     public List<User> findUserByUsername(String username);
+
+    @Query(value = "{ 'profile.link': '?0' }")
+    public User findUserByLink(String link);
 }

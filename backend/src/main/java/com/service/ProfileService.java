@@ -16,13 +16,14 @@ import org.bson.types.Binary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
 @Service
 public class ProfileService {
-    
+
     @Autowired
     private UserRepository userRepository;
 
-
+    // Update user's avatar on their profile page
     public Result updateAvatar(String email, MultipartFile image) throws IOException {
         User user = userRepository.findByEmailaddress(email);
         Result result = new Result();
@@ -31,14 +32,8 @@ public class ProfileService {
             result.setResult(false);
             return result;
         }
-        String filetype = image.getContentType();
-        String type = filetype.substring(0, filetype.lastIndexOf("/"));
-        if (!type.equals("image")) {
-            result.setReason("Must be a image!");
-            result.setResult(false);
-            return result;
-        }
-        Avatar avatar = new Avatar(image.getOriginalFilename(), image.getContentType(), new Binary(image.getBytes()), image.getSize());
+        Avatar avatar = new Avatar(image.getOriginalFilename(), image.getContentType(), new Binary(image.getBytes()),
+                image.getSize());
         user.getProfile().setAvatar(avatar);
         userRepository.save(user);
         result.setReason("Update sccuess!");
@@ -46,11 +41,11 @@ public class ProfileService {
         return result;
     }
 
-
+    // Delete user's avatar
     public Result deleteAvatar(String email) {
         User user = userRepository.findByEmailaddress(email);
         Result result = new Result();
-        user.getProfile().removeAvatar();;
+        user.getProfile().removeAvatar();
         userRepository.save(user);
         result.setReason("Delete success!");
         result.setResult(true);
@@ -79,20 +74,20 @@ public class ProfileService {
         result.setReason("Update success!");
         result.setResult(true);
         return result;
-    } 
+    }
 
-
-    public String generateLink(String email){
-       User user = userRepository.findByEmailaddress(email);
-       String studentId = user.getStudentId();
-       Profile profile = user.getProfile();
-       //getting current date time using calendar class
-       DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss"); 
-       Calendar calobj = Calendar.getInstance();
-       String date = df.format(calobj.getTime());
-       String output = Md5Util.md5(email + studentId + date);
-       profile.setLink(output);
-       userRepository.save(user);
-       return output;
+    // A non-deteministic method to generate a sharable link for user
+    public String generateLink(String email) {
+        User user = userRepository.findByEmailaddress(email);
+        String studentId = user.getStudentId();
+        Profile profile = user.getProfile();
+        // getting current date time using calendar class
+        DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
+        Calendar calobj = Calendar.getInstance();
+        String date = df.format(calobj.getTime());
+        String output = Md5Util.md5(email + studentId + date);
+        profile.setLink(output);
+        userRepository.save(user);
+        return output;
     }
 }

@@ -61,7 +61,7 @@ public class CategoryController {
         List<String> output = new ArrayList<>();
         for (Category i : user.getCategories()) {
             output.add(i.getName());
-        };
+        }
         CategoryResult result = new CategoryResult();
         result.setCategories(output);
         return result;

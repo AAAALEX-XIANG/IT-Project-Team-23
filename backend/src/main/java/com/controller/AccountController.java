@@ -37,10 +37,10 @@ public class AccountController {
     }
 
     @PostMapping("/register-admin")
-    public Result registerAdmin(@RequestParam String adminId, @RequestParam String email, @RequestParam String password){
+    public Result registerAdmin(@RequestParam String adminId, @RequestParam String email,
+            @RequestParam String password) {
         return accountService.registerAdmin(adminId, email, password);
     }
-
 
     @PostMapping("/login")
     public Result login(@RequestParam String email, @RequestParam String password) {

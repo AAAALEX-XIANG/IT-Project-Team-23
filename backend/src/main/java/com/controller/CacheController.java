@@ -22,14 +22,14 @@ public class CacheController {
     @Autowired
     private CacheService cacheService;
 
-    //Upload an attachment to cache space
+    // Upload an attachment to cache space
     @PostMapping("/upload/{email}")
     public Result uploadCache(@PathVariable String email, @RequestParam MultipartFile file) throws IOException {
-        return cacheService.upload(email,file);
+        return cacheService.upload(email, file);
     }
 
     @GetMapping("/clear/{email}")
-    public Result clearCache(@PathVariable String email){
+    public Result clearCache(@PathVariable String email) {
         return cacheService.clear(email);
     }
 }
