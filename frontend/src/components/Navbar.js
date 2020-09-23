@@ -14,6 +14,7 @@ export default function Navbar(){
             method: "GET"
         });
         localStorage.clear();
+        window.location.replace('/login');
     }
     return (
         <nav className = "navbar">

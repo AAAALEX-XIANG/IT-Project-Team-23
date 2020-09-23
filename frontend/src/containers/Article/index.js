@@ -29,7 +29,6 @@ const props = {
     multiple: true,
     action: baseURL + `/${localStorage.getItem('email')}`,
     onChange(info) {
-        console.log(props.action);
       const { status } = info.file;
       if (status !== 'uploading') {
         console.log(info.file, info.fileList);
@@ -69,13 +68,6 @@ export default class Article extends Component {
             description: '',
             privacy: ''
         })
-        this.onNameChange = this.onNameChange.bind(this);
-        this.onCategoryChange = this.onCategoryChange.bind(this);
-        this.onTitleChange = this.onTitleChange.bind(this);
-        this.onDescriptionChange = this.onDescriptionChange.bind(this);
-        this.onPrivacyChange = this.onPrivacyChange.bind(this);
-        this.addItem = this.addItem.bind(this);
-        this.uploadFiles = this.uploadFiles.bind(this);
         console.log("clear artifact");
     }
 
@@ -88,13 +80,6 @@ export default class Article extends Component {
             description: '',
             privacy: ''
         })
-        this.onNameChange = this.onNameChange.bind(this);
-        this.onCategoryChange = this.onCategoryChange.bind(this);
-        this.onTitleChange = this.onTitleChange.bind(this);
-        this.onDescriptionChange = this.onDescriptionChange.bind(this);
-        this.onPrivacyChange = this.onPrivacyChange.bind(this);
-        this.addItem = this.addItem.bind(this);
-        this.uploadFiles = this.uploadFiles.bind(this);
         console.log("load artifact");
     }
     
@@ -165,10 +150,11 @@ export default class Article extends Component {
         console.log(this.state.privacy);
 
         window.location.replace('/admin/dashboard');
-        
     }
 
     render() {
+       // const { items, title, description, value, privacy } = this.state;
+
         const { items, title, description, value } = this.state;
         if (props.action === baseURL + `/null`) {
             window.location.replace('/admin/article');
@@ -245,7 +231,8 @@ export default class Article extends Component {
                             span: 12,
                             offset: 6,
                         }}
-                    >   
+                    >
+                    <p> Note: You can upload several files, but the size of each file must be less than 1 MB. </p>
                     <button onClick={this.uploadFiles}>
                         Submit
                     </button>

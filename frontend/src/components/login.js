@@ -30,11 +30,12 @@ class LoginForm extends React.Component {
         event.preventDefault();
 
         // call the API to verify user
-        const {status} = await login({email: this.state.email, password: this.state.password});
+        const {status, user} = await login({email: this.state.email, password: this.state.password});
 
         if(status===200) {
             this.setState({wrongAttempt: false});
 
+            if (user.result) {
             this.props.userStore.isLoggedIn = true;
             this.props.userStore.email = this.state.email;
             //this.props.userStore.user = user[0];
@@ -47,15 +48,10 @@ class LoginForm extends React.Component {
 
             this.props.history.push('/admin/dashboard');
             
-        }else{
-            this.setState({wrongAttempt: true});
-            
-        // }else{
-        //     alert("Request Fail");
-        }
-
-        console.log(this.state.success);
-        
+            }else{
+                this.setState({wrongAttempt: true});
+            }
+        }       
     }
 
     render() {

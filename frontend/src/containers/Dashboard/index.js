@@ -1,9 +1,28 @@
 import React, {Component} from 'react';
 import Navbar from '../../components/Navbar';
-import WelcomeHeader from '../../components/WelcomeHeader'
-import ProfileBox from '../../components/ProfileBox'
+import { Button, Upload, message } from 'antd';
+import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
+import { viewProfile } from '../profileApi';
 
-import { getUserInfo } from "../accountApi";
+let baseURL = 'https://fate-server.herokuapp.com/api/profile/updateAvatar';
+
+function getBase64(img, callback) {
+    const reader = new FileReader();
+    reader.addEventListener('load', () => callback(reader.result));
+    reader.readAsDataURL(img);
+}
+
+function beforeUpload(file) {
+    const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+    if (!isJpgOrPng) {
+      message.error('You can only upload JPG/PNG file!');
+    }
+    const isLt1M = file.size / 1024 / 1024 < 1;
+    if (!isLt1M) {
+      message.error('Image must smaller than 1MB!');
+    }
+    return isJpgOrPng && isLt1M;
+}
 
 export default class Dashboard extends Component {
     constructor(props){
@@ -11,74 +30,119 @@ export default class Dashboard extends Component {
         
         this.state = {
             userInfo : null,
-            //userClass: null,
             isLoaded: false,
-            error: null
+            error: null,
+            loading: false,
+            imageUrl: null
         }
+        this.handleChange = this.handleChange.bind(this);
+        this.fetchInfo = this.fetchInfo.bind(this);
     }
 
-    async fetchInfo(email) {
-        const {userInfo, error} = await getUserInfo(email);
-        this.setState({userInfo: userInfo, isLoaded: true, error: error});
-        // console.log(userInfo);
+    handleChange = info => {
+        if (info.file.status === 'uploading') {
+          this.setState({ loading: true });
+          return;
+        }
+        if (info.file.status === 'done') {
+          // Get this url from response in real world.
+          getBase64(info.file.originFileObj, imageUrl =>
+            this.setState({
+              imageUrl:imageUrl,
+              loading: false,
+            }),
+          );
+          console.log("done!");
+        }
+    };
+
+    fetchInfo(email) {
+        viewProfile({email:email}).then(
+            userInfo =>
+            this.setState({userInfo: userInfo, isLoaded: true, username: userInfo.res.username, loading: false,
+                firstname: userInfo.res.firstname, lastname: userInfo.res.lastname, imageUrl: this.setImage(userInfo.res.avatar)})
+        );
+        
+    }
+
+    setImage(avatar) {
+        if (avatar !== null) {
+            var prevUrl = avatar.image.data;
+            return ("data:"+ avatar.imageType +";base64," + prevUrl);
+
+        }
+        return null;
     }
 
     componentDidMount() {
-        if (this.props.isLoggedIn) {
-            console.log(this);
-            this.fetchInfo(this.props.email);
-        }
-    }
-
-    componentDidUpdate(prevProps) {
-        console.log(prevProps);
-        console.log(this.props);
-        if (!(this.props.isLoggedIn===prevProps.isLoggedIn)) {
-            console.log(this);
-            this.fetchInfo(this.props.email);
-        }
+        this.fetchInfo(localStorage.getItem('email'));
     }
 
     render() {
-        const {userInfo, /**userClass,**/ isLoaded, error} = this.state;
-        if (error) { //couldn't fetch data from server
+        const {isLoaded, error, loading, imageUrl} = this.state;
+
+        if (error) {
+            //couldn't fetch data from server
             return(
                 <div className="pageContainer">
-                    <Navbar />
-                    <div className="friendContainer">
+                    <Navbar />            
                         <p className = "message">Something went wrong. Error: {error.message}</p>;
-                    </div>
                 </div>
             );
-        } else if (!isLoaded) { //loading screen
+        } else if (!isLoaded) {
+            //loading screen
             return(
                 <div className="pageContainer">
                     <Navbar />
-                    <div className="friendContainer">
-                        <p className = "message">Loading your info...</p>
-                    </div>
+
+                    <p className = "message">Loading your info...</p>
+
                 </div>
             );
         } else {
+            const uploadButton = (
+                <div>
+                  {loading ? <LoadingOutlined /> : <PlusOutlined />}
+                  <div style={{ marginTop: 8 }}>Upload</div>
+                </div>
+            );
+            
             return(
-                <div id="container">
-                    <div id="center" className="column">
-                        <div id="rows">
-                            <WelcomeHeader welName = {userInfo[0].first_name} />
+                <div className="pageContainer">
+                    <Navbar />
+                    <div className="grid-container">
+                        <div className="leftCol">
+                            <div className="avatarBox">
+                                <Upload
+                                    name="image"
+                                    listType="picture-card"
+                                    className="avatar-uploader"
+                                    showUploadList={false}
+                                    action = {baseURL + `/${localStorage.getItem('email')}`}
+                                    beforeUpload={beforeUpload}
+                                    onChange={this.handleChange}
+                                >
+                                    {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '150%' }} /> : uploadButton}
+                                </Upload>
+                            </div>
+                            
+                            <div className="buttonBox"> 
+                                <Button block>Edit Profile</Button>
+                                <br /><br />
+
+                            </div>
                         </div>
-                        <div id="rows">
-                            <ProfileBox
-                                fullName = {userInfo[0].first_name + " " + userInfo[0].last_name}
-                                pUsername = {userInfo[0].username}
-                            />
+                        <div className="rightCol">
+                            <div className="profileHeadings">My Account</div>
+
+                            <div className="profileInfo">Email: {localStorage.getItem('email')}</div>
+                            
+                            <div className="profileInfo">Username: {this.state.username}</div>
+
+                            <div className="profileInfo">First name: {this.state.firstname}</div>
+
+                            <div className="profileInfo">Last name: {this.state.lastname}</div>
                         </div>
-                    </div>
-                    <div id="left" className="column">
-                        <div id="navContainer">
-                            <Navbar />
-                        </div>
-                    </div>
-                    <div id="right" className="column">
                     </div>
                 </div>
             );

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { Button, Collapse } from 'antd';
-import { DownloadOutlined } from '@ant-design/icons';
+import { DownloadOutlined, PictureOutlined } from '@ant-design/icons';
 //import { showCategory, deleteCategory, showArtifacts } from "../../containers/categoryApi"
 import { getCategoryArtifact, getAttachment } from "../../containers/artifactApi"
 
@@ -12,6 +12,7 @@ let categories=[];
 let files = [];
 let attachment = [];
 let file = []
+
 export default class Setting extends Component {
     constructor(props) {
         super(props);
@@ -48,26 +49,77 @@ export default class Setting extends Component {
     downloadFile(request) {
         // Decode Base64 to binary and show some information about the file
         var b64 = request.content;
-        var type = request.filetype;
-        
-        var obj = document.createElement('object');
-        obj.style.width = '100%';
-        obj.style.height = '842pt';
-        obj.type = type;
-        obj.data = 'data:' + type + ';base64,' + b64;
-        document.body.appendChild(obj);
+        // var type = request.filetype;
+        let foo = document.getElementsByClassName("pageContainer")[0];
+        if (foo.hasChildNodes()) {
+            let children = foo.childNodes;
+            for (let i = 0; i < children.length; i++) {
+                console.log(children[i].nodeName);
+                if(children[i].nodeName === 'OBJECT'){
+                    foo.removeChild(children[i]);
+                }
+                // if(children[i].nodeName === 'A'){
+                //     foo.removeChild(children[i]);
+                //     break;
+                // }
+            }
+            // Insert a link that allows the user to download the PDF file
+            var link = document.createElement('a');
+            link.style.cssFloat = "right";
+            //link.innerHTML = 'Download file';
+            link.download = request.filename;
+            link.href = 'data:application/octet-stream;base64,' + b64;
+            foo.appendChild(link).click();
+        } 
+    }
 
-        // Insert a link that allows the user to download the PDF file
-        var link = document.createElement('a');
-        link.innerHTML = 'Download file';
-        link.download = request.filename;
-        link.href = 'data:application/octet-stream;base64,' + b64;
-        document.body.appendChild(link);
+    viewFile(request) {
+        // Decode Base64 to binary and show some information about the file
+        var b64 = request.content;
+        var type = request.filetype;
+        let foo = document.getElementsByClassName("pageContainer")[0];
+        if (foo.hasChildNodes()) {
+            let children = foo.childNodes;
+            for (let i = 0; i < children.length; i++) {
+                console.log(children[i].nodeName);
+                if(children[i].nodeName === 'OBJECT'){
+                    foo.removeChild(children[i]);
+                } else if(children[i].nodeName === 'A'){
+                    foo.removeChild(children[i]);
+                    break;
+                }
+                
+            }
+
+            // we can only view pdf, text or image files
+            if (type === "application/pdf" || type === "image/jpeg" || type === "text/plain") {
+                // view file
+                var firstobj = document.createElement('object');
+                firstobj.class = "viewContainer";
+                if (type === "application/pdf" || type === "text/plain") {
+                    firstobj.style.height = '700px';
+                } else {
+                    firstobj.style.height = '45%';
+                }
+                firstobj.style.width = '60%';
+                firstobj.style.cssFloat = "right";
+                firstobj.type = type;
+                firstobj.data = 'data:' + type + ';base64,' + b64;
+                foo.appendChild(firstobj);
+            } else {
+                alert(`Sorry, you are not allowed to view ${type} files`);
+            }
+        } 
     }
 
     downloadAttachment(item){
         file = getAttachment(item).then(
             file => this.downloadFile(file.res)
+        )
+    }
+    viewAttachment(item) {
+        file = getAttachment(item).then(
+            file => this.viewFile(file.res)
         )
     }
     
@@ -104,10 +156,14 @@ export default class Setting extends Component {
                                     {files[item][title].slice(2).map(file => (
                                         <div key = {file}>
                                             <p>{file}
-                                        
+                                            
+                                            <Button onClick={()=>this.viewAttachment({email: localStorage.getItem("email"), category: item, artifact: title, attachment:file})}
+                                                    id= "downloadBtn" type="primary" shape="round" icon={<PictureOutlined />}>
+                                                View
+                                            </Button>
                                             <Button onClick={()=>this.downloadAttachment({email: localStorage.getItem("email"), category: item, artifact: title, attachment:file})}
-                                            id= "downloadBtn" type="primary" shape="round" icon={<DownloadOutlined />}>
-                                            View
+                                                    id= "downloadBtn" type="primary" shape="round" icon={<DownloadOutlined />}>
+                                                download
                                             </Button>
 
                                             </p>
