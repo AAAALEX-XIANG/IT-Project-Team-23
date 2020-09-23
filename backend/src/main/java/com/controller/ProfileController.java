@@ -8,6 +8,7 @@ import com.service.ProfileService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,10 +30,10 @@ public class ProfileController {
         return profileService.getUserProfile(email);
     }
 
-    @PostMapping("/updateAvatar")
-    public Result updateAvatar(@RequestParam String email, @RequestParam(required = false) MultipartFile image)
+    @PostMapping("/updateAvatar/{email}")
+    public Result updateAvatar(@PathVariable String email, @RequestParam(required = false) MultipartFile avatar)
             throws IOException {
-        return profileService.updateAvatar(email, image);
+        return profileService.updateAvatar(email, avatar);
     }
 
     @PostMapping("/deleteAvatar")
