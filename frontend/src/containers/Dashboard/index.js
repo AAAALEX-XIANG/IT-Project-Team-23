@@ -122,7 +122,7 @@ export default class Dashboard extends Component {
                                     beforeUpload={beforeUpload}
                                     onChange={this.handleChange}
                                 >
-                                    {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '150%' }} /> : uploadButton}
+                                    {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
                                 </Upload>
                             </div>
                             
