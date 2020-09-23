@@ -90,9 +90,9 @@ public class ProfileService {
        DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss"); 
        Calendar calobj = Calendar.getInstance();
        String date = df.format(calobj.getTime());
-       String output = email + studentId + date;
+       String output = Md5Util.md5(email + studentId + date);
        profile.setLink(output);
        userRepository.save(user);
-       return Md5Util.md5(output);
+       return output;
     }
 }
