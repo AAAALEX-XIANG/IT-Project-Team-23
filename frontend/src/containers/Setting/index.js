@@ -49,7 +49,7 @@ export default class Setting extends Component {
     downloadFile(request) {
         // Decode Base64 to binary and show some information about the file
         var b64 = request.content;
-        var type = request.filetype;
+        // var type = request.filetype;
         let foo = document.getElementsByClassName("pageContainer")[0];
         if (foo.hasChildNodes()) {
             let children = foo.childNodes;
@@ -90,16 +90,25 @@ export default class Setting extends Component {
                 }
                 
             }
-            // view file
-            var firstobj = document.createElement('object');
-            firstobj.class = "viewContainer";
-            firstobj.style.width = '60%';
-            firstobj.style.height = '50%';
-            firstobj.style.cssFloat = "right";
-            firstobj.type = type;
-            firstobj.data = 'data:' + type + ';base64,' + b64;
-            foo.appendChild(firstobj);
 
+            // we can only view pdf, text or image files
+            if (type === "application/pdf" || type === "image/jpeg" || type === "text/plain") {
+                // view file
+                var firstobj = document.createElement('object');
+                firstobj.class = "viewContainer";
+                if (type === "application/pdf" || type === "text/plain") {
+                    firstobj.style.height = '700px';
+                } else {
+                    firstobj.style.height = '45%';
+                }
+                firstobj.style.width = '60%';
+                firstobj.style.cssFloat = "right";
+                firstobj.type = type;
+                firstobj.data = 'data:' + type + ';base64,' + b64;
+                foo.appendChild(firstobj);
+            } else {
+                alert(`Sorry, you are not allowed to view ${type} files`);
+            }
         } 
     }
 
@@ -147,7 +156,7 @@ export default class Setting extends Component {
                                     {files[item][title].slice(2).map(file => (
                                         <div key = {file}>
                                             <p>{file}
-                                    
+                                            
                                             <Button onClick={()=>this.viewAttachment({email: localStorage.getItem("email"), category: item, artifact: title, attachment:file})}
                                                     id= "downloadBtn" type="primary" shape="round" icon={<PictureOutlined />}>
                                                 View

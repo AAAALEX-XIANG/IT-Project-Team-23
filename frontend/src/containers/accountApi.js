@@ -1,34 +1,5 @@
 const BASE_URL = "https://fate-server.herokuapp.com/api/account";
 
-
-/**
- * Retrieves user information
- */
-// export async function getUserInfo(email) {
-//     const endpoint = BASE_URL + `/${email}`;
-//     console.log("getUserInfo");
-
-//     let res;
-//     try {
-//         res = await fetch(endpoint, {
-//             method: "POST",
-//             headers: {
-//                 "Content-Type": "application/json"
-//             },
-//             body: JSON.stringify({
-//                 email: email
-//             })
-//         });
-//     } catch(e) {
-//         console.log(e);
-//         return {error: e};
-//     }
-//     console.log(await res.status);
-//     return {userInfo: await res.json()}
-// }
-
-
-
 /*=========================================================================*/
 /*========================     Login/reg        ===========================*/
 /*=========================================================================*/

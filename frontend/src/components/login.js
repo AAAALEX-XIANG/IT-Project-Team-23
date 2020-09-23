@@ -51,12 +51,7 @@ class LoginForm extends React.Component {
             }else{
                 this.setState({wrongAttempt: true});
             }
-        // }else{
-        //     alert("Request Fail");
-        }
-
-        console.log(this.state.success);
-        
+        }       
     }
 
     render() {
