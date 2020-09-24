@@ -1,14 +1,6 @@
 //stores the user login state
 import {decorate, observable, computed, autorun } from "mobx";
 
-// const initState = {
-//     firstname = "";
-//     lastname = "";
-//     password = "";
-//     emailaddress = emailaddress;
-//     username = username;
-//     categories = new ArrayList<>();
-// }
 class UserStore {
     isLoggedIn = false;
     email = "";

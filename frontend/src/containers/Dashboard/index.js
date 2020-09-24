@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Navbar from '../../components/Navbar';
 import { Button, Upload, message } from 'antd';
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
-import { viewProfile } from '../profileApi';
+import { viewProfile, updateProfile } from '../profileApi';
 
 let baseURL = 'https://fate-server.herokuapp.com/api/profile/updateAvatar';
 
@@ -30,13 +30,21 @@ export default class Dashboard extends Component {
         
         this.state = {
             userInfo : null,
+            username: "",
+            firstname: "",
+            lastname: "",
             isLoaded: false,
             error: null,
             loading: false,
-            imageUrl: null
+            imageUrl: null,
+            ifEdit: false,
+            status: false
         }
+
         this.handleChange = this.handleChange.bind(this);
-        this.fetchInfo = this.fetchInfo.bind(this);
+        this.changeEdit = this.changeEdit.bind(this);
+        this.handleUpdate = this.handleUpdate.bind(this);
+        this.submitProfile = this.submitProfile.bind(this);
     }
 
     handleChange = info => {
@@ -56,6 +64,30 @@ export default class Dashboard extends Component {
         }
     };
 
+    handleUpdate(event) {
+        const target = event.target;
+        const value = target.value;
+        const name = target.name;
+
+        this.setState({
+            [name]: value,
+        });
+    }
+
+    submitProfile(detail) {
+        const { firstname, lastname, username } = detail;
+        if (firstname.length === 0 || lastname.length === 0 || username.length === 0) {
+            alert("name cannot be empty");
+        } else {
+            updateProfile({ email: localStorage.getItem('email'), firstname: firstname, 
+            lastname: lastname, username: username }).then(
+                status => this.setState({
+                    status: status.res.result
+                })
+            )
+        }
+    }
+
     fetchInfo(email) {
         viewProfile({email:email}).then(
             userInfo =>
@@ -74,13 +106,22 @@ export default class Dashboard extends Component {
         return null;
     }
 
+    changeEdit = () => {
+        this.setState({
+            ifEdit: true
+        })
+    }
+
     componentDidMount() {
         this.fetchInfo(localStorage.getItem('email'));
     }
 
     render() {
-        const {isLoaded, error, loading, imageUrl} = this.state;
-
+        const {isLoaded, firstname, lastname, username, error, loading, imageUrl, ifEdit} = this.state;
+        if (this.state.status === true) {
+            window.location.replace("/admin/dashboard");
+            // console.log("refresh");
+        }
         if (error) {
             //couldn't fetch data from server
             return(
@@ -94,9 +135,15 @@ export default class Dashboard extends Component {
             return(
                 <div className="pageContainer">
                     <Navbar />
-
-                    <p className = "message">Loading your info...</p>
-
+                    <div className="loadingContainer">
+                        <div class="loading">
+                            <div class="loading-item loading-one"></div>
+                            <div class="loading-item loading-two"></div>
+                            <div class="loading-item loading-three"></div>
+                            <div class="loading-item loading-four"></div>
+                            <div class="loading-item loading-five"></div>
+                        </div>
+                    </div>
                 </div>
             );
         } else {
@@ -106,46 +153,130 @@ export default class Dashboard extends Component {
                   <div style={{ marginTop: 8 }}>Upload</div>
                 </div>
             );
-            
-            return(
-                <div className="pageContainer">
-                    <Navbar />
-                    <div className="grid-container">
-                        <div className="leftCol">
-                            <div className="avatarBox">
-                                <Upload
-                                    name="image"
-                                    listType="picture-card"
-                                    className="avatar-uploader"
-                                    showUploadList={false}
-                                    action = {baseURL + `/${localStorage.getItem('email')}`}
-                                    beforeUpload={beforeUpload}
-                                    onChange={this.handleChange}
-                                >
-                                    {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
-                                </Upload>
-                            </div>
-                            
-                            <div className="buttonBox"> 
-                                <Button block>Edit Profile</Button>
+            if ( ifEdit ) {
+                return(
+                    <div className="pageContainer">
+                        <Navbar />
+                        <div className="grid-container">
+                            <div className="leftCol">
+                                <div className="avatarBox">
+                                    <Upload
+                                        name="image"
+                                        listType="picture-card"
+                                        className="avatar-uploader"
+                                        showUploadList={false}
+                                        action = {baseURL + `/${localStorage.getItem('email')}`}
+                                        beforeUpload={beforeUpload}
+                                        onChange={this.handleChange}
+                                    >
+                                        {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '200%', height: '200%' }} /> : uploadButton}
+                                    </Upload>
+                                </div>
+
                                 <br /><br />
+                                <div className="buttonBox"> 
+                                    <Button block onClick={this.changeEdit}>Edit Profile</Button>
+                                    <br /><br />
 
+                                </div>
                             </div>
-                        </div>
-                        <div className="rightCol">
-                            <div className="profileHeadings">My Account</div>
+                            <div className="rightCol">
+                                <div className="profileHeadings">My Account</div>
 
-                            <div className="profileInfo">Email: {localStorage.getItem('email')}</div>
-                            
-                            <div className="profileInfo">Username: {this.state.username}</div>
+                                <div className="profileInfo">Email:
+                                    <div className="currentInfo"> 
+                                        {localStorage.getItem('email')}
+                                    </div>
+                                </div>
+                                
+                                <div className="profileInfo">Username: 
+                                    <div className="currentInfo"> 
+                                        <input type="text" name="username" value={this.state.username} onChange={this.handleUpdate} required/>
+                                    </div>
+                                </div>
+                                <div className="nameInfo">
+                                    <div className="profileInfo">First name: 
+                                        <div className="currentInfo"> 
+                                            <input type="text" name="firstname" value={this.state.firstname} onChange={this.handleUpdate} required/>
+                                        </div>
+                                    </div>
 
-                            <div className="profileInfo">First name: {this.state.firstname}</div>
+                                    <div className="profileInfo">Last name: 
+                                        <div className="currentInfo"> 
+                                            <input type="text" name="lastname" value={this.state.lastname} onChange={this.handleUpdate} required/>
+                                        </div>
+                                    </div>
 
-                            <div className="profileInfo">Last name: {this.state.lastname}</div>
+                                    <div className="buttonBox"> 
+                                        <Button block onClick={() => this.submitProfile({firstname, lastname, username})}>Update</Button>
+                                    <br /><br />
+
+                                    </div>
+
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            );
+                );
+            } else {
+                return(
+                    <div className="pageContainer">
+                        <Navbar />
+                        <div className="grid-container">
+                            <div className="leftCol">
+                                <div className="avatarBox">
+                                    <Upload
+                                        name="image"
+                                        listType="picture-card"
+                                        className="avatar-uploader"
+                                        showUploadList={false}
+                                        action = {baseURL + `/${localStorage.getItem('email')}`}
+                                        beforeUpload={beforeUpload}
+                                        onChange={this.handleChange}
+                                    >
+                                        {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '200%', height: '200%' }} /> : uploadButton}
+                                    </Upload>
+                                </div>
+
+                                <br /><br />
+                                <div className="buttonBox"> 
+                                <Button block onClick={this.changeEdit}>Edit Profile</Button>
+                                    <br /><br />
+
+                                </div>
+                            </div>
+                            <div className="rightCol">
+                                <div className="profileHeadings">My Account</div>
+
+                                <div className="profileInfo">Email:
+                                    <div className="currentInfo"> 
+                                        {localStorage.getItem('email')}
+                                    </div>
+                                </div>
+                                
+                                <div className="profileInfo">Username: 
+                                    <div className="currentInfo"> 
+                                        {this.state.username}
+                                    </div>
+                                </div>
+                                <div className="nameInfo">
+                                    <div className="profileInfo">First name: 
+                                        <div className="currentInfo"> 
+                                            {this.state.firstname}
+                                        </div>
+                                    </div>
+
+                                    <div className="profileInfo">Last name: 
+                                        <div className="currentInfo"> 
+                                            {this.state.lastname}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                );
+            }
         }
     }
 }

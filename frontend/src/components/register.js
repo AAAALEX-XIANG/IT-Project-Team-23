@@ -99,9 +99,6 @@ class RegForm extends React.Component {
                     <input type="password" name="password_confirm" value={this.state.password_confirm} onChange={this.handleChange} required/>
                 </label>
                 <br /><br />
-                {/*<label>*/}
-                {/*    <div className="subTitle">Are you a Teacher?</div>*/}
-                {/*</label>*/}
                 
                 {!this.state.success &&
                 <div className="formError">
