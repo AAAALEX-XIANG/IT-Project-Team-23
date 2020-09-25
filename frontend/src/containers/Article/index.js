@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Form, Upload,Radio, Input, Select,Divider, message} from 'antd';
+import {Form, Upload,Radio, Input, Select,Divider, message, Button} from 'antd';
 import "antd/dist/antd.css";
 import { InboxOutlined} from '@ant-design/icons';
 import { upload } from "../../containers/artifactApi";
@@ -46,6 +46,8 @@ const props = {
 };
 
 
+
+
 export default class Article extends Component {
     constructor(props) {
         super(props);
@@ -55,7 +57,9 @@ export default class Article extends Component {
             name: '',
             title: '', 
             description: '',
-            privacy: '' 
+            privacy: '' ,
+            loadings: [],
+            isUpdating: false
         };
     }
 
@@ -66,7 +70,9 @@ export default class Article extends Component {
             name: '',
             title: '', 
             description: '',
-            privacy: ''
+            privacy: '',
+            loadings: [],
+            isUpdating: false
         })
         console.log("clear artifact");
     }
@@ -78,7 +84,9 @@ export default class Article extends Component {
             name: '',
             title: '', 
             description: '',
-            privacy: ''
+            privacy: '',
+            loadings: [],
+            isUpdating: false
         })
         console.log("load artifact");
     }
@@ -138,24 +146,57 @@ export default class Article extends Component {
     };
 
     uploadFiles = () => {
-        
+        this.enterLoading(0)
         var i;
         var myFile = [];
         for(i=0;i<file.length;i++){
             myFile.push(file[i].name);
         }
         
-        upload({ email:localStorage.getItem('email'), category: this.state.name, title:this.state.title, description: this.state.description, attachment: myFile, privacy: this.state.privacy})
+        upload({ email:localStorage.getItem('email'), category: this.state.name, title:this.state.title, 
+                description: this.state.description, attachment: myFile, privacy: this.state.privacy})
+                .then(
+                    this.setState({
+                        isUpdating:true
+                    })
+                )
         console.log(myFile);
         console.log(this.state.privacy);
 
-        window.location.replace('/admin/dashboard');
+        
     }
+
+    enterLoading = index => {
+        this.setState(({ loadings }) => {
+          const newLoadings = [...loadings];
+          newLoadings[index] = true;
+    
+          return {
+            loadings: newLoadings,
+          };
+        });
+        setTimeout(() => {
+          this.setState(({ loadings }) => {
+            const newLoadings = [...loadings];
+            newLoadings[index] = false;
+    
+            return {
+              loadings: newLoadings,
+            };
+          });
+        }, 30000)
+            //window.location.replace('/admin/dashboard')
+        
+        
+      };
 
     render() {
        // const { items, title, description, value, privacy } = this.state;
-
-        const { items, title, description, value } = this.state;
+        
+        const { items, title, description, value, loadings, isUpdating} = this.state;
+        if(isUpdating){
+            window.location.replace('/admin/dashboard')
+        }
         if (props.action === baseURL + `/null`) {
             window.location.replace('/admin/article');
         }
@@ -233,9 +274,9 @@ export default class Article extends Component {
                         }}
                     >
                     <p> Note: You can upload several files, but the size of each file must be less than 1 MB. </p>
-                    <button onClick={this.uploadFiles}>
+                    <Button value="default" loading={loadings[0]} onClick={this.uploadFiles}>
                         Submit
-                    </button>
+                    </Button>
                         
                     </Form.Item>
                 </Form>

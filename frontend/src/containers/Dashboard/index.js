@@ -121,6 +121,7 @@ export default class Dashboard extends Component {
         this.fetchInfo(localStorage.getItem('email'));
     }
 
+    //the loading button is referenced from https://ant.design/components/button-cn/
     enterLoading = index => {
         this.setState(({ loadings }) => {
           const newLoadings = [...loadings];

@@ -1,8 +1,11 @@
-html, body, #root, .App{
+html,
+body,
+#root,
+.App {
   height: 100%;
 }
 
-*{
+* {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -17,23 +20,32 @@ html, body, #root, .App{
   position: relative;
   padding: 0.8em 0;
   /* background-color: #2B303A; */
-  box-shadow:0px 4px 6px #00000015;
+  box-shadow: 0px 4px 6px #00000015;
   z-index: 1;
   font-size: small;
   font-family: "Comic Sans MS", sans-serif;
   flex-wrap: nowrap;
 }
 
-.mainHeader .logo{
+.headerContainer {
+  display: inline-flex;
+}
+
+.mainHeader .logo {
   height: 35px;
   margin-left: 2.5em;
   margin-right: 0.5em;
 }
 
-.mainHeader .userMsg{
-  float: right;
+.headerContainer .userMsg {
+  position: absolute;
+  right: 10px;
+  margin-top: 10px;
 }
 
+.headerContainer .messageContainer {
+  margin-top: 15px;
+}
 
 .pageContainer {
   font-size: 0.9rem;
@@ -43,12 +55,12 @@ html, body, #root, .App{
   min-height: 100vh;
 }
 
-.pageContainer>Form{
+.pageContainer > Form {
   width: 100%;
   height: 100%;
   position: center;
 }
-.pageContainer #header{
+.pageContainer #header {
   font-weight: bold;
   font-size: 1.2rem;
   position: relative;
@@ -81,7 +93,7 @@ html, body, #root, .App{
   border-right: none;
 }
 
-.selected{
+.selected {
   background-color: #f5f5f5;
   border-right: none;
   font-weight: 600;
@@ -91,15 +103,12 @@ html, body, #root, .App{
 /*====================          Login  page        ========================*/
 /*=========================================================================*/
 
-
-
-
 .loginForm {
   background-color: #ffffff;
   overflow: auto;
 }
 
-.titleHeader{
+.titleHeader {
   font-family: "Comic Sans MS", sans-serif;
   text-align: center;
   color: black;
@@ -107,18 +116,18 @@ html, body, #root, .App{
   flex: 1;
 }
 
-.subTitle{
+.subTitle {
   /* align-self: center; */
   text-align: center;
   font-size: 18px;
-  color: #A5A5A5;
+  color: #a5a5a5;
   flex: 1;
 }
 
-.subTitle2{
+.subTitle2 {
   text-align: left;
   font-size: 1.2rem;
-  color: #A5A5A5;
+  color: #a5a5a5;
   flex: 1;
   width: 50%;
   padding-left: 20%;
@@ -131,14 +140,13 @@ html, body, #root, .App{
 }
 
 .floatLeft {
-  float:left;
+  float: left;
   width: 50%;
   background-color: #ffffff;
   height: fit-content;
 }
 
 .floatRight {
-
   float: right;
   width: 60%;
   background-color: #ffffff;
@@ -149,7 +157,7 @@ html, body, #root, .App{
   text-align: center;
 }
 
-input[type="text"]{
+input[type="text"] {
   width: 60%;
   padding: 12px 20px;
   margin: 8px 0;
@@ -159,7 +167,7 @@ input[type="text"]{
   box-sizing: border-box;
 }
 
-input[type="password"]{
+input[type="password"] {
   width: 60%;
   padding: 12px 20px;
   margin: 8px 0;
@@ -169,7 +177,7 @@ input[type="password"]{
   box-sizing: border-box;
 }
 
-input[type="email"]{
+input[type="email"] {
   width: 60%;
   padding: 12px 20px;
   margin: 8px 0;
@@ -179,7 +187,7 @@ input[type="email"]{
   box-sizing: border-box;
 }
 
-input[type=submit] {
+input[type="submit"] {
   background-color: rgb(85, 162, 239);
   color: white;
   padding: 15px 80px;
@@ -191,7 +199,7 @@ input[type=submit] {
   text-align: center;
 }
 
-input[type=submit]:hover {
+input[type="submit"]:hover {
   background-color: #b82b2b;
 }
 
@@ -201,7 +209,7 @@ form a {
   font-weight: bold;
 }
 
-.formError{
+.formError {
   text-align: center;
   font-size: 1.2rem;
   color: red;
@@ -225,7 +233,7 @@ form a {
 }
 
 /* profile page */
-.profileHeadings{
+.profileHeadings {
   text-align: left;
   font-size: 2rem;
   font-weight: 700;
@@ -233,7 +241,7 @@ form a {
   margin-left: 10px;
 }
 
-.profileInfo{
+.profileInfo {
   text-align: left;
   font-size: 1.5rem;
   font-weight: 700;
@@ -242,7 +250,7 @@ form a {
   padding-top: 20px;
 }
 
-.profileInfo .currentInfo{
+.profileInfo .currentInfo {
   font-size: medium;
   font-weight: 500;
   color: black;
@@ -256,18 +264,18 @@ form a {
   height: 90vh;
   width: 200vh;
   display: grid;
-  grid-template-columns:35% 65%;
+  grid-template-columns: 35% 65%;
   grid-gap: 10px;
-  background-color:#A2D9CE ;
+  background-color: #a2d9ce;
   padding: 10px 10px 10px 10px;
 }
 
-.grid-container .rightCol{
+.grid-container .rightCol {
   padding-top: 30px;
 }
-.nameInfo{
+.nameInfo {
   display: grid;
-  grid-template-columns:50% 50%;
+  grid-template-columns: 50% 50%;
 }
 
 .grid-container > div {
@@ -279,63 +287,68 @@ form a {
   /* padding-right: 20px; */
 }
 
-.editButtonBox{
+.editButtonBox {
   margin-top: 100px;
   margin-bottom: 30px;
 }
-.updateButtonBox{
+.updateButtonBox {
   transform: translate(3%, 0);
 }
 
-.avatarBox{
+.avatarBox {
   transform: translate(35%, 35%);
 }
-
 
 .avatar-uploader {
   width: 128px;
   height: 128px;
 }
 /* --------------------------------Loading page ---------------------------*/
-.loading{
-	margin: 300px auto;
-	width: 100px;
-	height: 100px;
+.loading {
+  margin: 300px auto;
+  width: 100px;
+  height: 100px;
   display: flex;
   transform: rotate(180deg);
 }
 
-.loadingContainer{
+.loadingContainer {
   height: 90vh;
   width: 200vh;
   display: block;
 }
-.loading-item{
-	width: 20px;
-	height: 100px;
+.loading-item {
+  width: 20px;
+  height: 100px;
 }
-.loading-one{
-	background-color: #2983bb;
-	animation: loading 1.5s linear infinite 0.8s;
+.loading-one {
+  background-color: #2983bb;
+  animation: loading 1.5s linear infinite 0.8s;
 }
-.loading-two{
-	background-color: #229453;
-	animation: loading 1.5s linear infinite 0.6s;
+.loading-two {
+  background-color: #229453;
+  animation: loading 1.5s linear infinite 0.6s;
 }
-.loading-three{
-	background-color: #74787a;
-	animation: loading 1.5s linear infinite 0.4s;
+.loading-three {
+  background-color: #74787a;
+  animation: loading 1.5s linear infinite 0.4s;
 }
-.loading-four{
-	background-color: #fba414;
-	animation: loading 1.5s linear infinite 0.2s;
+.loading-four {
+  background-color: #fba414;
+  animation: loading 1.5s linear infinite 0.2s;
 }
-.loading-five{
-	background-color: #de1c31;
-	animation: loading 1.5s linear infinite;
+.loading-five {
+  background-color: #de1c31;
+  animation: loading 1.5s linear infinite;
 }
-@keyframes loading{
-	0%{height: 20px;}
-	50%{height: 100px;}
-	100%{height: 20px;}
+@keyframes loading {
+  0% {
+    height: 20px;
+  }
+  50% {
+    height: 100px;
+  }
+  100% {
+    height: 20px;
+  }
 }
