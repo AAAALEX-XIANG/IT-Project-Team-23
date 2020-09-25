@@ -60,7 +60,7 @@ public class ProfileService {
         return user.getProfile();
     }
 
-    public Result updateProfile(String email, String firstname, String lastname, String username) {
+    public Result updateProfile(String email, String firstname, String lastname, String username, String description) {
         User user = userRepository.findByEmailaddress(email);
         Result result = new Result();
         if (user == null) {
@@ -70,6 +70,7 @@ public class ProfileService {
         user.getProfile().setFirstname(firstname);
         user.getProfile().setLastname(lastname);
         user.getProfile().setUsername(username);
+        user.getProfile().setDescription(description);
         userRepository.save(user);
         result.setReason("Update success!");
         result.setResult(true);

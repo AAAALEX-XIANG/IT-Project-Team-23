@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Category {
-    
+
     private String name;
     private List<Artifact> artifacts;
 
@@ -21,13 +21,13 @@ public class Category {
         this.artifacts = new ArrayList<>();
     }
 
-    public void addArtifact(Artifact artifact){
+    public void addArtifact(Artifact artifact) {
         artifacts.add(artifact);
     }
 
-    public void removeArtifact(String name){
-        for(Artifact a: artifacts){
-            if(name.equals(a.getTitle())){
+    public void removeArtifact(String name) {
+        for (Artifact a : artifacts) {
+            if (name.equals(a.getTitle())) {
                 artifacts.remove(a);
                 return;
             }
@@ -38,9 +38,9 @@ public class Category {
         return artifacts;
     }
 
-    public Artifact getArtifacts(String name){
-        for(Artifact a: artifacts){
-            if(name.equals(a.getTitle())){
+    public Artifact getArtifacts(String name) {
+        for (Artifact a : artifacts) {
+            if (name.equals(a.getTitle())) {
                 return a;
             }
         }
@@ -50,6 +50,5 @@ public class Category {
     public void setArtifacts(List<Artifact> artifacts) {
         this.artifacts = artifacts;
     }
-
 
 }

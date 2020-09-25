@@ -41,8 +41,8 @@ public class ProfileController {
 
     @PostMapping("/updateProfile")
     public Result updateProfile(@RequestParam String email, @RequestParam String firstname,
-            @RequestParam String lastname, @RequestParam String username) {
-        return profileService.updateProfile(email, firstname, lastname, username);
+            @RequestParam String lastname, @RequestParam String username, @RequestParam String description) {
+        return profileService.updateProfile(email, firstname, lastname, username, description);
     }
 
     @PostMapping("/generate-link")

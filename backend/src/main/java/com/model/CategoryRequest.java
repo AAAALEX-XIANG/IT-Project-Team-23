@@ -1,7 +1,7 @@
 package com.model;
 
 public class CategoryRequest {
-    
+
     private String email;
     private String categoryName;
 

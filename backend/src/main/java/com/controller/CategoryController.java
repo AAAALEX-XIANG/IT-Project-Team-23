@@ -27,6 +27,7 @@ public class CategoryController {
     @Autowired
     private UserRepository userRepository;
 
+    // Add a new category for user
     @PostMapping("/addCategory")
     public Result addCategory(@RequestBody CategoryRequest request) {
         Result result = new Result();
@@ -41,6 +42,7 @@ public class CategoryController {
         return result;
     }
 
+    // Delete a new category for user
     @PostMapping("/deleteCategory")
     public Result deleteCategory(@RequestBody CategoryRequest request) {
         Result result = new Result();
@@ -55,6 +57,7 @@ public class CategoryController {
         return result;
     }
 
+    // Show all categories of a user
     @PostMapping("/showCategories")
     public CategoryResult showCategory(@RequestBody AllCategoryRequest request) {
         User user = userRepository.findByEmailaddress(request.getEmail());
@@ -67,6 +70,7 @@ public class CategoryController {
         return result;
     }
 
+    // Show all the artifacts of a specific category of a user
     @PostMapping("/showArtifacts")
     public List<String> showArtifact(@RequestBody CategoryRequest request) {
         User user = userRepository.findByEmailaddress(request.getEmail());

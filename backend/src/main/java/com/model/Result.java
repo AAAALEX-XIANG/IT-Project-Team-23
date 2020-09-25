@@ -21,5 +21,4 @@ public class Result {
         this.reason = reason;
     }
 
-    
 }

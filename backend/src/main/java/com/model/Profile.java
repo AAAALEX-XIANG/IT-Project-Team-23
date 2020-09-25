@@ -1,19 +1,20 @@
 package com.model;
 
 public class Profile {
-    
-    private String firstname;
-    private String lastname;
-    private String username;
+
+	private String firstname;
+	private String lastname;
+	private String username;
+	private String description;
 	private Avatar avatar;
 	private String link;
 
-    public Profile(String firstname, String lastname, String username) {
-        this.firstname = firstname;
-        this.lastname = lastname;
+	public Profile(String firstname, String lastname, String username) {
+		this.firstname = firstname;
+		this.lastname = lastname;
 		this.username = username;
 		this.link = "";
-    }
+	}
 
 	public String getFirstname() {
 		return firstname;
@@ -57,6 +58,14 @@ public class Profile {
 
 	public void setLink(String link) {
 		this.link = link;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 }
