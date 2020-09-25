@@ -10,6 +10,7 @@ import Artifact from "./containers/Article/index"
 import LoginPage from "./containers/loginPage";
 import RegPage from "./containers/regPage";
 import DupLogin from "./containers/DupLogin";
+import AdminPage from "./containers/AdminPage"
 
 import { observer } from "mobx-react";
 
@@ -49,13 +50,17 @@ const App = observer(class App extends React.Component {
                       />
 
                       <Route exact path="/login" render={(props) => (
-
                           !(localStorage.getItem('email')===null) ? <Redirect to="/duplogin"/> : <LoginPage userStore = {this.props.userStore}/>)}
-
                       />
 
                       <Route exact path="/register" render={(props) => (
                           !(localStorage.getItem('email')===null) ? <Redirect to="/login"/> : <RegPage userStore = {this.props.userStore}/>)}
+                      />
+
+                      <Route exact path="/adminpage" render={(props) => (
+                        !(localStorage.getItem('email')===null) ?
+                        <AdminPage isLoggedIn={this.props.userStore.isLoggedIn} email={this.props.userStore.email} userStore = {this.props.userStore}/>
+                        : <Redirect to="/login"/> )}
                       />
 
                       <Route exact path="/admin" render={(props) => (

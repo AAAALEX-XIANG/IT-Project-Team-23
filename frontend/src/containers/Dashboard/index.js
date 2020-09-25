@@ -33,12 +33,14 @@ export default class Dashboard extends Component {
             username: "",
             firstname: "",
             lastname: "",
+            description:"",
             isLoaded: false,
             error: null,
             loading: false,
             imageUrl: null,
             ifEdit: false,
-            status: false
+            status: false,
+            loadings: [],
         }
 
         this.handleChange = this.handleChange.bind(this);
@@ -75,16 +77,18 @@ export default class Dashboard extends Component {
     }
 
     submitProfile(detail) {
-        const { firstname, lastname, username } = detail;
+        const { firstname, lastname, username, description } = detail;
+        this.enterLoading(0)
         if (firstname.length === 0 || lastname.length === 0 || username.length === 0) {
             alert("name cannot be empty");
         } else {
             updateProfile({ email: localStorage.getItem('email'), firstname: firstname, 
-            lastname: lastname, username: username }).then(
+            lastname: lastname, username: username, description: description }).then(
                 status => this.setState({
                     status: status.res.result
                 })
             )
+            
         }
     }
 
@@ -92,7 +96,8 @@ export default class Dashboard extends Component {
         viewProfile({email:email}).then(
             userInfo =>
             this.setState({userInfo: userInfo, isLoaded: true, username: userInfo.res.username, loading: false,
-                firstname: userInfo.res.firstname, lastname: userInfo.res.lastname, imageUrl: this.setImage(userInfo.res.avatar)})
+                firstname: userInfo.res.firstname, lastname: userInfo.res.lastname,description:userInfo.res.description,
+                imageUrl: this.setImage(userInfo.res.avatar)})
         );
         
     }
@@ -116,8 +121,29 @@ export default class Dashboard extends Component {
         this.fetchInfo(localStorage.getItem('email'));
     }
 
+    enterLoading = index => {
+        this.setState(({ loadings }) => {
+          const newLoadings = [...loadings];
+          newLoadings[index] = true;
+    
+          return {
+            loadings: newLoadings,
+          };
+        });
+        setTimeout(() => {
+          this.setState(({ loadings }) => {
+            const newLoadings = [...loadings];
+            newLoadings[index] = false;
+    
+            return {
+              loadings: newLoadings,
+            };
+          });
+        }, 12000);
+      };
+
     render() {
-        const {isLoaded, firstname, lastname, username, error, loading, imageUrl, ifEdit} = this.state;
+        const {isLoaded, firstname, lastname, username, description, error, loading, imageUrl, ifEdit, loadings} = this.state;
         if (this.state.status === true) {
             window.location.replace("/admin/dashboard");
             // console.log("refresh");
@@ -174,7 +200,7 @@ export default class Dashboard extends Component {
                                 </div>
 
                                 <br /><br />
-                                <div className="buttonBox"> 
+                                <div className="editButtonBox"> 
                                     <Button block onClick={this.changeEdit}>Edit Profile</Button>
                                     <br /><br />
 
@@ -205,14 +231,19 @@ export default class Dashboard extends Component {
                                         <div className="currentInfo"> 
                                             <input type="text" name="lastname" value={this.state.lastname} onChange={this.handleUpdate} required/>
                                         </div>
+                                    </div>               
+                                </div>
+                                <div className="profileInfo">Self Introduction: 
+                                    <div className="currentInfo"> 
+                                        <textarea type="text" name="description" rows="4" cols="50" value={this.state.description} onChange={this.handleUpdate} required/>
                                     </div>
-
-                                    <div className="buttonBox"> 
-                                        <Button block onClick={() => this.submitProfile({firstname, lastname, username})}>Update</Button>
-                                    <br /><br />
-
+                                </div>
+                                <div className="profileInfo">
+                                    <div className="updateButtonBox"> 
+                                        <Button value="default" loading={loadings[0]} onClick={() => this.submitProfile({firstname, lastname, username, description})}>
+                                            Update
+                                        </Button>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
@@ -239,7 +270,7 @@ export default class Dashboard extends Component {
                                 </div>
 
                                 <br /><br />
-                                <div className="buttonBox"> 
+                                <div className="editButtonBox"> 
                                 <Button block onClick={this.changeEdit}>Edit Profile</Button>
                                     <br /><br />
 
@@ -270,6 +301,11 @@ export default class Dashboard extends Component {
                                         <div className="currentInfo"> 
                                             {this.state.lastname}
                                         </div>
+                                    </div>
+                                </div>
+                                <div className="profileInfo">Self Introduction: 
+                                    <div className="currentInfo"> 
+                                        {this.state.description}
                                     </div>
                                 </div>
                             </div>

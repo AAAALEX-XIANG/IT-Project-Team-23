@@ -263,7 +263,7 @@ form a {
 }
 
 .grid-container .rightCol{
-  padding-top: 120px;
+  padding-top: 30px;
 }
 .nameInfo{
   display: grid;
@@ -279,18 +279,18 @@ form a {
   /* padding-right: 20px; */
 }
 
-.buttonBox{
-  margin-top: 90px;
+.editButtonBox{
+  margin-top: 100px;
   margin-bottom: 30px;
+}
+.updateButtonBox{
+  transform: translate(3%, 0);
 }
 
 .avatarBox{
   transform: translate(35%, 35%);
 }
 
-.Button{
-  margin-bottom: 30px;
-}
 
 .avatar-uploader {
   width: 128px;

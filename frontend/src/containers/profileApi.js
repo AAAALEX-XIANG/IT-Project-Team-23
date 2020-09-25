@@ -2,12 +2,13 @@ const BASE_URL = "https://fate-server.herokuapp.com/api/profile";
 
 
 export async function updateProfile(request) {
-    const { email, firstname, lastname, username } = request;
+    const { email, firstname, lastname, username, description} = request;
     let formData = new FormData();
     formData.append("email",email);
     formData.append("firstname", firstname);
     formData.append("lastname", lastname);
     formData.append("username", username);
+    formData.append("description", description);
 
     const endpoint = BASE_URL + `/updateProfile`;
 
