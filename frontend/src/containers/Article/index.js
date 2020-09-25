@@ -46,8 +46,6 @@ const props = {
 };
 
 
-
-
 export default class Article extends Component {
     constructor(props) {
         super(props);
@@ -88,16 +86,18 @@ export default class Article extends Component {
             loadings: [],
             isUpdating: false
         })
+        this.loadAllcates();
         console.log("load artifact");
     }
     
-    categories = showCategory({email: localStorage.getItem('email')}).then(
-        categories =>
-            this.setState({
-                items: categories.res.categories,
-            })
-    );
-    
+    loadAllcates = () => {
+        showCategory({email: localStorage.getItem('email')}).then(
+            categories =>
+                this.setState({
+                    items: categories.res.categories,
+                })
+        );
+    }
 
     onNameChange = event => {
         this.setState({

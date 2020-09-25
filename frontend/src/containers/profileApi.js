@@ -33,7 +33,7 @@ export async function viewProfile(request) {
     const endpoint = BASE_URL + `/viewprofile`;
     let formData = new FormData();
     formData.append("email",email);
-    console.log(email);
+
     //fetch from server api
     let res;
     try {
@@ -45,6 +45,6 @@ export async function viewProfile(request) {
         console.log(e);
         return {error: e};
     }
-    console.log(res);
+
     return {status: await res.status, res: await res.json()};
 }

@@ -6,9 +6,9 @@ import * as serviceWorker from './serviceWorker';
 import userStore from './userData.js';
 
 ReactDOM.render(
-  <React.StrictMode>  
+  <React.Fragment>  
     <App userStore = {userStore}/>
-  </React.StrictMode>,
+  </React.Fragment>,
   document.getElementById('root')
 );
 
