@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+//Control account-related requests from the user's browser
 @CrossOrigin("*")
 @RestController
 @RequestMapping("api/account")
@@ -30,18 +31,20 @@ public class AccountController {
         return accountService.getAllUsers();
     }
 
-    // register
+    // register as a normal user
     @PostMapping("/register")
     public Result register(@RequestBody RegisterRequest request) {
         return accountService.register(request);
     }
 
+    // register as an administrator
     @PostMapping("/register-admin")
     public Result registerAdmin(@RequestParam String adminId, @RequestParam String email,
             @RequestParam String password) {
         return accountService.registerAdmin(adminId, email, password);
     }
 
+    // Same login request for both users and administrators
     @PostMapping("/login")
     public Result login(@RequestParam String email, @RequestParam String password) {
         return accountService.login(email, password);

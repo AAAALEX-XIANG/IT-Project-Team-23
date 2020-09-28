@@ -8,6 +8,7 @@ import java.util.List;
 import com.model.Artifact;
 import com.model.Attachment;
 import com.model.Category;
+import com.model.Profile;
 import com.model.User;
 import com.repositories.UserRepository;
 
@@ -20,8 +21,12 @@ public class GuestService {
     @Autowired
     private UserRepository userRepository;
 
+    private User findUser(String link) {
+        return userRepository.findUserByLink(link);
+    }
+
     public Map<String, Map<String, List<String>>> showContent(String link) {
-        User user = userRepository.findUserByLink(link);
+        User user = findUser(link);
         return showPublicContent(user);
     }
 
@@ -41,7 +46,6 @@ public class GuestService {
                     innerOutput.put(x.getTitle(), innerList);
                 }
             }
-
             // Show the category iff there is at least one element public
             if (innerOutput.size() > 0) {
                 output.put(i.getName(), innerOutput);
@@ -50,4 +54,8 @@ public class GuestService {
         return output;
     }
 
+    public Profile showProfile(String link) {
+        User user = findUser(link);
+        return user.getProfile();
+    }
 }

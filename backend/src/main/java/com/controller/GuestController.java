@@ -1,5 +1,6 @@
 package com.controller;
 
+import com.model.Profile;
 import com.service.GuestService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,4 +26,8 @@ public class GuestController {
         return guestService.showContent(link);
     }
 
+    @PostMapping("/showUserProfile")
+    public Profile findProfileByLink(@RequestParam String link) {
+        return guestService.showProfile(link);
+    }
 }
