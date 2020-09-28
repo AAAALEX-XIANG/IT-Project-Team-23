@@ -254,8 +254,6 @@ form a {
   font-size: medium;
   font-weight: 500;
   color: black;
-  /* background-color: white;
-  border: 1px solid #85C1E9; */
   margin-right: 40px;
   padding-left: 20px;
 }
@@ -291,6 +289,12 @@ form a {
   margin-top: 100px;
   margin-bottom: 30px;
 }
+
+.shareButtonBox {
+  margin-top: 100px;
+  margin-bottom: 30px;
+}
+
 .updateButtonBox {
   transform: translate(3%, 0);
 }
@@ -299,10 +303,15 @@ form a {
   transform: translate(35%, 35%);
 }
 
+.avatarBox-guest {
+  transform: translate(30%, 0);
+}
+
 .avatar-uploader {
   width: 128px;
   height: 128px;
 }
+
 /* --------------------------------Loading page ---------------------------*/
 .loading {
   margin: 300px auto;
