@@ -81,26 +81,28 @@ export default class Article extends Component {
     console.log("clear artifact");
   }
 
-  componentDidMount() {
-    this.setState({
-      value: "",
-      items: [],
-      name: "",
-      title: "",
-      description: "",
-      privacy: "",
-      loadings: [],
-      isUpdating: false,
-    });
-    console.log("load artifact");
-  }
-
   categories = showCategory({ email: localStorage.getItem("email") }).then(
     (categories) =>
       this.setState({
         items: categories.res.categories,
       })
   );
+  // =======
+  // export default class Article extends Component {
+  //     constructor(props) {
+  //         super(props);
+  //         this.state = {
+  //             value: '',
+  //             items: [],
+  //             name: '',
+  //             title: '',
+  //             description: '',
+  //             privacy: '' ,
+  //             loadings: [],
+  //             isUpdating: false
+  //         };
+  //     }
+  // >>>>>>> 56c7ae42fe2857a2398dc90660a2c3ae5128bb14
 
   onNameChange = (event) => {
     this.setState({
@@ -115,6 +117,28 @@ export default class Article extends Component {
     });
     console.log("event", event);
     // console.log('email:::', props.action);
+  };
+  componentDidMount() {
+    this.setState({
+      value: "",
+      items: [],
+      name: "",
+      title: "",
+      description: "",
+      privacy: "",
+      loadings: [],
+      isUpdating: false,
+    });
+    this.loadAllcates();
+    console.log("load artifact");
+  }
+
+  loadAllcates = () => {
+    showCategory({ email: localStorage.getItem("email") }).then((categories) =>
+      this.setState({
+        items: categories.res.categories,
+      })
+    );
   };
 
   onTitleChange = (event) => {

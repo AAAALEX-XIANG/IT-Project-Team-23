@@ -11,11 +11,6 @@ import Navbar from "../../components/Navbar";
 
 const { Panel } = Collapse;
 
-let categories = [];
-let files = [];
-let attachment = [];
-let file = [];
-
 export default class Setting extends Component {
   constructor(props) {
     super(props);
@@ -41,7 +36,7 @@ export default class Setting extends Component {
   }
 
   showAllCate = () => {
-    files = getCategoryArtifact({ email: localStorage.getItem("email") }).then(
+    getCategoryArtifact({ email: localStorage.getItem("email") }).then(
       (files) =>
         // console.log(files.res)
         this.setState({
@@ -127,11 +122,11 @@ export default class Setting extends Component {
   }
 
   downloadAttachment(item) {
-    file = getAttachment(item).then((file) => this.downloadFile(file.res));
+    getAttachment(item).then((file) => this.downloadFile(file.res));
     this.enterLoading(1);
   }
   viewAttachment(item) {
-    file = getAttachment(item).then((file) => this.viewFile(file.res));
+    getAttachment(item).then((file) => this.viewFile(file.res));
     this.enterLoading(0);
   }
 
