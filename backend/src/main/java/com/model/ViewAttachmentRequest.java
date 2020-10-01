@@ -1,7 +1,7 @@
 package com.model;
 
 public class ViewAttachmentRequest {
-    
+
     private String email;
     private String category;
     private String artifact;
@@ -38,6 +38,5 @@ public class ViewAttachmentRequest {
     public void setAttackment(String attachment) {
         this.attachment = attachment;
     }
-
 
 }

@@ -28,6 +28,7 @@ public class CacheController {
         return cacheService.upload(email, file);
     }
 
+    // Clear a user's cache when his operation is over
     @GetMapping("/clear/{email}")
     public Result clearCache(@PathVariable String email) {
         return cacheService.clear(email);

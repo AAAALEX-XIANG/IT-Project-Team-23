@@ -21,4 +21,14 @@ public class Result {
         this.reason = reason;
     }
 
+    public void setNoEmail() {
+        this.res = false;
+        this.reason = "email not found";
+    }
+
+    public void setSuccess() {
+        this.res = true;
+        this.reason = "Success";
+    }
+
 }

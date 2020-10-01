@@ -7,16 +7,15 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Administrator {
     @Id
     private String adminId;
-    
+
     private String emailaddress;
     private String password;
 
-    public Administrator (String adminId, String emailaddress, String password){
+    public Administrator(String adminId, String emailaddress, String password) {
         this.adminId = adminId;
         this.emailaddress = emailaddress;
         this.password = password;
     }
-
 
     public String getPassword() {
         return password;
@@ -42,7 +41,4 @@ public class Administrator {
         this.emailaddress = emailaddress;
     }
 
-
-
-    
 }

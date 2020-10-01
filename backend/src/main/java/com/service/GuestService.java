@@ -21,12 +21,16 @@ public class GuestService {
     @Autowired
     private UserRepository userRepository;
 
+    // Find the user's account by his own link
     private User findUser(String link) {
         return userRepository.findUserByLink(link);
     }
 
     public Map<String, Map<String, List<String>>> showContent(String link) {
         User user = findUser(link);
+        if (user == null) {
+            return null;
+        }
         return showPublicContent(user);
     }
 
@@ -54,8 +58,12 @@ public class GuestService {
         return output;
     }
 
+    // Get the profile of a user by his link
     public Profile showProfile(String link) {
         User user = findUser(link);
+        if (user == null) {
+            return null;
+        }
         return user.getProfile();
     }
 }

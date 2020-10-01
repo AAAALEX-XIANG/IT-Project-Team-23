@@ -3,14 +3,8 @@ package com.model;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-
-/**
- * Created by Jiehuang Shi on 2020/8/31.
- * Modified by Alex
- */
 
 @Document(collection = "User")
 public class User {
@@ -23,7 +17,7 @@ public class User {
     private Profile profile;
     private List<Category> categories;
 
-    public User(String studentId,String emailaddress, String password, Profile profile) {
+    public User(String studentId, String emailaddress, String password, Profile profile) {
         this.studentId = studentId;
         this.emailaddress = emailaddress;
         this.password = password;
@@ -31,21 +25,21 @@ public class User {
         this.categories = new ArrayList<>();
     }
 
-    public void addCategory(String name){
+    public void addCategory(String name) {
         Category category = new Category(name);
         categories.add(category);
     }
 
-    public void removeCategory(String name){
+    public void removeCategory(String name) {
         Category category = existCategory(name);
-        if(category != null){
+        if (category != null) {
             categories.remove(category);
         }
     }
 
-    public Category existCategory(String name){
-        for(Category i : categories){
-            if (name.equals(i.getName())){
+    public Category existCategory(String name) {
+        for (Category i : categories) {
+            if (name.equals(i.getName())) {
                 return i;
             }
         }
@@ -59,7 +53,6 @@ public class User {
     public void setCategories(List<Category> categories) {
         this.categories = categories;
     }
-
 
     public String getPassword() {
         return password;

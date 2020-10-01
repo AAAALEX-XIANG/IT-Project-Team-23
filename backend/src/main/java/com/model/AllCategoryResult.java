@@ -2,7 +2,7 @@ package com.model;
 
 import java.util.List;
 
-public class CategoryResult {
+public class AllCategoryResult {
 
     private List<String> categories;
 

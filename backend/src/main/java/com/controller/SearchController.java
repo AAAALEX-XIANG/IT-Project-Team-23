@@ -16,12 +16,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("api/search")
 public class SearchController {
-    
+
     @Autowired
     private SearchService searchService;
 
+    // Handle the request from the frontend for searching a user by the
+    // administrator
     @GetMapping("/show")
-    public List<User> showUser(@RequestParam String info) {     
+    public List<User> showUser(@RequestParam String info) {
         return searchService.showUser(info);
     }
 }

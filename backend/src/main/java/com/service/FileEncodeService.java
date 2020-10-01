@@ -6,6 +6,7 @@ import com.encoder.Md5Util;
 
 import org.bson.types.Binary;
 
+//This class is used to apply encrytion algorithm for the content uploaded by our user
 public class FileEncodeService {
 
     private FileEncodeService() {

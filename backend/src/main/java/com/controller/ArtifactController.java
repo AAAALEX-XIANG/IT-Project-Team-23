@@ -3,7 +3,6 @@ package com.controller;
 import java.util.List;
 import java.util.Map;
 
-import com.model.AllCategoryRequest;
 import com.model.Result;
 import com.model.ViewArtifact;
 import com.model.ViewAttachmentRequest;
@@ -28,15 +27,10 @@ public class ArtifactController {
     @Autowired
     private ArtifactService artifactService;
 
-    @PostMapping("/show-Category-Artifact")
-    public Map<String, List<String>> showCategoryArtifact(@RequestBody AllCategoryRequest request) {
-        return artifactService.showCategoryArtifact(request);
-    }
-
+    // Show all the categories , artifacts attachments of a single user
     @PostMapping("/show-Category-Artifact-Attachment")
-    public Map<String, Map<String, List<String>>> showCategoryArtifactAttachments(
-            @RequestBody AllCategoryRequest request) {
-        return artifactService.showCategoryArtifactAttachments(request);
+    public Map<String, Map<String, List<String>>> showCategoryArtifactAttachments(@RequestParam String email) {
+        return artifactService.showCategoryArtifactAttachments(email);
     }
 
     // Upload a artifact under a User's Category
@@ -47,16 +41,25 @@ public class ArtifactController {
         return artifactService.upload(email, category, title, description, attachment, privacy);
     }
 
+    // Delete an artifact according to an email address and a category name
     @PostMapping("/delete-artifact")
     public Result deleteArtifact(@RequestBody ViewArtifact request) {
         return artifactService.deleteArtifact(request);
     }
 
+    // Get a prefered attachment by the user
     @PostMapping("/get-attachment")
     public ViewAttachmentResult viewAttachment(@RequestBody ViewAttachmentRequest request) {
         return artifactService.viewAttachment(request);
     }
 
+    @PostMapping("/get-attachment-byLink")
+    public ViewAttachmentResult viewAttachmentByLink(@RequestParam String link, @RequestParam String category,
+            @RequestParam String artifact, @RequestParam String attachment) {
+        return artifactService.viewAttachmentByLink(link, category, artifact, attachment);
+    }
+
+    // Switch the privacy of an artifact
     @PostMapping("/change-privacy")
     public Result switchPrivacy(@RequestParam String email, @RequestParam String category,
             @RequestParam String artifact, @RequestParam String privacy) {

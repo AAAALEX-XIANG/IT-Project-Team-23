@@ -21,11 +21,13 @@ public class GuestController {
     @Autowired
     private GuestService guestService;
 
+    // Handle the request from frontend to get all the public content of a user
     @PostMapping("/showUserPublic")
     public Map<String, Map<String, List<String>>> findPubByLink(@RequestParam String link) {
         return guestService.showContent(link);
     }
 
+    // Handle the requets from the frontend to get the profile of a user
     @PostMapping("/showUserProfile")
     public Profile findProfileByLink(@RequestParam String link) {
         return guestService.showProfile(link);
