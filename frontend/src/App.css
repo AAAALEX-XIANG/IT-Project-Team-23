@@ -276,6 +276,19 @@ form a {
   grid-template-columns: 50% 50%;
 }
 
+.intro{
+  font-size: medium;
+  font-weight: 500;
+  color: black;
+  margin-right: 40px;
+  padding-left: 20px;
+  
+  white-space:pre-wrap;
+  white-space:-moz-pre-wrap;
+  white-space:-o-pre-wrap;
+  word-wrap:break-word;
+}
+
 .grid-container > div {
   background-image: url("asserts/background.jpg");
   background-position: center;

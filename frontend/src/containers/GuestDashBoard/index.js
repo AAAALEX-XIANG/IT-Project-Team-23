@@ -175,7 +175,7 @@ export default class GuestDashboard extends Component {
             </div>
             <div className="profileInfo">
               Self Introduction:
-              <div className="currentInfo">{this.state.description}</div>
+              <div className="intro">{this.state.description}</div>
             </div>
           </div>
         </div>

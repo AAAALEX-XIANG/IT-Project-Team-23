@@ -4,8 +4,13 @@ import { DownloadOutlined, PictureOutlined } from "@ant-design/icons";
 //import { showCategory, deleteCategory, showArtifacts } from "../../containers/categoryApi"
 import {
   getCategoryArtifact,
-  getAttachment,
+  getAttachment, 
+  deleteArtifact,
+  switchPrivacy
 } from "../../containers/artifactApi";
+import {
+  deleteCategory
+} from "../categoryApi"
 
 import Navbar from "../../components/Navbar";
 
@@ -45,6 +50,54 @@ export default class Setting extends Component {
         })
     );
   };
+
+  deleteCate(request) {
+    if (
+      window.confirm("Are you sure to delete " + request.categoryName + "?")
+    ) {
+      deleteCategory(request).then(
+        window.location.replace("/admin/category"))
+    } else {
+    }
+  }
+
+  deleteArti(request) {
+    if (
+      window.confirm("Are you sure to delete " + request.artifact + "?")
+    ) {
+      deleteArtifact(request).then(
+        window.location.replace("/admin/category"))
+    } else {
+    }
+  }
+  
+  changePrivacy(request) {
+    
+    if (request.privacy === "public") {
+      if (
+        window.confirm("Are you sure to change public to private?")
+      ) {
+        switchPrivacy({email: localStorage.getItem("email"),
+          category: request.category,
+          artifact: request.artifact,
+          privacy: "private"}).then(
+          window.location.replace("/admin/category"))
+      } else {
+      }
+    } else {
+      if (
+        window.confirm("Are you sure to change private to public?")
+      ) {
+        switchPrivacy({email: localStorage.getItem("email"),
+          category: request.category,
+          artifact: request.artifact,
+          privacy: "public"}).then(
+          window.location.replace("/admin/category"))
+      } else {
+      }
+    }
+    
+  }
 
   downloadFile(request) {
     // Decode Base64 to binary and show some information about the file
@@ -130,6 +183,7 @@ export default class Setting extends Component {
     this.enterLoading(0);
   }
 
+
   enterLoading = (index) => {
     this.setState(({ loadings }) => {
       const newLoadings = [...loadings];
@@ -188,9 +242,47 @@ export default class Setting extends Component {
           <Collapse>
             {cates.map((item) => (
               <Panel header={item} key={item}>
+                <Button
+                  loading={loadings[0]}
+                  onClick={() =>
+                  this.deleteCate({
+                    email: localStorage.getItem("email"),
+                    categoryName: item,
+                  })
+                }
+                >
+                Delete Category
+                </Button>
+                <br />
                 <Collapse>
                   {categories.get(item).map((title) => (
                     <Panel header={title} key={title}>
+                      <Button
+                        loading={loadings[0]}
+                        onClick={() =>
+                        this.deleteArti({
+                          email: localStorage.getItem("email"),
+                          category: item,
+                          artifact: title
+                        })
+                      }
+                      >
+                      Delete Artifact
+                      </Button>
+                      <Button
+                        loading={loadings[0]}
+                        onClick={() =>
+                        this.changePrivacy({
+                          email: localStorage.getItem("email"),
+                          category: item,
+                          artifact: title,
+                          privacy: files[item][title][1]
+                        })
+                      }
+                      >
+                      {files[item][title][1]}
+                      </Button>
+                      <br />
                       Description:
                       <p>{files[item][title][0]}</p>
                       Attachments:

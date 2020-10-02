@@ -9,11 +9,6 @@ import GuestNavbar from "../../components/GuestNavbar";
 const { Panel } = Collapse;
 let currenLink = window.location.pathname.split("/").pop();
 
-let categories = [];
-let files = [];
-let attachment = [];
-let file = [];
-
 export default class GuestCate extends Component {
   constructor(props) {
     super(props);
@@ -39,7 +34,7 @@ export default class GuestCate extends Component {
   }
 
   showAllCate = () => {
-    files = getGuestPublic({ link: currenLink }).then((files) =>
+    getGuestPublic({ link: currenLink }).then((files) =>
       // console.log(files.res)
       this.setState({
         files: files.res,
@@ -124,11 +119,11 @@ export default class GuestCate extends Component {
   }
 
   downloadAttachment(item) {
-    file = getGuestAttachment(item).then((file) => this.downloadFile(file.res));
+    getGuestAttachment(item).then((file) => this.downloadFile(file.res));
     this.enterLoading(1);
   }
   viewAttachment(item) {
-    file = getGuestAttachment(item).then((file) => this.viewFile(file.res));
+    getGuestAttachment(item).then((file) => this.viewFile(file.res));
     this.enterLoading(0);
   }
 

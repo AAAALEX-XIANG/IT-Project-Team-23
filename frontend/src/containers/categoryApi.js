@@ -59,15 +59,12 @@ export async function showCategory(request) {
 
   //fetch from server api
   let res;
+  let formData = new FormData();
+  formData.append("email", email)
   try {
     res = await fetch(endpoint, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: email,
-      }),
+      body: formData
     });
   } catch (e) {
     console.log(e);
