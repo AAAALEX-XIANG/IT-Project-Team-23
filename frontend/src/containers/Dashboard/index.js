@@ -429,7 +429,9 @@ export default class Dashboard extends Component {
                 <div className="profileInfo">
                   Sharable Link:
                   <div className="currentInfo">
-                    {"http://localhost:3000/guest/dashboard/" + this.state.shareLink}
+                    <a href={"http://localhost:3000/guest/dashboard/"+ this.state.shareLink}>
+                      {"http://localhost:3000/guest/dashboard/"+ this.state.shareLink}
+                    </a>
                   </div>
                 </div>
               </div>

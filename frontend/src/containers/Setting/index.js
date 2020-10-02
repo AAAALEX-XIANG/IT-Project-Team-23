@@ -202,7 +202,7 @@ export default class Setting extends Component {
           loadings: newLoadings,
         };
       });
-    }, 50000);
+    }, 5000);
   };
 
   render() {
@@ -218,6 +218,7 @@ export default class Setting extends Component {
       }
       categories.set(cate, artifacts);
     }
+    
     if (!isLoaded) {
       //loading screen
       return (

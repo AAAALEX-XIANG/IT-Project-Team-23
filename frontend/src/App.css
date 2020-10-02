@@ -374,3 +374,10 @@ form a {
     height: 20px;
   }
 }
+
+/* --------------------------------Admin Page ---------------------------*/
+.adminSearch {
+  
+  width: 800px;
+  height: 128px;
+}
