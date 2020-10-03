@@ -38,19 +38,26 @@ class LoginForm extends React.Component {
 
     if (status === 200) {
       this.setState({ wrongAttempt: false });
-
+    
       if (user.result) {
-        this.props.userStore.isLoggedIn = true;
-        this.props.userStore.email = this.state.email;
-        //this.props.userStore.user = user[0];
-        localStorage.setItem("email", this.state.email);
+        if (user.reason === "User") {
+          this.props.userStore.isLoggedIn = true;
+          this.props.userStore.email = this.state.email;
+          localStorage.setItem("email", this.state.email);
 
-        const actionURL = clearURL + `${localStorage.getItem("email")}`;
-        fetch(actionURL, {
-          method: "GET",
-        });
+          const actionURL = clearURL + `${localStorage.getItem("email")}`;
+          fetch(actionURL, {
+            method: "GET",
+          });
 
-        this.props.history.push("/admin/dashboard");
+          this.props.history.push("/admin/dashboard");
+        } else {
+          // this user is an administrator
+          this.props.userStore.isLoggedIn = true;
+          localStorage.setItem("adminEmail", this.state.email);
+          this.props.history.push("/adminpage");
+        }
+        
       } else {
         this.setState({ wrongAttempt: true });
       }

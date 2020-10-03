@@ -36,6 +36,7 @@ export async function login(userDetails) {
     console.log(e);
     return { error: e };
   }
+  
   return { status: res.status, user: await res.json() };
 }
 

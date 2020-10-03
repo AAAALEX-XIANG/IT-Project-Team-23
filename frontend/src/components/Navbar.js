@@ -7,7 +7,6 @@ import { NavLink } from "react-router-dom";
 let clearURL = "https://fatewhole.herokuapp.com/api/cache/clear/";
 export default function Navbar() {
   const logout = () => {
-    // eslint-disable-next-line no-useless-concat
     const actionURL = clearURL + `${localStorage.getItem("email")}`;
     fetch(actionURL, {
       method: "GET",

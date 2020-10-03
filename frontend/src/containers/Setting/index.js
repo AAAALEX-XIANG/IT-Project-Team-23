@@ -50,27 +50,32 @@ export default class Setting extends Component {
         })
     );
   };
-
+  
+  // delete category
   deleteCate(request) {
     if (
       window.confirm("Are you sure to delete " + request.categoryName + "?")
     ) {
       deleteCategory(request).then(
         window.location.replace("/admin/category"))
+      this.enterLoading(2);
     } else {
     }
   }
 
+  // delete artifact
   deleteArti(request) {
     if (
       window.confirm("Are you sure to delete " + request.artifact + "?")
     ) {
       deleteArtifact(request).then(
         window.location.replace("/admin/category"))
+        this.enterLoading(3);
     } else {
     }
   }
   
+  // change privacy of the artifact
   changePrivacy(request) {
     
     if (request.privacy === "public") {
@@ -82,6 +87,7 @@ export default class Setting extends Component {
           artifact: request.artifact,
           privacy: "private"}).then(
           window.location.replace("/admin/category"))
+          this.enterLoading(4);
       } else {
       }
     } else {
@@ -93,6 +99,7 @@ export default class Setting extends Component {
           artifact: request.artifact,
           privacy: "public"}).then(
           window.location.replace("/admin/category"))
+          this.enterLoading(4);
       } else {
       }
     }
@@ -183,7 +190,7 @@ export default class Setting extends Component {
     this.enterLoading(0);
   }
 
-
+  // helper function to ensure data updating
   enterLoading = (index) => {
     this.setState(({ loadings }) => {
       const newLoadings = [...loadings];
@@ -210,6 +217,7 @@ export default class Setting extends Component {
     let cates = [];
     let categories = new Map();
 
+    // store response categories in a map and artifacts in an array
     for (var cate in files) {
       cates.push(cate);
       let artifacts = [];
