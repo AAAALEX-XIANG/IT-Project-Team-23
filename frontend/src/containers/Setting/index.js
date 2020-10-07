@@ -56,9 +56,8 @@ export default class Setting extends Component {
     if (
       window.confirm("Are you sure to delete " + request.categoryName + "?")
     ) {
-      deleteCategory(request).then(
+      deleteCategory(request).then(change =>
         window.location.replace("/admin/category"))
-      this.enterLoading(2);
     } else {
     }
   }
@@ -68,9 +67,8 @@ export default class Setting extends Component {
     if (
       window.confirm("Are you sure to delete " + request.artifact + "?")
     ) {
-      deleteArtifact(request).then(
+      deleteArtifact(request).then(change =>
         window.location.replace("/admin/category"))
-        this.enterLoading(3);
     } else {
     }
   }
@@ -85,9 +83,8 @@ export default class Setting extends Component {
         switchPrivacy({email: localStorage.getItem("email"),
           category: request.category,
           artifact: request.artifact,
-          privacy: "private"}).then(
+          privacy: "private"}).then(change => 
           window.location.replace("/admin/category"))
-          this.enterLoading(4);
       } else {
       }
     } else {
@@ -97,9 +94,8 @@ export default class Setting extends Component {
         switchPrivacy({email: localStorage.getItem("email"),
           category: request.category,
           artifact: request.artifact,
-          privacy: "public"}).then(
+          privacy: "public"}).then(change =>
           window.location.replace("/admin/category"))
-          this.enterLoading(4);
       } else {
       }
     }
@@ -157,6 +153,7 @@ export default class Setting extends Component {
       if (
         type === "application/pdf" ||
         type === "image/jpeg" ||
+        type === "image/png" ||
         type === "text/plain"
       ) {
         // view file

@@ -4,18 +4,22 @@ import RegForm from '../components/register';
 
 export default function RegPage() {
     return (
-        <div className="pageContainer2">
-            <div className="logo"></div>
-            <div className="floatRight">
-                <br /><br />
-                <div className="formDisplay">
-                    <RegForm />
-                </div>
+        <div className="wrap">
+            <div className="container">
+                <RegForm />
             </div>
-            <div className="floatLeft">
-                <br /><br /><br /><br />
-                <div className="formDisplay"> </div>
-            </div>
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
         </div>
     );
 }

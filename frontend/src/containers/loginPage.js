@@ -5,15 +5,22 @@ import LoginForm from '../components/login';
 
 export default function Loginpage(props) {
     return (
-        <div className="pageContainer2">
-            <br /><br /><br /><br /><br />
-
-            <div className="floatRight">
-
-                <div className="loginForm">
-                    <LoginForm userStore = {props.userStore}/>
-                </div>
+        <div className = "wrap">
+            <div className = "container">
+                <LoginForm userStore = {props.userStore}/>
             </div>
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
         </div>
     );
 }

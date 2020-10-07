@@ -67,13 +67,11 @@ class LoginForm extends React.Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <div className="titleHeader">Log In</div>
-        <br />
-        <br />
+        <h1>Log In</h1>
         <div className="formDisplay">
           <label>
-            <div className="subTitle2">Email</div>
             <input
+              placeholder="Email"
               type="text"
               name="email"
               value={this.state.email}
@@ -81,11 +79,9 @@ class LoginForm extends React.Component {
               required
             />
           </label>
-          <br />
-          <br />
           <label>
-            <div className="subTitle2">Password</div>
             <input
+              placeholder="Password"
               type="password"
               name="password"
               value={this.state.password}
@@ -93,12 +89,9 @@ class LoginForm extends React.Component {
               required
             />
           </label>
-          <br />
-          <br />
           <div className="subTitle">
             Don't have an account? <a href="/register">Register</a>
           </div>
-          <br />
           <br />
           {this.state.wrongAttempt ? (
             <div className="formError">
@@ -108,6 +101,7 @@ class LoginForm extends React.Component {
           <input type="submit" value="Log In" />
         </div>
       </form>
+      
     );
   }
 }

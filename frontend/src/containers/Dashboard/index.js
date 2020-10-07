@@ -86,10 +86,6 @@ export default class Dashboard extends Component {
     });
   }
 
-  // redirectToLink() {
-  //   window.open(window.location + "/" + this.state.shareLink);
-  // }
-
   submitProfile(detail) {
     const { firstname, lastname, username, description } = detail;
     this.enterLoading(0);
@@ -233,6 +229,7 @@ export default class Dashboard extends Component {
           <div style={{ marginTop: 8 }}>Upload</div>
         </div>
       );
+      
       if (ifEdit) {
         return (
           <div className="pageContainer">
@@ -260,10 +257,10 @@ export default class Dashboard extends Component {
                     )}
                   </Upload>
                 </div>
-
-                <br />
-                <br />
                 <div className="editButtonBox">
+                <div>Click the image above to update avatar</div>
+                  <br />
+                  <br />
                   <Button block onClick={this.changeEdit}>
                     Edit Profile
                   </Button>
@@ -383,10 +380,10 @@ export default class Dashboard extends Component {
                     )}
                   </Upload>
                 </div>
-
-                <br />
-                <br />
                 <div className="editButtonBox">
+                  <div>Click the image above to update avatar</div>
+                  <br />
+                  <br />
                   <Button block onClick={this.changeEdit}>
                     Edit Profile
                   </Button>
