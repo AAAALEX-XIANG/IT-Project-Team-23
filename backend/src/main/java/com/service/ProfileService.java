@@ -1,11 +1,7 @@
 package com.service;
 
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
-import com.encoder.Md5Util;
 import com.model.Avatar;
 import com.model.Profile;
 import com.model.Result;
@@ -36,8 +32,7 @@ public class ProfileService {
                 image.getSize());
         user.getProfile().setAvatar(avatar);
         userRepository.save(user);
-        result.setReason("Update sccuess!");
-        result.setResult(true);
+        result.setSuccess();
         return result;
     }
 
@@ -72,8 +67,7 @@ public class ProfileService {
         user.getProfile().setUsername(username);
         user.getProfile().setDescription(description);
         userRepository.save(user);
-        result.setReason("Update success!");
-        result.setResult(true);
+        result.setSuccess();
         return result;
     }
 
@@ -82,13 +76,8 @@ public class ProfileService {
         User user = userRepository.findByEmailaddress(email);
         String studentId = user.getStudentId();
         Profile profile = user.getProfile();
-        // getting current date time using calendar class
-        DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
-        Calendar calobj = Calendar.getInstance();
-        String date = df.format(calobj.getTime());
-        String output = Md5Util.md5(email + studentId + date);
-        profile.setLink(output);
+        profile.generateLink(email, studentId);
         userRepository.save(user);
-        return output;
+        return profile.getLink();
     }
 }

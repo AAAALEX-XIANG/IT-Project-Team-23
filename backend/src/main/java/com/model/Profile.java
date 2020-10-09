@@ -1,5 +1,11 @@
 package com.model;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
+import com.encoder.Md5Util;
+
 public class Profile {
 
 	private String firstname;
@@ -13,7 +19,15 @@ public class Profile {
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.username = username;
-		this.link = "";
+		this.description = "";
+	}
+
+	public void generateLink(String email, String studentId) {
+		// getting current date time using calendar class
+		DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
+		Calendar calobj = Calendar.getInstance();
+		String date = df.format(calobj.getTime());
+		this.link = Md5Util.md5(email + studentId + date);
 	}
 
 	public String getFirstname() {

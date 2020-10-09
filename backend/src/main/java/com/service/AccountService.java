@@ -49,7 +49,9 @@ public class AccountService {
 
         // Register the user's information and create a profile
         result.setSuccess();
+        // Create a new profile for the user and generate his link automatically
         Profile profile = new Profile(request.getFirstname(), request.getLastname(), request.getUsername());
+        profile.generateLink(request.getEmailaddress(), request.getStudentId());
         User user = new User(request.getStudentId(), request.getEmailaddress(), Md5Util.md5(request.getPassword()),
                 profile);
         userRepository.save(user);
