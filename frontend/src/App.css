@@ -256,6 +256,7 @@ input {
   animation: square 25s infinite;
   -webkit-animation: square 25s infinite;
 }
+
 .wrap ul li:nth-child(1) {
   left: 0;
   animation-duration: 10s;

@@ -11,7 +11,7 @@ import {
 
 //let clearURL = 'https://fate-server.herokuapp.com/api/cache/clear/';
 //let clearURL = "http://localhost:8080/api/cache/clear/";
-let clearURL = "https://fatewhole.herokuapp.com/api/cache/clear/";
+let clearURL = "https://fate-e-portfolio.herokuapp.com/api/cache/clear/";
 export default function Navbar() {
   const logout = () => {
     const actionURL = clearURL + `${localStorage.getItem("email")}`;
