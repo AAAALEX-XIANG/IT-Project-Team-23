@@ -46,7 +46,6 @@ public class TestingEnvironment {
         request.setUsername("Alex");
         Result result = accountService.register(request);
         assertEquals("Success", result.getReason());
-
     }
 
 }
