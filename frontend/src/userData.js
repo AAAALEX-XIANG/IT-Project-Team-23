@@ -11,7 +11,7 @@ class UserStore {
     }
 
     get report() {
-        if (this.isLoggedIn)
+        if (localStorage.getItem("email") != null || localStorage.getItem("adminEmail") != null)
             return "Logged In!!!";
         return `Not logged In :(`;
     }

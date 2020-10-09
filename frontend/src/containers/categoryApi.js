@@ -1,4 +1,4 @@
-const BASE_URL = "https://fatewhole.herokuapp.com/api/categories";
+const BASE_URL = "https://fate-e-portfolio.herokuapp.com/api/categories";
 //const BASE_URL = "http://localhost:8080/api/categories";
 
 export async function addCategory(request) {
@@ -60,11 +60,11 @@ export async function showCategory(request) {
   //fetch from server api
   let res;
   let formData = new FormData();
-  formData.append("email", email);
+  formData.append("email", email)
   try {
     res = await fetch(endpoint, {
       method: "POST",
-      body: formData,
+      body: formData
     });
   } catch (e) {
     console.log(e);

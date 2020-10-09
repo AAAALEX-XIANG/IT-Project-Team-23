@@ -2,7 +2,7 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import { login } from "../containers/accountApi";
 
-let clearURL = "https://fatewhole.herokuapp.com/api/cache/clear/";
+let clearURL = "https://fate-e-portfolio.herokuapp.com/api/cache/clear/";
 //let clearURL = "http://localhost:8080/api/cache/clear/";
 class LoginForm extends React.Component {
   constructor(props) {
@@ -38,19 +38,26 @@ class LoginForm extends React.Component {
 
     if (status === 200) {
       this.setState({ wrongAttempt: false });
-
+    
       if (user.result) {
-        this.props.userStore.isLoggedIn = true;
-        this.props.userStore.email = this.state.email;
-        //this.props.userStore.user = user[0];
-        localStorage.setItem("email", this.state.email);
+        if (user.reason === "User") {
+          this.props.userStore.isLoggedIn = true;
+          this.props.userStore.email = this.state.email;
+          localStorage.setItem("email", this.state.email);
 
-        const actionURL = clearURL + `${localStorage.getItem("email")}`;
-        fetch(actionURL, {
-          method: "GET",
-        });
+          const actionURL = clearURL + `${localStorage.getItem("email")}`;
+          fetch(actionURL, {
+            method: "GET",
+          });
 
-        this.props.history.push("/admin/dashboard");
+          this.props.history.push("/admin/dashboard");
+        } else {
+          // this user is an administrator
+          this.props.userStore.isLoggedIn = true;
+          localStorage.setItem("adminEmail", this.state.email);
+          this.props.history.push("/adminpage");
+        }
+        
       } else {
         this.setState({ wrongAttempt: true });
       }
@@ -60,13 +67,11 @@ class LoginForm extends React.Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <div className="titleHeader">Log In</div>
-        <br />
-        <br />
+        <h1>Log In</h1>
         <div className="formDisplay">
           <label>
-            <div className="subTitle2">Email</div>
             <input
+              placeholder="Email"
               type="text"
               name="email"
               value={this.state.email}
@@ -74,11 +79,9 @@ class LoginForm extends React.Component {
               required
             />
           </label>
-          <br />
-          <br />
           <label>
-            <div className="subTitle2">Password</div>
             <input
+              placeholder="Password"
               type="password"
               name="password"
               value={this.state.password}
@@ -86,12 +89,9 @@ class LoginForm extends React.Component {
               required
             />
           </label>
-          <br />
-          <br />
           <div className="subTitle">
             Don't have an account? <a href="/register">Register</a>
           </div>
-          <br />
           <br />
           {this.state.wrongAttempt ? (
             <div className="formError">
@@ -101,6 +101,7 @@ class LoginForm extends React.Component {
           <input type="submit" value="Log In" />
         </div>
       </form>
+      
     );
   }
 }

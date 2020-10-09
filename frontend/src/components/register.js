@@ -13,7 +13,8 @@ class RegForm extends React.Component {
             username: "",
             password: "",
             password_confirm: "",
-            success: true,
+            result: false,
+            success: false,
             res: ""
         };
 
@@ -25,14 +26,20 @@ class RegForm extends React.Component {
         const target = event.target;
         const value = target.value;
         const name = target.name;
-
+        
         this.setState({
             [name]: value,
         });
+        
     }
 
     async handleSubmit(event) {
         event.preventDefault();
+
+        if (this.state.password.length < 6) {
+            alert("Password should not be less than 6 characters");
+            return;
+        }
 
         if(this.state.password !== this.state.password_confirm){
             alert("Inconsistent password");
@@ -49,63 +56,57 @@ class RegForm extends React.Component {
                 password: this.state.password,
                 password_confirm: this.state.password_confirm
             });
-      //alert(res.reason);
+
+        
         console.log(status);
-        console.log(res);
-        this.setState({success: status===200, res: res})
+        if (res.result) {
+            this.setState({success: status===200, res: res})
+        } else {
+            alert(res.reason);
+        }
+        
         if(this.state.success) {
             this.props.history.push('/login');
         }
-
     }
 
     render() {
         return (
             <form onSubmit={this.handleSubmit}>
-                <div className="titleHeader">Register</div>
+                <h1>Register</h1>
                 <div className="subTitle">Already have an account? <a href = "/">Log in</a></div>
-                <label>
-                    <div className="subTitle2">First name</div>
-                    <input type="text" name="first_name" value={this.state.first_name} onChange={this.handleChange} required/>
-                </label>
-                <br />
-                <label>
-                    <div className="subTitle2">Last name</div>
-                    <input type="text" name="last_name" value={this.state.last_name} onChange={this.handleChange} required/>
-                </label>
-                <br />
-                <label>
-                    <div className="subTitle2">Student ID</div>
-                    <input type="text" name="studentId" value={this.state.studentId} onChange={this.handleChange} required/>
-                </label>
-                <br />
-                <label>
-                    <div className="subTitle2">Email</div>
-                    <input type="email" name="email" value={this.state.email} onChange={this.handleChange} required/>
-                </label>
-                <br />
-                <label>
-                    <div className="subTitle2">Username</div>
-                    <input type="text" name="username" value={this.state.username} onChange={this.handleChange} required/>
-                </label>
-                <br />
-                <label>
-                    <div className="subTitle2">Password</div>
-                    <input type="password" name="password" value={this.state.password} onChange={this.handleChange} required/>
-                </label>
-                <br />
-                <label>
-                    <div className="subTitle2">Confirm your password</div>
-                    <input type="password" name="password_confirm" value={this.state.password_confirm} onChange={this.handleChange} required/>
-                </label>
-                <br /><br />
-                
-                {!this.state.success &&
-                <div className="formError">
-                    {this.state.res}
+                <div className="floatLeft">
+                    <label>
+                        <input placeholder="First name" type="text" name="first_name" value={this.state.first_name} onChange={this.handleChange} required/>
+                    </label>
+                    <label>
+                        <input placeholder="Last name" type="text" name="last_name" value={this.state.last_name} onChange={this.handleChange} required/>
+                    </label>
+                    <label>
+                        <input placeholder="Student ID" type="text" name="studentId" value={this.state.studentId} onChange={this.handleChange} required/>
+                    </label>
+                    <label>
+                        <input placeholder= "Email" type="email" name="email" value={this.state.email} onChange={this.handleChange} required/>
+                    </label>
                 </div>
-                }
-                <input type="submit" value="Register" />
+                <div className="floatRight">
+                    <label>
+                        <input placeholder="Username" type="text" name="username" value={this.state.username} onChange={this.handleChange} required/>
+                    </label>
+                    <label>
+                        <input placeholder="Password" type="password" name="password" value={this.state.password} onChange={this.handleChange} required/>
+                    </label>
+                    <label>
+                        <input placeholder="Confirm your password" type="password" name="password_confirm" value={this.state.password_confirm} onChange={this.handleChange} required/>
+                    </label>
+                
+                    {!this.state.success &&
+                    <div className="formError">
+                        {this.state.res}
+                    </div>
+                    }
+                    <input type="submit" value="Register"/>
+                </div>
             </form>
         );
     }

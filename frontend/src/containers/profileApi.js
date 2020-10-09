@@ -1,4 +1,4 @@
-const BASE_URL = "https://fatewhole.herokuapp.com/api/profile";
+const BASE_URL = "https://fate-e-portfolio.herokuapp.com/api/profile";
 //const BASE_URL = "http://localhost:8080/api/profile";
 
 export async function updateProfile(request) {

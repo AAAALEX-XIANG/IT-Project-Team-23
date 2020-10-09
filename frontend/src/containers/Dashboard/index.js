@@ -5,7 +5,7 @@ import { Button, Upload, message } from "antd";
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import { viewProfile, updateProfile, shareProfile } from "../profileApi";
 
-let baseURL = "https://fatewhole.herokuapp.com/profile/updateAvatar";
+let baseURL = "https://fate-e-portfolio.herokuapp.com/api/profile/updateAvatar";
 //let baseURL = "http://localhost:8080/api/profile/updateAvatar";
 
 function getBase64(img, callback) {
@@ -26,7 +26,7 @@ function beforeUpload(file) {
   return isJpgOrPng && isLt1M;
 }
 
-let shareLink = "";
+
 //export var curShareLink = this.state.shareLink;
 export default class Dashboard extends Component {
   constructor(props) {
@@ -53,6 +53,10 @@ export default class Dashboard extends Component {
     this.handleUpdate = this.handleUpdate.bind(this);
     this.submitProfile = this.submitProfile.bind(this);
     this.getShareLink = this.getShareLink.bind(this);
+  }
+
+  componentDidMount() {
+    this.fetchInfo(localStorage.getItem("email"));
   }
 
   handleChange = (info) => {
@@ -136,10 +140,6 @@ export default class Dashboard extends Component {
     });
   };
 
-  componentDidMount() {
-    this.fetchInfo(localStorage.getItem("email"));
-  }
-
   //the loading button is referenced from https://ant.design/components/button-cn/
   enterLoading = (index) => {
     this.setState(({ loadings }) => {
@@ -163,11 +163,11 @@ export default class Dashboard extends Component {
   };
 
   getShareLink() {
-    // eslint-disable-next-line no-restricted-globals
+
     if (
-      confirm("Are you sure to replace your previous link with a new link?")
+      window.confirm("Are you sure to replace your previous link with a new link?")
     ) {
-      shareLink = shareProfile({
+      shareProfile({
         email: localStorage.getItem("email"),
       }).then(
         (shareLink) => shareLink.res
@@ -229,6 +229,7 @@ export default class Dashboard extends Component {
           <div style={{ marginTop: 8 }}>Upload</div>
         </div>
       );
+      
       if (ifEdit) {
         return (
           <div className="pageContainer">
@@ -256,10 +257,10 @@ export default class Dashboard extends Component {
                     )}
                   </Upload>
                 </div>
-
-                <br />
-                <br />
                 <div className="editButtonBox">
+                <div>Click the image above to update avatar</div>
+                  <br />
+                  <br />
                   <Button block onClick={this.changeEdit}>
                     Edit Profile
                   </Button>
@@ -379,22 +380,18 @@ export default class Dashboard extends Component {
                     )}
                   </Upload>
                 </div>
-
-                <br />
-                <br />
                 <div className="editButtonBox">
+                  <div>Click the image above to update avatar</div>
+                  <br />
+                  <br />
                   <Button block onClick={this.changeEdit}>
                     Edit Profile
                   </Button>
                   <br />
                   <br />
-                </div>
-                <div className="shareButtonBox">
                   <Button block onClick={this.getShareLink}>
                     Share Your Home Page
                   </Button>
-                  <br />
-                  <br />
                 </div>
               </div>
               <div className="rightCol">
@@ -424,13 +421,14 @@ export default class Dashboard extends Component {
                 </div>
                 <div className="profileInfo">
                   Self Introduction:
-                  <div className="currentInfo">{this.state.description}</div>
+                  <div className="intro">{this.state.description}</div>
                 </div>
                 <div className="profileInfo">
                   Sharable Link:
                   <div className="currentInfo">
-                    {"http://localhost:3000/guest/dashboard/" +
-                      this.state.shareLink}
+                    <a href={"http://localhost:3000/guest/dashboard/"+ this.state.shareLink}>
+                      {"http://localhost:3000/guest/dashboard/"+ this.state.shareLink}
+                    </a>
                   </div>
                 </div>
               </div>

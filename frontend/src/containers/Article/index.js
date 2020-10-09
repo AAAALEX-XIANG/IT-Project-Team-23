@@ -30,7 +30,7 @@ const formItemLayout = {
 };
 
 let file = [];
-let baseURL = "https://fatewhole.herokuapp.com/api/cache/upload";
+let baseURL = "https://fate-e-portfolio.herokuapp.com/api/cache/upload";
 //let baseURL = "http://localhost:8080/api/cache/upload";
 const props = {
   name: "file",
@@ -62,8 +62,7 @@ export default class Article extends Component {
       title: "",
       description: "",
       privacy: "",
-      loadings: [],
-      isUpdating: false,
+      loadings: []
     };
   }
 
@@ -75,8 +74,7 @@ export default class Article extends Component {
       title: "",
       description: "",
       privacy: "",
-      loadings: [],
-      isUpdating: false,
+      loadings: []
     });
     console.log("clear artifact");
   }
@@ -87,22 +85,6 @@ export default class Article extends Component {
         items: categories.res.categories,
       })
   );
-  // =======
-  // export default class Article extends Component {
-  //     constructor(props) {
-  //         super(props);
-  //         this.state = {
-  //             value: '',
-  //             items: [],
-  //             name: '',
-  //             title: '',
-  //             description: '',
-  //             privacy: '' ,
-  //             loadings: [],
-  //             isUpdating: false
-  //         };
-  //     }
-  // >>>>>>> 56c7ae42fe2857a2398dc90660a2c3ae5128bb14
 
   onNameChange = (event) => {
     this.setState({
@@ -116,8 +98,8 @@ export default class Article extends Component {
       name: event,
     });
     console.log("event", event);
-    // console.log('email:::', props.action);
   };
+
   componentDidMount() {
     this.setState({
       value: "",
@@ -126,13 +108,13 @@ export default class Article extends Component {
       title: "",
       description: "",
       privacy: "",
-      loadings: [],
-      isUpdating: false,
+      loadings: []
     });
     this.loadAllcates();
     console.log("load artifact");
   }
 
+  // show all existing categories
   loadAllcates = () => {
     showCategory({ email: localStorage.getItem("email") }).then((categories) =>
       this.setState({
@@ -159,18 +141,23 @@ export default class Article extends Component {
     });
   };
 
+  // add category
   addItem = () => {
-    console.log("addItem");
-    const { items, name } = this.state;
-    this.setState({
-      items: [...items, name || `New item ${index++}`],
-      name: "",
-      value: "",
-    });
-    addCategory({
-      email: localStorage.getItem("email"),
-      categoryName: this.state.name,
-    });
+    const { items, name, value} = this.state;
+    // check if user creates an exist category
+    if (items.indexOf(value) === -1) {
+      this.setState({
+        items: [...items, name || `New item ${index++}`],
+        name: "",
+        value: "",
+      });
+      addCategory({
+        email: localStorage.getItem("email"),
+        categoryName: name,
+      });
+    } else {
+      alert("Category exists");
+    }
   };
 
   uploadFiles = () => {
@@ -180,22 +167,31 @@ export default class Article extends Component {
     for (i = 0; i < file.length; i++) {
       myFile.push(file[i].name);
     }
-
-    upload({
-      email: localStorage.getItem("email"),
-      category: this.state.name,
-      title: this.state.title,
-      description: this.state.description,
-      attachment: myFile,
-      privacy: this.state.privacy,
-    }).then(
-      this.setState({
-        isUpdating: true,
-      })
-    );
-    console.log(myFile);
-    console.log(this.state.privacy);
-  };
+    if (this.state.title ==="") {
+      alert("Title cannot be empty");
+    } else if (this.state.privacy === "") {
+      alert("Please choose privary");
+    } else {
+      upload({
+        email: localStorage.getItem("email"),
+        category: this.state.name,
+        title: this.state.title,
+        description: this.state.description,
+        attachment: myFile,
+        privacy: this.state.privacy,
+      }).then(response => 
+          this.checkArti(response.res)
+        )
+    }
+  }
+  
+  checkArti(res) {
+    if (!res.result) {
+      alert(res.reason);
+    } else {
+      window.location.replace("/admin/dashboard");
+    }
+  }
 
   enterLoading = (index) => {
     this.setState(({ loadings }) => {
@@ -215,24 +211,19 @@ export default class Article extends Component {
           loadings: newLoadings,
         };
       });
-    }, 30000);
+    }, 3000);
     //window.location.replace('/admin/dashboard')
   };
 
   render() {
-    // const { items, title, description, value, privacy } = this.state;
-
     const {
       items,
       title,
       description,
       value,
-      loadings,
-      isUpdating,
+      loadings
     } = this.state;
-    if (isUpdating) {
-      window.location.replace("/admin/dashboard");
-    }
+
     if (props.action === baseURL + `/null`) {
       window.location.replace("/admin/article");
     }
@@ -249,7 +240,7 @@ export default class Article extends Component {
             </div>
           </Form.Item>
 
-          <Form.Item label="Title">
+          <Form.Item label="Title" required>
             <Input
               placeholder="Enter Title"
               style={{ flex: "auto" }}
@@ -267,7 +258,7 @@ export default class Article extends Component {
             />
           </Form.Item>
 
-          <Form.Item label="Select the category">
+          <Form.Item label="Select the category" required>
             <Select
               onChange={this.onCategoryChange}
               style={{ width: 240 }}
@@ -295,7 +286,7 @@ export default class Article extends Component {
             </Select>
           </Form.Item>
 
-          <Form.Item name="radio-group" label="Make Private">
+          <Form.Item name="radio-group" label="Privacy" required>
             {/*<br />*/}
             {/*<input type="radio" name="is_teacher" value="false" onChange={this.handleChange} required /><label>No</label>*/}
             {/*<input type="radio" name="is_teacher" value="true" onChange={this.handleChange} required /><label>Yes</label><br />*/}

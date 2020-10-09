@@ -1,5 +1,5 @@
-const BASE_URL = "https://fatewhole.herokuapp.com/api/guest";
-const BASE_URL_TWO = "https://fatewhole.herokuapp.com/api/artifacts";
+const BASE_URL = "https://fate-e-portfolio.herokuapp.com/api/guest";
+const BASE_URL_ARTIFACT = "https://fate-e-portfolio.herokuapp.com/api/artifacts";
 
 export async function getGuestDashboard(request) {
   const { link } = request;
@@ -45,7 +45,7 @@ export async function getGuestPublic(request) {
 
 export async function getGuestAttachment(request) {
   const { link, category, artifact, attachment } = request;
-  const endpoint = BASE_URL_TWO + `/get-attachment-byLink`;
+  const endpoint = BASE_URL_ARTIFACT + `/get-attachment-byLink`;
   let formData = new FormData();
   formData.append("link", link);
   formData.append("category", category);

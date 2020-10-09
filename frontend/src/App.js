@@ -38,6 +38,7 @@ const App = observer(
         <div className="App">
           <Header />
           <Router>
+
             <Switch>
               <Route
                 exact
@@ -45,6 +46,8 @@ const App = observer(
                 render={(props) =>
                   !(localStorage.getItem("email") === null) ? (
                     <Redirect to="/admin/dashboard" />
+                  ) : !(localStorage.getItem("adminEmail") === null) ? (
+                    <Redirect to="/adminpage"/>
                   ) : (
                     <Redirect to="/login" />
                   )
@@ -79,12 +82,14 @@ const App = observer(
                 exact
                 path="/adminpage"
                 render={(props) =>
-                  !(localStorage.getItem("email") === null) ? (
+                  !(localStorage.getItem("adminEmail") === null) ? (
                     <AdminPage
                       isLoggedIn={this.props.userStore.isLoggedIn}
-                      email={this.props.userStore.email}
+                      adminEmail={this.props.userStore.email}
                       userStore={this.props.userStore}
                     />
+                  ) : !(localStorage.getItem("email") === null) ? (
+                    <Redirect to="/admin/dashboard"/>
                   ) : (
                     <Redirect to="/login" />
                   )
@@ -107,6 +112,8 @@ const App = observer(
                       email={this.props.userStore.email}
                       userStore={this.props.userStore}
                     />
+                  ) : !(localStorage.getItem("adminEmail") === null) ? (
+                    <Redirect to = "/adminpage" />
                   ) : (
                     <Redirect to="/login" />
                   )
@@ -123,6 +130,8 @@ const App = observer(
                       email={this.props.userStore.email}
                       userStore={this.props.userStore}
                     />
+                  ): !(localStorage.getItem("adminEmail") === null) ? (
+                    <Redirect to = "/adminpage" />
                   ) : (
                     <Redirect to="/login" />
                   )
@@ -139,6 +148,8 @@ const App = observer(
                       email={this.props.userStore.email}
                       userStore={this.props.userStore}
                     />
+                  ) : !(localStorage.getItem("adminEmail") === null) ? (
+                    <Redirect to = "/adminpage" />
                   ) : (
                     <Redirect to="/login" />
                   )
