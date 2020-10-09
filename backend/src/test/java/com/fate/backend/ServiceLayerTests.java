@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import com.model.RegisterRequest;
 import com.model.Result;
 import com.service.AccountService;
+import com.service.SearchService;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,9 @@ class ServiceLayerTests {
 
 	@Autowired
 	private AccountService accountService;
+
+	@Autowired
+	private SearchService searchservice;
 
 	@Test
 	void registerServiceSuccessTest() {
@@ -61,4 +65,46 @@ class ServiceLayerTests {
 		assertEquals("User", result.getReason());
 	}
 
+	@Test
+	void loginServiceFalseEmailTest() {
+		Result result = accountService.login("jiehuang@gmail.com", "123456");
+		assertEquals("Login Failure", result.getReason());
+	}
+
+	@Test
+	void loginServiceFalsepasswordTest() {
+		Result result = accountService.login("alex@gmail.com", "111111");
+		assertEquals("Login Failure", result.getReason());
+	}
+
+	@Test
+	void searchServiceSearchbyUsername() {
+		assertEquals(1, searchservice.showUser("Alex").size());
+	}
+
+	@Test
+	void searchServiceSearchbyUserID() {
+		assertEquals(1, searchservice.showUser("999999").size());
+	}
+
+	@Test
+	void searchServiceSearchbyEmailAddress() {
+		assertEquals(1, searchservice.showUser("alex@gmail.com").size());
+	}
+
+	@Test
+	void searchServiceSearchbyFirstname() {
+		assertEquals(1, searchservice.showUser("Zhengkang").size());
+	}
+
+	@Test
+	void searchServiceSearchbyLastname() {
+		assertEquals(1, searchservice.showUser("Xiang").size());
+	}
+	
+	@Test
+	void searchServiceSearchbyInformationNotInDatabase() {
+		assertEquals(0, searchservice.showUser("ooppppppps").size());
+	}
+	
 }
