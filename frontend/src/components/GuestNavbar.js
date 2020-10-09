@@ -2,7 +2,7 @@ import React from "react";
 
 import { NavLink } from "react-router-dom";
 
-//let clearURL = 'https://fate-server.herokuapp.com/api/cache/clear/';
+//let clearURL = 'https://fate-e-portfolio.herokuapp.com/api/cache/clear/';
 let currentLink = window.location.pathname.split("/").pop();
 let cateLink = "/guest/category/";
 let profileLink = "/guest/dashboard/";

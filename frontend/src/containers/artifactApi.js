@@ -1,4 +1,4 @@
-const BASE_URL = "https://fatewhole.herokuapp.com/api/artifacts";
+const BASE_URL = "https://fate-e-portfolio.herokuapp.com/api/artifacts";
 //const BASE_URL = "http://localhost:8080/api/artifacts";
 
 export async function upload(request) {

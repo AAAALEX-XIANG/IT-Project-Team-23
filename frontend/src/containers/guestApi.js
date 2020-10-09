@@ -1,5 +1,5 @@
-const BASE_URL = "https://fatewhole.herokuapp.com/api/guest";
-const BASE_URL_ARTIFACT = "https://fatewhole.herokuapp.com/api/artifacts";
+const BASE_URL = "https://fate-e-portfolio.herokuapp.com/api/guest";
+const BASE_URL_ARTIFACT = "https://fate-e-portfolio.herokuapp.com/api/artifacts";
 
 export async function getGuestDashboard(request) {
   const { link } = request;

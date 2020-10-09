@@ -1,4 +1,4 @@
-const BASE_URL = "https://fatewhole.herokuapp.com/api/search";
+const BASE_URL = "https://fate-e-portfolio.herokuapp.com/api/search";
 
 export async function search(request) {
     const { info } = request;

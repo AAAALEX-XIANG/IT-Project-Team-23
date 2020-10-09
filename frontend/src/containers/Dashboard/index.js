@@ -5,7 +5,7 @@ import { Button, Upload, message } from "antd";
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import { viewProfile, updateProfile, shareProfile } from "../profileApi";
 
-let baseURL = "https://fatewhole.herokuapp.com/api/profile/updateAvatar";
+let baseURL = "https://fate-e-portfolio.herokuapp.com/api/profile/updateAvatar";
 //let baseURL = "http://localhost:8080/api/profile/updateAvatar";
 
 function getBase64(img, callback) {

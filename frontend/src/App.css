@@ -12,7 +12,6 @@ body,
 }
 
 .App {
-  background-color: #ffffff;
   overflow: auto;
 }
 
@@ -50,6 +49,14 @@ body,
 .pageContainer {
   font-size: 0.9rem;
   background-color: #f5f5f5;
+  opacity: 0.8;
+  /*Photo by Brett Sayles from Pexels
+  https://www.pexels.com/photo/mountain-view-under-white-and-blue-skies-1926868/*/
+  background-image: url("../src/resources/sky.jpeg");
+  background-size: cover;
+  -webkit-background-size: cover;
+  -o-background-size: cover;
+  background-position: center -120px;
   align-items: flex-start;
   display: flex;
   min-height: 100vh;
@@ -71,7 +78,7 @@ body,
   display: flex;
   flex-direction: column;
   list-style: none;
-  background-color: #ffffff;
+  /* background-color: #ffffff; */
   min-width: 70px;
   min-height: inherit; /*TODO fix*/
 }
@@ -115,8 +122,13 @@ body {
   padding: 7% 0;
   position: fixed;
   opacity: 0.8;
-  background: linear-gradient(to bottom right,#000000, #656565);
-  background: -webkit-linear-gradient(to bottom right,#50a3a2,#53e3a6);
+  /*Photo by Brett Sayles from Pexels
+  https://www.pexels.com/photo/mountain-view-under-white-and-blue-skies-1926868/*/
+  background-image: url("../src/resources/sky.jpeg");
+  background-size: cover;
+  -webkit-background-size: cover;
+  -o-background-size: cover;
+  background-position: center -120px;
 }
 .container {
   width: 60%;
@@ -150,7 +162,7 @@ body {
 .container input[type='submit'] {
   font-size: 16px;
   letter-spacing: 2px;
-  color: #666666;
+  color: #080808;
   background-color: #FFFFFF;
 }
 .container input:focus {
@@ -178,16 +190,16 @@ body {
   list-style-type: none;
   display: block;
   position: absolute;
-  bottom: -120px;
+  bottom: -100px;
   width: 15px;
   height: 15px;
   z-index: -8;
   border-radius: 50%;
-  box-shadow: inset -30px -30px 75px rgba(0, 0, 0, .2),
-  inset 0px 0px 5px rgba(0, 0, 0, .5),
-  inset -3px -3px 5px rgba(0, 0, 0, .5),
-  0 0 20px rgba(255, 255, 255, .75);
-  background-color:rgba(255, 255, 255, 0.15);
+  box-shadow: inset -30px -30px 75px rgba(179, 212, 235, 0.096),
+  inset 0px 1px 5px rgba(190, 201, 214, 0.103),
+  inset 5px 5px 5px rgba(219, 230, 235, 0.185),
+  0 0 20px rgba(204, 214, 226, 0.164);
+  background-color:rgba(227, 232, 241, 0.089);
   animation: square 25s infinite;
   -webkit-animation: square 25s infinite;
 }
@@ -257,8 +269,8 @@ body {
   -webkit-animation-duration: 8s;
 }
 .wrap ul li:nth-child(8) {
-  width: 90px;
-  height: 90px;
+  width: 80px;
+  height: 80px;
   left: 70%;
   -webkit-animation-delay: 4s;
   -moz-animation-delay: 4s;
@@ -323,7 +335,7 @@ body {
 .subTitle {
   text-align: center;
   font-size: 18px;
-  color: #a5a5a5;
+  color: #080808;
   flex: 1;
 }
 
@@ -451,7 +463,6 @@ form a {
   display: grid;
   grid-template-columns: 35% 65%;
   grid-gap: 10px;
-  background-color: #a2d9ce;
   padding: 10px 10px 10px 10px;
 }
 
@@ -477,10 +488,6 @@ form a {
 }
 
 .grid-container > div {
-  background-image: url("asserts/background.jpg");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
   padding: 20px;
   /* padding-right: 20px; */
 }

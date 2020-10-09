@@ -1,4 +1,4 @@
-const BASE_URL = "https://fatewhole.herokuapp.com/api/categories";
+const BASE_URL = "https://fate-e-portfolio.herokuapp.com/api/categories";
 //const BASE_URL = "http://localhost:8080/api/categories";
 
 export async function addCategory(request) {

@@ -105,7 +105,7 @@ class RegForm extends React.Component {
                         {this.state.res}
                     </div>
                     }
-                    <input type="submit" value="Register" />
+                    <input type="submit" value="Register"/>
                 </div>
             </form>
         );
