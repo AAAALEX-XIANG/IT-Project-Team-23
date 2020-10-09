@@ -5,7 +5,7 @@ import RegForm from '../components/register';
 export default function RegPage() {
     return (
         <div className="wrap">
-            <div className="container">
+            <div className="regContainer">
                 <RegForm />
             </div>
             <ul>
