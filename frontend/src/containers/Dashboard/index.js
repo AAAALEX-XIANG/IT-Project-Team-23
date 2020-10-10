@@ -26,7 +26,6 @@ function beforeUpload(file) {
   return isJpgOrPng && isLt1M;
 }
 
-
 //export var curShareLink = this.state.shareLink;
 export default class Dashboard extends Component {
   constructor(props) {
@@ -163,9 +162,10 @@ export default class Dashboard extends Component {
   };
 
   getShareLink() {
-
     if (
-      window.confirm("Are you sure to replace your previous link with a new link?")
+      window.confirm(
+        "Are you sure to replace your previous link with a new link?"
+      )
     ) {
       shareProfile({
         email: localStorage.getItem("email"),
@@ -224,12 +224,12 @@ export default class Dashboard extends Component {
       );
     } else {
       const uploadButton = (
-        <div>
+        <div className="uploadButton">
           {loading ? <LoadingOutlined /> : <PlusOutlined />}
-          <div style={{ marginTop: 8 }}>Upload</div>
+          <div className="uploadInfo">Upload</div>
         </div>
       );
-      
+
       if (ifEdit) {
         return (
           <div className="pageContainer">
@@ -250,7 +250,7 @@ export default class Dashboard extends Component {
                       <img
                         src={imageUrl}
                         alt="avatar"
-                        style={{ width: "200%", height: "200%" }}
+                        style={{ width: "150%", height: "150%" }}
                       />
                     ) : (
                       uploadButton
@@ -258,7 +258,7 @@ export default class Dashboard extends Component {
                   </Upload>
                 </div>
                 <div className="editButtonBox">
-                <div>Click the image above to update avatar</div>
+                  <div classname="avatarMessage">Click the image to update your avatar</div>
                   <br />
                   <br />
                   <Button block onClick={this.changeEdit}>
@@ -323,7 +323,7 @@ export default class Dashboard extends Component {
                     <textarea
                       type="text"
                       name="description"
-                      rows="4"
+                      rows="2"
                       cols="50"
                       value={this.state.description}
                       onChange={this.handleUpdate}
@@ -373,7 +373,7 @@ export default class Dashboard extends Component {
                       <img
                         src={imageUrl}
                         alt="avatar"
-                        style={{ width: "200%", height: "200%" }}
+                        style={{ width: "150%", height: "150%" }}
                       />
                     ) : (
                       uploadButton
@@ -381,7 +381,7 @@ export default class Dashboard extends Component {
                   </Upload>
                 </div>
                 <div className="editButtonBox">
-                  <div>Click the image above to update avatar</div>
+                  <div className="avatarMessage">Click the image to update your avatar</div>
                   <br />
                   <br />
                   <Button block onClick={this.changeEdit}>
@@ -426,8 +426,14 @@ export default class Dashboard extends Component {
                 <div className="profileInfo">
                   Sharable Link:
                   <div className="currentInfo">
-                    <a href={"http://localhost:3000/guest/dashboard/"+ this.state.shareLink}>
-                      {"http://localhost:3000/guest/dashboard/"+ this.state.shareLink}
+                    <a
+                      href={
+                        "http://localhost:3000/guest/dashboard/" +
+                        this.state.shareLink
+                      }
+                    >
+                      {"http://localhost:3000/guest/dashboard/" +
+                        this.state.shareLink}
                     </a>
                   </div>
                 </div>

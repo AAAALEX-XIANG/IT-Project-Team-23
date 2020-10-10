@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Quicksand&display=swap");
 html,
 body,
 #root,
@@ -9,6 +10,7 @@ body,
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  font-family: "Quicksand", sans-serif;
 }
 
 .App {
@@ -60,6 +62,7 @@ body,
   align-items: flex-start;
   display: flex;
   min-height: 100vh;
+  min-width: 200vh;
 }
 
 .pageContainer > Form {
@@ -99,6 +102,7 @@ body,
   /* background-color: rgba(255, 255, 255, 1); */
   border-right: none;
   color: white;
+  transition: 0.8s;
 }
 
 .selected {
@@ -182,7 +186,8 @@ select:-webkit-autofill {
   transition: background-color 50000s ease-in-out 0s;
 }
 
-input {
+input,
+textarea {
   background-color: transparent;
 }
 
@@ -453,7 +458,7 @@ form a {
   text-align: left;
   font-size: 2rem;
   font-weight: 700;
-  color: #666;
+  color: #ffffff;
   margin-left: 10px;
 }
 
@@ -461,31 +466,40 @@ form a {
   text-align: left;
   font-size: 1.5rem;
   font-weight: 700;
-  color: #666;
+  color: #ffffff;
   padding-left: 30px;
   padding-top: 20px;
 }
 
 .profileInfo .currentInfo {
-  font-size: medium;
+  font-size: large;
   font-weight: 500;
-  color: black;
+  color: rgb(212, 212, 212);
   margin-right: 40px;
   padding-left: 20px;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.5);
 }
 
 .grid-container {
   height: 90vh;
   width: 200vh;
   display: grid;
-  grid-template-columns: 35% 65%;
+  grid-template-columns: 25% 75%;
   grid-gap: 10px;
-  padding: 10px 10px 10px 10px;
+  padding: 4% 5% 5% 5%;
 }
 
 .grid-container .rightCol {
   padding-top: 30px;
+  background-color: rgba(0, 0, 0, 0.3);
+  min-height: 550px;
 }
+
+.grid-container .leftCol {
+  padding-top: 30px;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
 .nameInfo {
   display: grid;
   grid-template-columns: 50% 50%;
@@ -494,10 +508,9 @@ form a {
 .intro {
   font-size: medium;
   font-weight: 500;
-  color: black;
   margin-right: 40px;
   padding-left: 20px;
-
+  color: rgb(212, 212, 212);
   white-space: pre-wrap;
   white-space: -moz-pre-wrap;
   white-space: -o-pre-wrap;
@@ -510,8 +523,37 @@ form a {
 }
 
 .editButtonBox {
-  margin-top: 100px;
+  margin-top: 50px;
   margin-bottom: 30px;
+}
+.editButtonBox button {
+  transition: 0.8s;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.editButtonBox button:hover {
+  color: #ffffff;
+  background: rgb(109, 182, 231);
+}
+
+.editButtonBox button::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgb(109, 182, 231);
+  z-index: -1;
+  transition: 0.8s;
+  top: 0;
+  border-radius: 0 0 50% 50%;
+}
+
+.editButtonBox button:hover::before {
+  height: 180%;
 }
 
 .shareButtonBox {
@@ -524,7 +566,7 @@ form a {
 }
 
 .avatarBox {
-  transform: translate(35%, 35%);
+  transform: translate(30%, 30%);
 }
 
 .avatarBox-guest {
@@ -534,6 +576,33 @@ form a {
 .avatar-uploader {
   width: 128px;
   height: 128px;
+}
+
+.currentInfo a:link {
+  color: rgb(227, 184, 255);
+  background-color: transparent;
+  text-decoration: none;
+}
+.currentInfo a:hover {
+  color: rgb(197, 110, 255);
+  background-color: transparent;
+}
+
+.avatarMessage {
+  color: rgb(212, 212, 212);
+  font-size: small;
+  margin-bottom: 50px;
+  text-align: center;
+}
+
+.currentInfo input[type="text"],
+.currentInfo textarea[type="text"] {
+  font-size: 16px;
+  color: #c8d7ee;
+  outline: none;
+  border: none;
+  font-size: 16px;
+  /* background-color: rgba(255, 255, 255, 0.5); */
 }
 
 /* --------------------------------Loading page ---------------------------*/
