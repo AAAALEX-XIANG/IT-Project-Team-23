@@ -99,14 +99,6 @@ const App = observer(
 
               <Route
                 exact
-                path="/loadingtest"
-                render={(props) =>
-                    <Loading/>
-                }
-              />
-
-              <Route
-                exact
                 path="/admin"
                 render={(props) => <Redirect to="/admin/dashboard" />}
               />

@@ -481,22 +481,23 @@ form a {
 }
 
 .grid-container {
-  height: 90vh;
-  width: 200vh;
+  height: 100%;
+  width: 100%;
   display: grid;
   grid-template-columns: 25% 75%;
-  grid-gap: 10px;
+  grid-gap: 2%;
   padding: 4% 5% 5% 5%;
 }
 
 .grid-container .rightCol {
-  padding-top: 30px;
+  padding-top: 5%;
   background-color: rgba(0, 0, 0, 0.3);
-  min-height: 550px;
+  min-height: 10%;
+  max-height: 100%;
 }
 
 .grid-container .leftCol {
-  padding-top: 30px;
+  padding-top: 5%;
   background-color: rgba(0, 0, 0, 0.3);
 }
 
