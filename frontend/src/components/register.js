@@ -76,42 +76,43 @@ class RegForm extends React.Component {
                 <h1>Register</h1>
                 <div className="subTitle">Already have an account? <a href = "/">Log in</a></div>
 
-                <div className="floatLeft">
-                    <div className="floatTop">
-                        <input placeholder= "Email" type="email" name="email" value={this.state.email} onChange={this.handleChange} required/>
+                <div className="float">                    
+                    <div className="floatLeft">
+                        <div className="floatTop">
+                            <input placeholder= "Email" type="email" name="email" value={this.state.email} onChange={this.handleChange} required/>
+                        </div>
+                        <div>
+                            <input placeholder="First name" type="text" name="first_name" value={this.state.first_name} onChange={this.handleChange} required/>
+                        </div>
+                        
+                        <div>
+                            <input placeholder="Student ID" type="text" name="studentId" value={this.state.studentId} onChange={this.handleChange} required/>
+                        </div>
+                        <div>
+                            <input placeholder="Password" type="password" name="password" value={this.state.password} onChange={this.handleChange} required/>
+                        </div>
                     </div>
-                    <div>
-                        <input placeholder="First name" type="text" name="first_name" value={this.state.first_name} onChange={this.handleChange} required/>
-                    </div>
+                    <div className="floatRight">
+                        <div >
+                            <br /><br /><br />
+                         </div>
+                        <div>
+                            <input placeholder="Last name" type="text" name="last_name" value={this.state.last_name} onChange={this.handleChange} required/>
+                        </div>
+                        <div>
+                            <input placeholder="Username" type="text" name="username" value={this.state.username} onChange={this.handleChange} required/>
+                        </div>
+                        <div>
+                            <input placeholder="Confirm your password" type="password" name="password_confirm" value={this.state.password_confirm} onChange={this.handleChange} required/>
+                        </div>
                     
-                    <div>
-                        <input placeholder="Student ID" type="text" name="studentId" value={this.state.studentId} onChange={this.handleChange} required/>
-                    </div>
-                    <div>
-                        <input placeholder="Password" type="password" name="password" value={this.state.password} onChange={this.handleChange} required/>
-                    </div>                   
-                </div>
-                <div className="floatRight">
-                    <div>
-                        <br /><br /><br />
-                    </div>
-                    <div>
-                        <input placeholder="Last name" type="text" name="last_name" value={this.state.last_name} onChange={this.handleChange} required/>
-                    </div>
-                    <div>
-                        <input placeholder="Username" type="text" name="username" value={this.state.username} onChange={this.handleChange} required/>
-                    </div>
-                    <div>
-                        <input placeholder="Confirm your password" type="password" name="password_confirm" value={this.state.password_confirm} onChange={this.handleChange} required/>
-                    </div>
-                
-                    {!this.state.success &&
-                    <div className="formError">
-                        {this.state.res}
-                    </div>
-                    }
-                    
-                </div>
+                        {!this.state.success &&
+                        <div className="formError">
+                            {this.state.res}
+                        </div>
+                        }
+                    </div>                
+                </div>                
                 <div className="regButton">
                     <input type="submit" value="Register"/>
                 </div>

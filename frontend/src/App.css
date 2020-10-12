@@ -58,7 +58,7 @@ body,
   background-size: cover;
   -webkit-background-size: cover;
   -o-background-size: cover;
-  background-position: center -120px;
+  background-position: center;
   align-items: flex-start;
   display: flex;
   min-height: 100vh;
@@ -71,6 +71,7 @@ body,
   height: 100%;
   position: center;
 }
+
 .pageContainer #header {
   font-weight: bold;
   font-size: 1.2rem;
@@ -135,7 +136,12 @@ body {
   background-size: cover;
   -webkit-background-size: cover;
   -o-background-size: cover;
-  background-position: center -120px;
+  background-position: center;
+  align-items: flex-start;
+  display: flex;
+  min-height: 100vh;
+  min-width: 200vh;
+  background-repeat: no-repeat;
 }
 
 /*register page container*/
@@ -144,8 +150,10 @@ body {
   margin: auto;
   background-color: #0e101354;
   text-align: center;
-  width: 600px;
-  height: 500px;
+  width: 50%;
+  height: 60%;
+  min-height: 500px;
+  min-width: 600px;
 }
 
 .regContainer input[type="text"],
@@ -157,7 +165,6 @@ body {
 
 /*login page container*/
 .container {
-  width: 60%;
   border-radius: 13px;
   margin: 0 auto;
   background-color: #0e101354;
@@ -188,6 +195,7 @@ select:-webkit-autofill {
 
 input,
 textarea {
+  width: auto;
   background-color: transparent;
 }
 
@@ -198,7 +206,7 @@ textarea {
   margin-top: 20px;
   background: none;
   border-bottom: #ffffff 2px solid;
-  padding: 8px 10px;
+  padding: 8px 12px;
   outline: none;
 }
 
@@ -410,30 +418,21 @@ input:-ms-input-placeholder {
 .regButton {
   width: 50%;
   margin: auto;
-  border: 3px solid rgba(0, 0, 0, 0);
 }
 
-.floatLeft {
-  float: left;
-  width: 50%;
+.float {
+  display: grid;
+  grid-template-columns: 50% 50%;
   height: fit-content;
 }
-
+/* .floatLeft,
 .floatRight {
-  float: right;
+  border: 3px solid black;
+} */
+
+/* .floatTop input[type="email"] {
   width: 50%;
-  height: fit-content;
-}
-.floatLeft .floatTop {
-  text-align: left;
-  width: 200%;
-  height: fit-content;
-  padding-left: 18%;
-  padding-right: 18%;
-}
-.floatTop input[type="email"] {
-  width: 100%;
-}
+} */
 
 .formDisplay {
   text-align: center;
@@ -599,8 +598,13 @@ form a {
   height: 128px;
 }
 
-.currentInfo a:hover {
+.currentInfo a {
   color: rgb(208, 219, 146);
+  background-color: transparent;
+}
+
+.currentInfo a:hover {
+  color: rgb(57, 38, 231);
   background-color: transparent;
 }
 
@@ -618,7 +622,6 @@ form a {
   outline: none;
   border: none;
   font-size: 16px;
-  /* background-color: rgba(255, 255, 255, 0.5); */
 }
 
 /* --------------------------------Loading page ---------------------------*/
@@ -731,20 +734,34 @@ form a {
 /* --------------------------------Artifact Page ---------------------------*/
 .cateButton {
   position: relative;
-  top: 4px;
+  width: 8em;
   font-size: 12px;
+  border-radius: 15px;
+  border: none;
   color: rgb(24, 18, 18);
+  background-color: #9fb8d8ce;
   transition: all 0.3s;
 }
 
-.cateButton button:hover {
-  color: rgb(151, 188, 229);
+.cateButton:hover {
+  background-color: rgba(162, 173, 209, 0.911);
 }
 
-/* --------------------------------upload Page ---------------------------*/
-label {
-  color: rgb(255, 255, 255);
+.variables {
+  color: #f3eded;
+  font-weight: bold;
 }
+
+p {
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.privacy,
+.fileUploaded {
+  color: #ffffff;
+}
+
 /* --------------------------------Admin Page ---------------------------*/
 .adminSearch {
   width: 800px;

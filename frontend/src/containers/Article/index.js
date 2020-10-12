@@ -241,8 +241,9 @@ export default class Article extends Component {
             </div>
           </Form.Item>
 
-          <Form.Item label="Title" required>
-            <Input
+          <Form.Item 
+          label={<label className="variables" >Title</label>} required>
+          <Input
               placeholder="Enter Title"
               style={{ flex: "auto" }}
               value={title}
@@ -250,7 +251,7 @@ export default class Article extends Component {
             />
           </Form.Item>
 
-          <Form.Item label="Description">
+          <Form.Item label={<label className="variables" >Description</label>}>
             <Input
               placeholder="Enter Description"
               style={{ flex: "auto" }}
@@ -259,7 +260,7 @@ export default class Article extends Component {
             />
           </Form.Item>
 
-          <Form.Item label="Select the category" required>
+          <Form.Item label={<label className="variables" >Select the category</label>} required>
             <Select
               onChange={this.onCategoryChange}
               style={{ width: 240 }}
@@ -282,23 +283,23 @@ export default class Article extends Component {
               )}
             >
               {items.map((item) => (
-                <Option className={"fileUploaded"} key={item}>{item}</Option>
+                <Option key={item}>{item}</Option>
               ))}
             </Select>
           </Form.Item>
 
-          <Form.Item name="radio-group" label="Privacy" required>
+          <Form.Item name="radio-group" label={<label className="variables" >Privacy</label>} required>
             <Radio.Group>
               <Radio value="public" onChange={this.onPrivacyChange}>
-                Public
+                <label className="privacy" > Public </label>
               </Radio>
               <Radio value="private" onChange={this.onPrivacyChange}>
-                Private
+                <label className="privacy" > Private </label>
               </Radio>
             </Radio.Group>
           </Form.Item>
 
-          <Form.Item label="Dragger">
+          <Form.Item label={<label className="variables" >Dragger</label>}>
             <Dragger {...props}>
               <p className="ant-upload-drag-icon">
                 <InboxOutlined />
