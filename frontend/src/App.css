@@ -63,7 +63,6 @@ body,
   display: flex;
   min-height: 100vh;
   min-width: 200vh;
-  background-repeat: no-repeat;
 }
 
 .pageContainer > Form {
@@ -86,6 +85,7 @@ body,
   min-width: 15%;
   background-color: rgba(255, 255, 255, 0.8);
   min-height: inherit;
+  /* transform: translate(0, 20%); */
 }
 
 .navOption > a {
@@ -128,7 +128,7 @@ body {
   width: 100%;
   height: 100%;
   padding: 7% 0;
-  position: fixed;
+  position: absolute;
   opacity: 0.8;
   /*Photo by Brett Sayles from Pexels
   https://www.pexels.com/photo/mountain-view-under-white-and-blue-skies-1926868/*/
@@ -136,24 +136,17 @@ body {
   background-size: cover;
   -webkit-background-size: cover;
   -o-background-size: cover;
-  background-position: center;
-  align-items: flex-start;
-  display: flex;
-  min-height: 100vh;
-  min-width: 200vh;
-  background-repeat: no-repeat;
+  background-position: center -120px;
 }
 
 /*register page container*/
 .regContainer {
   border-radius: 13px;
-  margin: auto;
+  margin: 0 auto;
   background-color: #0e101354;
   text-align: center;
-  width: 50%;
-  height: 60%;
-  min-height: 500px;
-  min-width: 600px;
+  width: 600px;
+  height: 500px;
 }
 
 .regContainer input[type="text"],
@@ -245,7 +238,7 @@ textarea {
 }
 
 .wrap ul {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -415,28 +408,20 @@ input:-ms-input-placeholder {
   flex: 1;
 }
 
-.regButton {
+.floatLeft {
+  float: left;
   width: 50%;
-  margin: auto;
-}
-
-.float {
-  display: grid;
-  grid-template-columns: 50% 50%;
   height: fit-content;
 }
-/* .floatLeft,
-.floatRight {
-  border: 3px solid black;
-} */
 
-/* .floatTop input[type="email"] {
+.floatRight {
+  float: right;
   width: 50%;
-} */
+  height: fit-content;
+}
 
 .formDisplay {
   text-align: center;
-  display: block;
 }
 
 form a {
@@ -497,23 +482,22 @@ form a {
 }
 
 .grid-container {
-  height: inherit;
-  width: inherit;
+  height: 90vh;
+  width: 200vh;
   display: grid;
   grid-template-columns: 25% 75%;
-  grid-gap: 2%;
-  padding-top: 2%;
-  padding-left: 2%;
-  margin: auto;
+  grid-gap: 10px;
+  padding: 4% 5% 5% 5%;
 }
 
 .grid-container .rightCol {
-  padding-top: 5%;
+  padding-top: 30px;
   background-color: rgba(0, 0, 0, 0.3);
+  min-height: 550px;
 }
 
 .grid-container .leftCol {
-  padding-top: 5%;
+  padding-top: 30px;
   background-color: rgba(0, 0, 0, 0.3);
 }
 
@@ -732,7 +716,7 @@ form a {
 }
 
 /* --------------------------------Artifact Page ---------------------------*/
-.cateButton {
+.cateButton{
   position: relative;
   width: 8em;
   font-size: 12px;
@@ -757,10 +741,10 @@ p {
   font-weight: bold;
 }
 
-.privacy,
-.fileUploaded {
+.privacy, .fileUploaded {
   color: #ffffff;
 }
+
 
 /* --------------------------------Admin Page ---------------------------*/
 .adminSearch {
