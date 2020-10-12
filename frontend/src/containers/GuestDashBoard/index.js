@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import GuestNavbar from "../../components/GuestNavbar";
 import { getGuestDashboard } from "../guestApi";
+import defalutAvatar from "../../resources/default avatar.jpg"
 import Loading from "../../containers/Loading"
 
 //let baseURL = 'https://fatewhole.herokuapp.com/profile/updateAvatar';
@@ -71,7 +72,7 @@ export default class GuestDashboard extends Component {
       var prevUrl = avatar.image.data;
       return "data:" + avatar.imageType + ";base64," + prevUrl;
     }
-    return null;
+    return defalutAvatar;
   }
 
   componentDidMount() {
@@ -101,6 +102,7 @@ export default class GuestDashboard extends Component {
   };
   render() {
     const { isLoaded, error, imageUrl } = this.state;
+
     if (this.state.status === true) {
       window.location.replace("/admin/dashboard");
       // console.log("refresh");
@@ -136,15 +138,15 @@ export default class GuestDashboard extends Component {
                 <img
                   src={imageUrl}
                   alt="avatar"
-                  style={{ width: "150%", height: "150%" }}
+                  style={{ width: "130%", height: "130%" }}
                 />
               </div>
-            </div>
+              </div>
             <br />
             <br />
           </div>
           <div className="rightCol">
-            <div className="profileHeadings">My Account</div>
+            <div className="profileHeadings">Profile</div>
 
             {/* <div className="profileInfo">
               Email:

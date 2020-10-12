@@ -275,13 +275,13 @@ export default class Article extends Component {
                       style={{ flex: "auto" }}
                       onChange={this.onNameChange}
                     />
-                    <button onClick={this.addItem}> Add item </button>
+                    <button className={"cateButton"} onClick={this.addItem}> Add </button>
                   </div>
                 </div>
               )}
             >
               {items.map((item) => (
-                <Option key={item}>{item}</Option>
+                <Option className={"fileUploaded"} key={item}>{item}</Option>
               ))}
             </Select>
           </Form.Item>

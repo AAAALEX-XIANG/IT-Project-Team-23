@@ -75,6 +75,7 @@ body,
   font-size: 1.2rem;
   position: relative;
   margin-left: 200px;
+  color: #ffffff;
 }
 .navbar {
   display: flex;
@@ -527,7 +528,9 @@ form a {
   margin-top: 50px;
   margin-bottom: 30px;
 }
+
 .editButtonBox button {
+  border-radius: 15px;
   transition: 0.8s;
   position: relative;
   overflow: hidden;
@@ -564,6 +567,7 @@ form a {
 
 .updateButtonBox {
   transform: translate(3%, 0);
+  border-radius: 20px;
 }
 
 .avatarBox {
@@ -571,7 +575,7 @@ form a {
 }
 
 .avatarBox-guest {
-  transform: translate(30%, 0);
+  transform: translate(5%, 0);
 }
 
 .avatar-uploader {
@@ -579,13 +583,8 @@ form a {
   height: 128px;
 }
 
-.currentInfo a:link {
-  color: rgb(227, 184, 255);
-  background-color: transparent;
-  text-decoration: none;
-}
 .currentInfo a:hover {
-  color: rgb(197, 110, 255);
+  color: rgb(208, 219, 146);
   background-color: transparent;
 }
 
@@ -711,6 +710,19 @@ form a {
   100% {
     transform: translate(50%);
   }
+}
+
+/* --------------------------------Artifact Page ---------------------------*/
+.cateButton{
+  position: relative;
+  top: 4px;
+  font-size: 12px;
+  color: rgb(24, 18, 18);
+  transition: all 0.3s;
+}
+
+.cateButton button:hover {
+  color: rgb(151, 188, 229);
 }
 
 /* --------------------------------Admin Page ---------------------------*/
