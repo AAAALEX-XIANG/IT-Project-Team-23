@@ -258,18 +258,13 @@ export default class Dashboard extends Component {
                   </Upload>
                 </div>
                 <div className="editButtonBox">
-                  <div classname="avatarMessage">Click the image to update your avatar</div>
-                  <br />
-                  <br />
-                  <Button block onClick={this.changeEdit}>
-                    Edit Profile
-                  </Button>
+                  <div className="avatarMessage">Click the image to update your avatar</div>
                   <br />
                   <br />
                 </div>
               </div>
               <div className="rightCol">
-                <div className="profileHeadings">My Account</div>
+                <div className="profileHeadings">Profile</div>
 
                 <div className="profileInfo">
                   Email:
@@ -395,7 +390,7 @@ export default class Dashboard extends Component {
                 </div>
               </div>
               <div className="rightCol">
-                <div className="profileHeadings">My Account</div>
+                <div className="profileHeadings">Profile</div>
 
                 <div className="profileInfo">
                   Email:

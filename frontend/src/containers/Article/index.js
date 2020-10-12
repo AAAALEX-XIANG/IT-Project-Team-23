@@ -281,7 +281,7 @@ export default class Article extends Component {
               )}
             >
               {items.map((item) => (
-                <Option key={item}>{item}</Option>
+                <Option className={"fileUploaded"} key={item}>{item}</Option>
               ))}
             </Select>
           </Form.Item>
