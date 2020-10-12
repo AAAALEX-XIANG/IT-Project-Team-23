@@ -69,7 +69,7 @@ class LoginForm extends React.Component {
       <form onSubmit={this.handleSubmit}>
         <h1>Log In</h1>
         <div className="formDisplay">
-          <label>
+          <div>
             <input
               placeholder="Email"
               type="text"
@@ -78,8 +78,8 @@ class LoginForm extends React.Component {
               onChange={this.handleChange}
               required
             />
-          </label>
-          <label>
+          </div>
+          <div>
             <input
               placeholder="Password"
               type="password"
@@ -88,7 +88,7 @@ class LoginForm extends React.Component {
               onChange={this.handleChange}
               required
             />
-          </label>
+          </div>
           <div className="subTitle">
             Don't have an account? <a href="/register">Register</a>
           </div>

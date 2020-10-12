@@ -27,6 +27,7 @@ const formItemLayout = {
   wrapperCol: {
     span: 14,
   },
+
 };
 
 let file = [];
@@ -287,10 +288,6 @@ export default class Article extends Component {
           </Form.Item>
 
           <Form.Item name="radio-group" label="Privacy" required>
-            {/*<br />*/}
-            {/*<input type="radio" name="is_teacher" value="false" onChange={this.handleChange} required /><label>No</label>*/}
-            {/*<input type="radio" name="is_teacher" value="true" onChange={this.handleChange} required /><label>Yes</label><br />*/}
-            {/*<br />*/}
             <Radio.Group>
               <Radio value="public" onChange={this.onPrivacyChange}>
                 Public
@@ -337,6 +334,6 @@ export default class Article extends Component {
           </Form.Item>
         </Form>
       </div>
-    );
+          );
   }
 }

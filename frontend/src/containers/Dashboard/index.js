@@ -254,10 +254,18 @@ export default class Dashboard extends Component {
                   <div className="avatarMessage">Click the image to update your avatar</div>
                   <br />
                   <br />
+                  <Button block disabled>
+                    Edit Profile
+                  </Button>
+                  <br />
+                  <br />
+                  <Button block disabled>
+                    Share Your Home Page
+                  </Button>
                 </div>
               </div>
               <div className="rightCol">
-                <div className="profileHeadings">Profile</div>
+                <div className="profileHeadings">My Account</div>
 
                 <div className="profileInfo">
                   Email:
@@ -317,6 +325,20 @@ export default class Dashboard extends Component {
                       onChange={this.handleUpdate}
                       required
                     />
+                  </div>
+                </div>
+                <div className="profileInfo">
+                  Sharable Link:
+                  <div className="currentInfo">
+                    <a
+                      href={
+                        "http://localhost:3000/guest/dashboard/" +
+                        this.state.shareLink
+                      }
+                    >
+                      {"http://localhost:3000/guest/dashboard/" +
+                        this.state.shareLink}
+                    </a>
                   </div>
                 </div>
                 <div className="profileInfo">
@@ -383,7 +405,7 @@ export default class Dashboard extends Component {
                 </div>
               </div>
               <div className="rightCol">
-                <div className="profileHeadings">Profile</div>
+                <div className="profileHeadings">My Account</div>
 
                 <div className="profileInfo">
                   Email:

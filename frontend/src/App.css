@@ -63,6 +63,7 @@ body,
   display: flex;
   min-height: 100vh;
   min-width: 200vh;
+  background-repeat: no-repeat;
 }
 
 .pageContainer > Form {
@@ -84,7 +85,6 @@ body,
   min-width: 15%;
   background-color: rgba(255, 255, 255, 0.8);
   min-height: inherit;
-  /* transform: translate(0, 20%); */
 }
 
 .navOption > a {
@@ -140,9 +140,8 @@ body {
 
 /*register page container*/
 .regContainer {
-  width: 60%;
   border-radius: 13px;
-  margin: 0 auto;
+  margin: auto;
   background-color: #0e101354;
   text-align: center;
   width: 600px;
@@ -408,6 +407,12 @@ input:-ms-input-placeholder {
   flex: 1;
 }
 
+.regButton {
+  width: 50%;
+  margin: auto;
+  border: 3px solid rgba(0, 0, 0, 0);
+}
+
 .floatLeft {
   float: left;
   width: 50%;
@@ -419,9 +424,20 @@ input:-ms-input-placeholder {
   width: 50%;
   height: fit-content;
 }
+.floatLeft .floatTop {
+  text-align: left;
+  width: 200%;
+  height: fit-content;
+  padding-left: 18%;
+  padding-right: 18%;
+}
+.floatTop input[type="email"] {
+  width: 100%;
+}
 
 .formDisplay {
   text-align: center;
+  display: block;
 }
 
 form a {
@@ -482,19 +498,19 @@ form a {
 }
 
 .grid-container {
-  height: 100%;
-  width: 100%;
+  height: inherit;
+  width: inherit;
   display: grid;
   grid-template-columns: 25% 75%;
   grid-gap: 2%;
-  padding: 4% 5% 5% 5%;
+  padding-top: 2%;
+  padding-left: 2%;
+  margin: auto;
 }
 
 .grid-container .rightCol {
   padding-top: 5%;
   background-color: rgba(0, 0, 0, 0.3);
-  min-height: 10%;
-  max-height: 100%;
 }
 
 .grid-container .leftCol {
@@ -713,7 +729,7 @@ form a {
 }
 
 /* --------------------------------Artifact Page ---------------------------*/
-.cateButton{
+.cateButton {
   position: relative;
   top: 4px;
   font-size: 12px;
@@ -725,6 +741,10 @@ form a {
   color: rgb(151, 188, 229);
 }
 
+/* --------------------------------upload Page ---------------------------*/
+label {
+  color: rgb(255, 255, 255);
+}
 /* --------------------------------Admin Page ---------------------------*/
 .adminSearch {
   width: 800px;
