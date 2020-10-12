@@ -13,6 +13,7 @@ import {
 } from "../categoryApi"
 
 import Navbar from "../../components/Navbar";
+import Loading from "../../containers/Loading"
 
 const { Panel } = Collapse;
 
@@ -229,15 +230,7 @@ export default class Setting extends Component {
       return (
         <div className="pageContainer">
           <Navbar />
-          <div className="loadingContainer">
-            <div class="loading">
-              <div class="loading-item loading-one"></div>
-              <div class="loading-item loading-two"></div>
-              <div class="loading-item loading-three"></div>
-              <div class="loading-item loading-four"></div>
-              <div class="loading-item loading-five"></div>
-            </div>
-          </div>
+          <Loading />
         </div>
       );
     } else {

@@ -275,7 +275,7 @@ export default class Article extends Component {
                       style={{ flex: "auto" }}
                       onChange={this.onNameChange}
                     />
-                    <button onClick={this.addItem}> Add item </button>
+                    <button className={"cateButton"} onClick={this.addItem}> Add </button>
                   </div>
                 </div>
               )}
