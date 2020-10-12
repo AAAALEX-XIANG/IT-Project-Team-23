@@ -103,7 +103,7 @@ class RegForm extends React.Component {
                             <input placeholder="Username" type="text" name="username" value={this.state.username} onChange={this.handleChange} required/>
                         </div>
                         <div>
-                            <input placeholder="Confirm your password" type="password" name="password_confirm" value={this.state.password_confirm} onChange={this.handleChange} required/>
+                            <input placeholder="Confirm password" type="password" name="password_confirm" value={this.state.password_confirm} onChange={this.handleChange} required/>
                         </div>
                     
                         {!this.state.success &&

@@ -8,6 +8,7 @@ export default function RegPage() {
             <div className="regContainer">
                 <RegForm />
             </div>
+            <div className="wrapBubble">
             <ul>
                 <li></li>
                 <li></li>
@@ -20,6 +21,7 @@ export default function RegPage() {
                 <li></li>
                 <li></li>
             </ul>
+            </div>
         </div>
     );
 }
