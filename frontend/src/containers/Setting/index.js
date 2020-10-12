@@ -111,14 +111,9 @@ export default class Setting extends Component {
     if (foo.hasChildNodes()) {
       let children = foo.childNodes;
       for (let i = 0; i < children.length; i++) {
-        console.log(children[i].nodeName);
         if (children[i].nodeName === "OBJECT") {
           foo.removeChild(children[i]);
         }
-        // if(children[i].nodeName === 'A'){
-        //     foo.removeChild(children[i]);
-        //     break;
-        // }
       }
       // Insert a link that allows the user to download the PDF file
       var link = document.createElement("a");
@@ -141,7 +136,6 @@ export default class Setting extends Component {
     if (foo.hasChildNodes()) {
       let children = foo.childNodes;
       for (let i = 0; i < children.length; i++) {
-        console.log(children[i].nodeName);
         if (children[i].nodeName === "OBJECT") {
           foo.removeChild(children[i]);
         } else if (children[i].nodeName === "A") {

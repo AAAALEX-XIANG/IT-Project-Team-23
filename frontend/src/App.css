@@ -26,6 +26,7 @@ body,
   font-size: small;
   font-family: "Comic Sans MS", sans-serif;
   flex-wrap: nowrap;
+  min-width: 200vh;
 }
 
 .headerContainer {
@@ -58,7 +59,6 @@ body,
   background-size: cover;
   -webkit-background-size: cover;
   -o-background-size: cover;
-  background-position: center;
   align-items: flex-start;
   display: flex;
   min-height: 100vh;
@@ -82,7 +82,7 @@ body,
   display: flex;
   flex-direction: column;
   list-style: none;
-  min-width: 15%;
+  min-width: 14%;
   background-color: rgba(255, 255, 255, 0.8);
   min-height: inherit;
   /* transform: translate(0, 20%); */
@@ -482,22 +482,22 @@ form a {
 }
 
 .grid-container {
-  height: 90vh;
-  width: 200vh;
+  height: 100vh;
+  width: 175vh;
   display: grid;
   grid-template-columns: 25% 75%;
-  grid-gap: 10px;
-  padding: 4% 5% 5% 5%;
+  grid-gap: 8px;
+  padding: 4% 4% 4% 4%;
 }
 
 .grid-container .rightCol {
-  padding-top: 30px;
+  padding-top: 5vh;
   background-color: rgba(0, 0, 0, 0.3);
-  min-height: 550px;
+  /* min-height: 550px; */
 }
 
 .grid-container .leftCol {
-  padding-top: 30px;
+  padding-top: 5vh;
   background-color: rgba(0, 0, 0, 0.3);
 }
 
@@ -733,11 +733,6 @@ form a {
 
 .variables {
   color: #f3eded;
-  font-weight: bold;
-}
-
-p {
-  color: #ffffff;
   font-weight: bold;
 }
 
