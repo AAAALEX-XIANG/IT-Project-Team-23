@@ -5,6 +5,7 @@ import { DownloadOutlined, PictureOutlined } from "@ant-design/icons";
 import { getGuestPublic, getGuestAttachment } from "../guestApi";
 
 import GuestNavbar from "../../components/GuestNavbar";
+import Loading from "../../containers/Loading"
 
 const { Panel } = Collapse;
 let currenLink = window.location.pathname.split("/").pop();
@@ -166,16 +167,9 @@ export default class GuestCate extends Component {
       return (
         <div className="pageContainer">
           <GuestNavbar />
-          <div className="loadingContainer">
-            <div class="loading">
-              <div class="loading-item loading-one"></div>
-              <div class="loading-item loading-two"></div>
-              <div class="loading-item loading-three"></div>
-              <div class="loading-item loading-four"></div>
-              <div class="loading-item loading-five"></div>
-            </div>
+      
+          <Loading />
           </div>
-        </div>
       );
     } else {
       return (

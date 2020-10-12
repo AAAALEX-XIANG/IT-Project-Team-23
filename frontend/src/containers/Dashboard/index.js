@@ -4,6 +4,7 @@ import Navbar from "../../components/Navbar";
 import { Button, Upload, message } from "antd";
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import { viewProfile, updateProfile, shareProfile } from "../profileApi";
+import Loading from "../Loading";
 
 let baseURL = "https://fate-e-portfolio.herokuapp.com/api/profile/updateAvatar";
 //let baseURL = "http://localhost:8080/api/profile/updateAvatar";
@@ -211,15 +212,7 @@ export default class Dashboard extends Component {
       return (
         <div className="pageContainer">
           <Navbar />
-          <div className="loadingContainer">
-            <div class="loading">
-              <div class="loading-item loading-one"></div>
-              <div class="loading-item loading-two"></div>
-              <div class="loading-item loading-three"></div>
-              <div class="loading-item loading-four"></div>
-              <div class="loading-item loading-five"></div>
-            </div>
-          </div>
+          <Loading />
         </div>
       );
     } else {

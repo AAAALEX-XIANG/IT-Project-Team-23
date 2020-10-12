@@ -11,6 +11,7 @@ import DupLogin from "./containers/DupLogin";
 import AdminPage from "./containers/AdminPage";
 import GuestDashboard from "./containers/GuestDashBoard";
 import GuestCate from "./containers/GuestCate";
+import Loading from "./containers/Loading"
 
 import { observer } from "mobx-react";
 
@@ -93,6 +94,14 @@ const App = observer(
                   ) : (
                     <Redirect to="/login" />
                   )
+                }
+              />
+
+              <Route
+                exact
+                path="/loadingtest"
+                render={(props) =>
+                    <Loading/>
                 }
               />
 
