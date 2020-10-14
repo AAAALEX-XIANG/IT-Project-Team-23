@@ -1,18 +1,23 @@
 package com.fate.backend;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.security.SecureRandom;
 
+import com.encoder.Md5Util;
 import com.model.Profile;
 import com.model.RegisterRequest;
 import com.model.Result;
 import com.service.AccountService;
+import com.service.FileEncodeService;
 import com.service.ProfileService;
 import com.service.SearchService;
 
+import org.bson.types.Binary;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -30,6 +35,8 @@ class ServiceLayerTests {
 
 	@Autowired
 	private SearchService searchService;
+
+	private final String testFilePathOne = "C:/Users/DELL/Desktop/Git/backend/src/test/java/com/fate/backend/cat.jpg";
 
 	@Test
 	void registerServiceSuccessTest() {
@@ -112,19 +119,20 @@ class ServiceLayerTests {
 	void searchServiceSearchbyLastname() {
 		assertEquals(1, searchService.showUser("Xiang").size());
 	}
-	
+
 	@Test
 	void searchServiceSearchbyInformationNotInDatabase() {
 		assertEquals(0, searchService.showUser("ooppppppps").size());
 	}
-	
+
 	@Test
 	void updateAvatarTest() throws IOException {
 		// use your local file path
-		String filePath = "/Users/Steven/Desktop/level3/comp30022/IT-Project-Team-23-steven/backend/src/main/resources/test/cat.jpg";
+		String filePath = testFilePathOne;
 		File image = new File(filePath);
 		FileInputStream fileInputStream = new FileInputStream(image);
-		MultipartFile multipartFile = new MockMultipartFile(image.getName(), image.getName(), "image/jpeg", fileInputStream);
+		MultipartFile multipartFile = new MockMultipartFile(image.getName(), image.getName(), "image/jpeg",
+				fileInputStream);
 		Result result = profileService.updateAvatar("alex@gmail.com", multipartFile);
 		assertEquals("Success", result.getReason());
 	}
@@ -136,7 +144,6 @@ class ServiceLayerTests {
 		assertEquals("Empty File!", result.getReason());
 	}
 
-	
 	@Test
 	void getUserProfile() {
 		Profile profile = new Profile("Zhengkang", "Xiang", "Alex");
@@ -150,6 +157,48 @@ class ServiceLayerTests {
 	}
 
 	boolean profileEquals(Profile expected, Profile actual) {
-		return (expected.getFirstname().equals(actual.getFirstname()) && expected.getLastname().equals(actual.getLastname()) && expected.getUsername().equals(actual.getUsername()));
+		return (expected.getFirstname().equals(actual.getFirstname())
+				&& expected.getLastname().equals(actual.getLastname())
+				&& expected.getUsername().equals(actual.getUsername()));
+	}
+
+	@Test
+	void encryptPassword() {
+		SecureRandom random = new SecureRandom();
+		String passwordOne = generateRandomPassword(random.nextInt());
+		String encryptedPasswordOne = Md5Util.md5(passwordOne);
+		assertNotEquals(passwordOne, encryptedPasswordOne);
+		String encryptedPasswordTwo = Md5Util.md5(passwordOne);
+		assertEquals(encryptedPasswordOne, encryptedPasswordTwo);
+	}
+
+	String generateRandomPassword(int len) {
+		// ASCII range - alphanumeric (0-9, a-z, A-Z)
+		final String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+		SecureRandom random = new SecureRandom();
+		String password = "";
+
+		// each iteration of loop choose a character randomly from the given ASCII range
+		// and append it to StringBuilder instance
+		for (int i = 0; i < len; i++) {
+			int randomIndex = random.nextInt(chars.length());
+			password += chars.charAt(randomIndex);
+		}
+		return password;
+	}
+
+	@Test
+	void fileEncryption() throws IOException {
+		// use your local file path
+		String filePath = testFilePathOne;
+		File image = new File(filePath);
+		FileInputStream fileInputStream = new FileInputStream(image);
+		MultipartFile multipartFile = new MockMultipartFile(image.getName(), image.getName(), "image/jpeg",
+				fileInputStream);
+		Binary originFile = new Binary(multipartFile.getBytes());
+		Binary encodedFile = FileEncodeService.encodeFile(multipartFile.getOriginalFilename(), originFile);
+		assertNotEquals(originFile, encodedFile);
+		Binary decodedFile = FileEncodeService.decodeFile(multipartFile.getOriginalFilename(), encodedFile);
+		assertEquals(originFile, decodedFile);
 	}
 }
