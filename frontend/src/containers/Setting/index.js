@@ -242,7 +242,7 @@ export default class Setting extends Component {
             {cates.map((item) => (
               <Panel header={item} key={item}>
                 <Button
-                  loading={loadings[0]}
+                  loading={loadings[2]}
                   onClick={() =>
                   this.deleteCate({
                     email: localStorage.getItem("email"),
@@ -257,7 +257,7 @@ export default class Setting extends Component {
                   {categories.get(item).map((title) => (
                     <Panel header={title} key={title}>
                       <Button
-                        loading={loadings[0]}
+                        loading={loadings[3]}
                         onClick={() =>
                         this.deleteArti({
                           email: localStorage.getItem("email"),
@@ -269,7 +269,7 @@ export default class Setting extends Component {
                       Delete Artifact
                       </Button>
                       <Button
-                        loading={loadings[0]}
+                        loading={loadings[4]}
                         onClick={() =>
                         this.changePrivacy({
                           email: localStorage.getItem("email"),
