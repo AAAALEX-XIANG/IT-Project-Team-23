@@ -1,6 +1,5 @@
 import React from 'react';
 import LoginForm from '../components/login';
-//import Navbar from '../components/Navbar';
 
 
 export default function Loginpage(props) {

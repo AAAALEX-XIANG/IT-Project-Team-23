@@ -85,7 +85,7 @@ body,
   display: flex;
   flex-direction: column;
   list-style: none;
-  min-width: 14%;
+  min-width: 10%;
   background-color: rgba(255, 255, 255, 0.8);
   height: 104vh;
 }
@@ -643,7 +643,6 @@ form a {
   color: #c8d7ee;
   outline: none;
   border: none;
-  font-size: 16px;
 }
 
 /* --------------------------------Loading page ---------------------------*/
@@ -754,7 +753,7 @@ form a {
 }
 
 /* --------------------------------Artifact Page ---------------------------*/
-.cateButton{
+.cateButton {
   position: relative;
   width: 8em;
   font-size: 12px;
@@ -775,10 +774,10 @@ form a {
   font-weight: bold;
 }
 
-.privacy, .fileUploaded {
+.privacy,
+.fileUploaded {
   color: #ffffff;
 }
-
 
 /* --------------------------------Admin Page ---------------------------*/
 .adminSearch {

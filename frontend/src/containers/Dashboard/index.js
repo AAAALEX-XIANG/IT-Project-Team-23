@@ -243,7 +243,7 @@ export default class Dashboard extends Component {
                       <img
                         src={imageUrl}
                         alt="avatar"
-                        style={{ width: "150%", height: "150%" }}
+                        class="curAvatar"
                       />
                     ) : (
                       uploadButton
@@ -379,15 +379,17 @@ export default class Dashboard extends Component {
                     beforeUpload={beforeUpload}
                     onChange={this.handleChange}
                   >
-                    {imageUrl ? (
-                      <img
-                        src={imageUrl}
-                        alt="avatar"
-                        style={{ width: "150%", height: "150%" }}
-                      />
-                    ) : (
-                      uploadButton
-                    )}
+                    <div className="curAvatar">
+                      {imageUrl ? (                      
+                        <img
+                          src={imageUrl}
+                          alt="avatar"
+                          className="avatarImg"                        
+                        />                     
+                      ) : (
+                        uploadButton
+                      )}
+                    </div>
                   </Upload>
                 </div>
                 <div className="editButtonBox">
