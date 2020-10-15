@@ -81,9 +81,15 @@ export default class Dashboard extends Component {
     const value = target.value;
     const name = target.name;
 
-    this.setState({
-      [name]: value,
-    });
+    // if (value.length > 200) {
+    //   this.setState({
+    //     [name]: value.substring(0, 200),
+    //   });
+    // } else {
+      this.setState({
+        [name]: value,
+      });
+    // }
   }
 
   submitProfile(detail) {
@@ -243,7 +249,7 @@ export default class Dashboard extends Component {
                       <img
                         src={imageUrl}
                         alt="avatar"
-                        class="curAvatar"
+                        style={{ width: "10rem", height: "10rem" }}
                       />
                     ) : (
                       uploadButton
@@ -384,7 +390,7 @@ export default class Dashboard extends Component {
                         <img
                           src={imageUrl}
                           alt="avatar"
-                          className="avatarImg"                        
+                          style={{ width: "10rem", height: "10rem" }}                      
                         />                     
                       ) : (
                         uploadButton
