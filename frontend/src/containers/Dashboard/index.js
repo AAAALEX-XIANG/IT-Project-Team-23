@@ -262,10 +262,27 @@ export default class Dashboard extends Component {
                   <Button block disabled>
                     Share Your Home Page
                   </Button>
+                  <br />
+                  <br />
+                  <Button
+                    block
+                    value="default"
+                    loading={loadings[0]}
+                    onClick={() =>
+                      this.submitProfile({
+                        firstname,
+                        lastname,
+                        username,
+                        description,
+                      })
+                    }
+                  >
+                    Update
+                  </Button>
                 </div>
               </div>
               <div className="rightCol">
-                <div className="profileHeadings">My Account</div>
+                <div className="profileHeadings">Profile</div>
 
                 <div className="profileInfo">
                   Email:
@@ -341,24 +358,6 @@ export default class Dashboard extends Component {
                     </a>
                   </div>
                 </div>
-                <div className="profileInfo">
-                  <div className="updateButtonBox">
-                    <Button
-                      value="default"
-                      loading={loadings[0]}
-                      onClick={() =>
-                        this.submitProfile({
-                          firstname,
-                          lastname,
-                          username,
-                          description,
-                        })
-                      }
-                    >
-                      Update
-                    </Button>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
@@ -407,7 +406,7 @@ export default class Dashboard extends Component {
                 </div>
               </div>
               <div className="rightCol">
-                <div className="profileHeadings">My Account</div>
+                <div className="profileHeadings">Profile</div>
 
                 <div className="profileInfo">
                   Email:
