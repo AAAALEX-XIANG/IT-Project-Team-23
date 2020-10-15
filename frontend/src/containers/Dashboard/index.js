@@ -260,7 +260,7 @@ export default class Dashboard extends Component {
                   <br />
                   <br />
                   <Button block disabled>
-                    Share Your Home Page
+                    Generate a new share link
                   </Button>
                   <br />
                   <br />
@@ -338,6 +338,7 @@ export default class Dashboard extends Component {
                       name="description"
                       rows="2"
                       cols="50"
+                      maxLength="200"
                       value={this.state.description}
                       onChange={this.handleUpdate}
                       required
@@ -399,7 +400,7 @@ export default class Dashboard extends Component {
                   <br />
                   <br />
                   <Button block onClick={this.getShareLink}>
-                    Share Your Home Page
+                    Generate a new share link
                   </Button>
                 </div>
               </div>

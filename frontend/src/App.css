@@ -34,19 +34,21 @@ body,
 }
 
 .mainHeader .logo {
-  height: 35px;
+  height: 6vh;
   margin-left: 2.5em;
   margin-right: 0.5em;
 }
 
 .headerContainer .userMsg {
   position: absolute;
-  right: 10px;
-  margin-top: 10px;
+  right: 1vw;
+  margin-top: 3vh;
+  font-size: 0.9rem;
 }
 
 .headerContainer .messageContainer {
-  margin-top: 15px;
+  font-size: 0.9rem;
+  margin-top: 3vh;
 }
 
 .pageContainer {
@@ -73,27 +75,32 @@ body,
 
 .pageContainer #header {
   font-weight: bold;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   position: relative;
-  margin-left: 200px;
+  margin-left: 15vw;
   color: #ffffff;
 }
+
 .navbar {
   display: flex;
   flex-direction: column;
   list-style: none;
   min-width: 14%;
   background-color: rgba(255, 255, 255, 0.8);
-  min-height: inherit;
-  /* transform: translate(0, 20%); */
+  height: 104vh;
+}
+
+.navbar > ul {
+  margin-top: 22%;
 }
 
 .navOption > a {
   display: block;
-  padding: 25px 0;
+  padding: 20% 0;
   text-align: center;
   text-decoration: none;
-  font-size: 0.9rem;
+  font-size: 1.6vh;
+  font-weight: bold;
   color: rgb(51, 51, 51);
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   border-top: 1px solid rgba(255, 255, 255, 0.1);
@@ -101,7 +108,6 @@ body,
 
 .navOption > a:hover {
   background-color: rgba(0, 0, 0, 0.5);
-  /* background-color: rgba(255, 255, 255, 1); */
   border-right: none;
   color: white;
   transition: 0.8s;
@@ -446,15 +452,43 @@ form a {
   color: #999;
   transition: all 0.3s;
 }
+
 .dynamic-delete-button:hover {
   color: #777;
 }
+
 .dynamic-delete-button[disabled] {
   cursor: not-allowed;
   opacity: 0.5;
 }
 
-/* profile page */
+.cateContainer {
+  min-width: 400px;
+}
+
+.CateInfo {
+  text-align: left;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.CateInfo .currentInfo {
+  font-size: medium;
+  font-weight: 100;
+  padding-left: 20px;
+}
+.CateInfo .currentAttachmentInfo {
+  font-size: medium;
+  font-weight: 100;
+  padding-left: 20px;
+}
+
+.viewContainer {
+  margin: auto;
+  background-color: rgba(255, 255, 255, 0.712);
+}
+
+/* --------------------------------profile page ---------------------------*/
 .profileHeadings {
   text-align: left;
   font-size: 2rem;
@@ -481,9 +515,9 @@ form a {
   border-bottom: 2px solid rgba(0, 0, 0, 0.5);
 }
 
+
 .grid-container {
-  height: 100vh;
-  width: 175vh;
+  height: 40rem;
   display: grid;
   grid-template-columns: 25% 75%;
   grid-gap: 8px;
@@ -492,12 +526,13 @@ form a {
 
 .grid-container .rightCol {
   padding-top: 5vh;
+  width: 45rem;
   background-color: rgba(0, 0, 0, 0.3);
-  /* min-height: 550px; */
 }
 
 .grid-container .leftCol {
   padding-top: 5vh;
+  width: 15rem;
   background-color: rgba(0, 0, 0, 0.3);
 }
 
@@ -506,11 +541,12 @@ form a {
   grid-template-columns: 50% 50%;
 }
 
-.intro {
+.profileInfo .intro {
   font-size: medium;
   font-weight: 500;
   margin-right: 40px;
   padding-left: 20px;
+  max-height: 100px;
   color: rgb(212, 212, 212);
   white-space: pre-wrap;
   white-space: -moz-pre-wrap;
@@ -520,7 +556,6 @@ form a {
 
 .grid-container > div {
   padding: 20px;
-  /* padding-right: 20px; */
 }
 
 .editButtonBox {
@@ -570,16 +605,18 @@ form a {
 }
 
 .avatarBox {
-  transform: translate(30%, 30%);
+  padding-left: 29%;
+  padding-top: 5%;
 }
 
 .avatarBox-guest {
-  transform: translate(5%, 0);
+  padding-left: 12%;
+  padding-top: 5%;
 }
 
 .avatar-uploader {
-  width: 128px;
-  height: 128px;
+  width: 12%;
+  height: 12%;
 }
 
 .currentInfo a {
@@ -595,6 +632,7 @@ form a {
 .avatarMessage {
   color: rgb(212, 212, 212);
   font-size: small;
+  font-weight: bold;
   margin-bottom: 50px;
   text-align: center;
 }
@@ -732,6 +770,7 @@ form a {
 }
 
 .variables {
+  flex: auto;
   color: #f3eded;
   font-weight: bold;
 }

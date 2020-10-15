@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Button, Collapse } from "antd";
-import { DownloadOutlined, PictureOutlined } from "@ant-design/icons";
+import { DownloadOutlined, PictureOutlined,DeleteOutlined,EyeOutlined } from "@ant-design/icons";
 //import { showCategory, deleteCategory, showArtifacts } from "../../containers/categoryApi"
 import {
   getCategoryArtifact,
@@ -16,6 +16,8 @@ import Navbar from "../../components/Navbar";
 import Loading from "../../containers/Loading"
 
 const { Panel } = Collapse;
+
+
 
 export default class Setting extends Component {
   constructor(props) {
@@ -153,14 +155,16 @@ export default class Setting extends Component {
       ) {
         // view file
         var firstobj = document.createElement("object");
-        firstobj.class = "viewContainer";
+        firstobj.className = "viewContainer";
         if (type === "application/pdf" || type === "text/plain") {
           firstobj.style.height = "700px";
         } else {
           firstobj.style.height = "45%";
+          firstobj.style.maxHeight = "650px";
+          firstobj.style.maxWidth = "700px";
         }
         firstobj.style.width = "60%";
-        firstobj.style.cssFloat = "right";
+        firstobj.style.cssFloat = "center";
         firstobj.type = type;
         firstobj.data = "data:" + type + ";base64," + b64;
         foo.appendChild(firstobj);
@@ -204,6 +208,8 @@ export default class Setting extends Component {
     }, 5000);
   };
 
+
+
   render() {
     const { files, loadings, isLoaded } = this.state;
     let cates = [];
@@ -231,58 +237,65 @@ export default class Setting extends Component {
       return (
         <div className="pageContainer">
           <Navbar />
+          <div className="cateContainer">
 
-          <Collapse>
+          <Collapse accordion>
             {cates.map((item) => (
-              <Panel header={item} key={item}>
-                <Button
-                  loading={loadings[0]}
-                  onClick={() =>
-                  this.deleteCate({
-                    email: localStorage.getItem("email"),
-                    categoryName: item,
-                  })
-                }
-                >
-                Delete Category
-                </Button>
-                <br />
-                <Collapse>
+              <Panel header={"Category: "+item} key={item} extra={<DeleteOutlined onClick={() =>
+                this.deleteCate({
+                  email: localStorage.getItem("email"),
+                  categoryName: item,
+                })
+              }
+              />}>
+                <Collapse accordion>
                   {categories.get(item).map((title) => (
-                    <Panel header={title} key={title}>
+                    <Panel header={"Artifact: "+title} key={title} extra={<DeleteOutlined onClick={() =>
+                      this.deleteArti({
+                        email: localStorage.getItem("email"),
+                        category: item,
+                        artifact: title
+                      })
+                    }
+                    />}>
+                      <div className="CateInfo">
+                        Description:
+                        <div className="currentInfo">
+                          <p>{files[item][title][0]}</p>
+                        </div>
+                      </div>
+                      <div className="CateInfo">
+                        <p>Current Privacy State: 
+                          <div className="currentInfo">
+                            {files[item][title][1]}
+                          </div>
+                        </p>
+                      </div>
                       <Button
-                        loading={loadings[0]}
+                        loading={loadings[4]}
                         onClick={() =>
-                        this.deleteArti({
-                          email: localStorage.getItem("email"),
-                          category: item,
-                          artifact: title
-                        })
-                      }
+                          this.changePrivacy({
+                            email: localStorage.getItem("email"),
+                            category: item,
+                            artifact: title,
+                            privacy: files[item][title][1]
+                          })
+                        }
+                        icon={<EyeOutlined />}
                       >
-                      Delete Artifact
+                      {"Click to switch state"}
                       </Button>
-                      <Button
-                        loading={loadings[0]}
-                        onClick={() =>
-                        this.changePrivacy({
-                          email: localStorage.getItem("email"),
-                          category: item,
-                          artifact: title,
-                          privacy: files[item][title][1]
-                        })
-                      }
-                      >
-                      {files[item][title][1]}
-                      </Button>
-                      <br />
-                      Description:
-                      <p>{files[item][title][0]}</p>
+                      <br /><br />
+                      <div className="CateInfo">
                       Attachments:
                       {files[item][title].slice(2).map((file) => (
                         <div key={file}>
+                          <div className="currentAttachmentInfo">
                           <p>
                             {file}
+                          </p>
+                          </div>
+                          
 
                             <Button
                               loading={loadings[0]}
@@ -295,9 +308,8 @@ export default class Setting extends Component {
                                 })
                               }
                               id="downloadBtn"
-                              type="primary"
-                              shape="round"
                               icon={<PictureOutlined />}
+                              size="small"
                             >
                               View
                             </Button>
@@ -312,21 +324,22 @@ export default class Setting extends Component {
                                 })
                               }
                               id="downloadBtn"
-                              type="primary"
-                              shape="round"
                               icon={<DownloadOutlined />}
+                              size="small"
                             >
                               download
                             </Button>
-                          </p>
                         </div>
                       ))}
+                      <br />
+                      </div>
                     </Panel>
                   ))}
                 </Collapse>
               </Panel>
             ))}
           </Collapse>
+          </div>
         </div>
       );
     }
