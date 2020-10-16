@@ -39,12 +39,13 @@ body,
   margin-right: 0.5em;
 }
 
-.headerContainer .userMsg {
+/* .headerContainer .userMsg {
   position: absolute;
   right: 1vw;
   margin-top: 3vh;
+  margin-right: 1px;
   font-size: 0.9rem;
-}
+} */
 
 .headerContainer .messageContainer {
   font-size: 0.9rem;
@@ -517,22 +518,21 @@ form a {
 
 
 .grid-container {
-  height: 40rem;
+  padding-top: 5%;
+  padding-left: 5%;
+  width: 100%;
+  min-width: 40rem;
   display: grid;
-  grid-template-columns: 25% 75%;
-  grid-gap: 8px;
-  padding: 4% 4% 4% 4%;
+  grid-template-columns: 23% 73%;
+  grid-gap: 5px;
+  min-height: 35rem;
 }
 
 .grid-container .rightCol {
-  padding-top: 5vh;
-  width: 45rem;
   background-color: rgba(0, 0, 0, 0.3);
 }
-
+ 
 .grid-container .leftCol {
-  padding-top: 5vh;
-  width: 15rem;
   background-color: rgba(0, 0, 0, 0.3);
 }
 
@@ -605,8 +605,8 @@ form a {
 }
 
 .avatarBox {
-  padding-left: 29%;
-  padding-top: 5%;
+  padding-left: 26%;
+  padding-top: 10%;
 }
 
 .avatarBox-guest {

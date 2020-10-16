@@ -208,8 +208,6 @@ export default class Setting extends Component {
     }, 5000);
   };
 
-
-
   render() {
     const { files, loadings, isLoaded } = this.state;
     let cates = [];
@@ -294,8 +292,7 @@ export default class Setting extends Component {
                           <p>
                             {file}
                           </p>
-                          </div>
-                          
+                          </div>                          
 
                             <Button
                               loading={loadings[0]}
