@@ -1,12 +1,11 @@
 import React, { Component } from "react";
 import { Button, Collapse } from "antd";
-import { DownloadOutlined, PictureOutlined } from "@ant-design/icons";
+import { DownloadOutlined, PictureOutlined,DeleteOutlined,EyeOutlined } from "@ant-design/icons";
 
 import { getGuestPublic, getGuestAttachment } from "../guestApi";
 
 import GuestNavbar from "../../components/GuestNavbar";
 import Loading from "../../containers/Loading"
-
 const { Panel } = Collapse;
 let currenLink = window.location.pathname.split("/").pop();
 
@@ -56,10 +55,6 @@ export default class GuestCate extends Component {
         if (children[i].nodeName === "OBJECT") {
           foo.removeChild(children[i]);
         }
-        // if(children[i].nodeName === 'A'){
-        //     foo.removeChild(children[i]);
-        //     break;
-        // }
       }
       // Insert a link that allows the user to download the PDF file
       var link = document.createElement("a");
@@ -95,18 +90,21 @@ export default class GuestCate extends Component {
       if (
         type === "application/pdf" ||
         type === "image/jpeg" ||
+        type === "image/png" ||
         type === "text/plain"
       ) {
         // view file
         var firstobj = document.createElement("object");
-        firstobj.class = "viewContainer";
+        firstobj.className = "viewContainer";
         if (type === "application/pdf" || type === "text/plain") {
           firstobj.style.height = "700px";
         } else {
           firstobj.style.height = "45%";
+          firstobj.style.maxHeight = "650px";
+          firstobj.style.maxWidth = "700px";
         }
         firstobj.style.width = "60%";
-        firstobj.style.cssFloat = "right";
+        firstobj.style.cssFloat = "center";
         firstobj.type = type;
         firstobj.data = "data:" + type + ";base64," + b64;
         foo.appendChild(firstobj);
@@ -154,6 +152,7 @@ export default class GuestCate extends Component {
     let cates = [];
     let categories = new Map();
 
+    // store response categories in a map and artifacts in an array
     for (var cate in files) {
       cates.push(cate);
       let artifacts = [];
@@ -162,47 +161,86 @@ export default class GuestCate extends Component {
       }
       categories.set(cate, artifacts);
     }
+    
     if (!isLoaded) {
       //loading screen
       return (
         <div className="pageContainer">
           <GuestNavbar />
-      
           <Loading />
-          </div>
+        </div>
       );
     } else {
       return (
         <div className="pageContainer">
           <GuestNavbar />
-          <Collapse>
+          <div className="cateContainer">
+
+          <Collapse accordion>
             {cates.map((item) => (
-              <Panel header={item} key={item}>
-                <Collapse>
+              <Panel header={"Category: "+item} key={item} extra={<DeleteOutlined onClick={() =>
+                this.deleteCate({
+                  email: localStorage.getItem("email"),
+                  categoryName: item,
+                })
+              }
+              />}>
+                <Collapse accordion>
                   {categories.get(item).map((title) => (
-                    <Panel header={title} key={title}>
-                      Description:
-                      <p>{files[item][title][0]}</p>
+                    <Panel header={"Artifact: "+title} key={title} extra={<DeleteOutlined onClick={() =>
+                      this.deleteArti({
+                        email: localStorage.getItem("email"),
+                        category: item,
+                        artifact: title
+                      })
+                    }
+                    />}>
+                      <div className="CateInfo">
+                        Description:
+                        <div className="currentInfo">
+                          <p>{files[item][title][0]}</p>
+                        </div>
+                      </div>
+                      
+                      <Button
+                        loading={loadings[4]}
+                        onClick={() =>
+                          this.changePrivacy({
+                            email: localStorage.getItem("email"),
+                            category: item,
+                            artifact: title,
+                            privacy: files[item][title][1]
+                          })
+                        }
+                        icon={<EyeOutlined />}
+                      >
+                      {"Click to switch state"}
+                      </Button>
+                      <br /><br />
+                      <div className="CateInfo">
                       Attachments:
                       {files[item][title].slice(1).map((file) => (
                         <div key={file}>
+                          <div className="currentAttachmentInfo">
                           <p>
                             {file}
+                          </p>
+                          </div>
+                          
 
                             <Button
                               loading={loadings[0]}
                               onClick={() =>
                                 this.viewAttachment({
-                                  link: currenLink,
+                                  email: localStorage.getItem("email"),
                                   category: item,
                                   artifact: title,
                                   attachment: file,
                                 })
                               }
                               id="downloadBtn"
-                              type="primary"
-                              shape="round"
                               icon={<PictureOutlined />}
+                              size="small"
                             >
                               View
                             </Button>
@@ -210,28 +248,29 @@ export default class GuestCate extends Component {
                               loading={loadings[1]}
                               onClick={() =>
                                 this.downloadAttachment({
-                                  link: currenLink,
+                                  email: localStorage.getItem("email"),
                                   category: item,
                                   artifact: title,
                                   attachment: file,
                                 })
                               }
                               id="downloadBtn"
-                              type="primary"
-                              shape="round"
                               icon={<DownloadOutlined />}
+                              size="small"
                             >
                               download
                             </Button>
-                          </p>
                         </div>
                       ))}
+                      <br />
+                      </div>
                     </Panel>
                   ))}
                 </Collapse>
               </Panel>
             ))}
           </Collapse>
+          </div>
         </div>
       );
     }

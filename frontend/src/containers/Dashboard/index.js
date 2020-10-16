@@ -81,9 +81,15 @@ export default class Dashboard extends Component {
     const value = target.value;
     const name = target.name;
 
-    this.setState({
-      [name]: value,
-    });
+    // if (value.length > 200) {
+    //   this.setState({
+    //     [name]: value.substring(0, 200),
+    //   });
+    // } else {
+      this.setState({
+        [name]: value,
+      });
+    // }
   }
 
   submitProfile(detail) {
@@ -243,7 +249,7 @@ export default class Dashboard extends Component {
                       <img
                         src={imageUrl}
                         alt="avatar"
-                        class="curAvatar"
+                        style={{ width: "10rem", height: "10rem" }}
                       />
                     ) : (
                       uploadButton
@@ -260,7 +266,7 @@ export default class Dashboard extends Component {
                   <br />
                   <br />
                   <Button block disabled>
-                    Share Your Home Page
+                    Generate a new share link
                   </Button>
                   <br />
                   <br />
@@ -338,6 +344,7 @@ export default class Dashboard extends Component {
                       name="description"
                       rows="2"
                       cols="50"
+                      maxLength="200"
                       value={this.state.description}
                       onChange={this.handleUpdate}
                       required
@@ -383,7 +390,7 @@ export default class Dashboard extends Component {
                         <img
                           src={imageUrl}
                           alt="avatar"
-                          className="avatarImg"                        
+                          style={{ width: "10rem", height: "10rem" }}                      
                         />                     
                       ) : (
                         uploadButton
@@ -401,7 +408,7 @@ export default class Dashboard extends Component {
                   <br />
                   <br />
                   <Button block onClick={this.getShareLink}>
-                    Share Your Home Page
+                    Generate a new share link
                   </Button>
                 </div>
               </div>

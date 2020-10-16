@@ -23,46 +23,42 @@ export default function Navbar() {
   };
   return (
     <nav className="navbar">
-      <div classname="wrapper">
-        <div classname="sidebar">
-          <h2>&nbsp;&nbsp;&nbsp;&nbsp;</h2>
-          <h2>&nbsp;&nbsp;&nbsp;&nbsp;</h2>
-          <ul>
-            <li className="navOption">
-              <NavLink
-                to="/admin/dashboard"
-                className="current-page"
-                activeClassName="selected"
-              >
-                <HomeOutlined /> Home{" "}
-              </NavLink>
-            </li>
-            <li className="navOption">
-              <NavLink
-                to="/admin/article"
-                className="current-page"
-                activeClassName="selected"
-              >
-                <UploadOutlined /> Artifact{" "}
-              </NavLink>
-            </li>
-            <li className="navOption">
-              <NavLink
-                to="/admin/category"
-                className="current-page"
-                activeClassName="selected"
-              >
-                <MenuOutlined /> Category{" "}
-              </NavLink>
-            </li>
-            <li className="navOption">
-              <NavLink to="/login" onClick={logout}>
-                <PoweroffOutlined /> Logout{" "}
-              </NavLink>
-            </li>
-          </ul>
-        </div>
-      </div>
+      <h2>&nbsp;&nbsp;&nbsp;&nbsp;</h2>
+      <h2>&nbsp;&nbsp;&nbsp;&nbsp;</h2>
+      <ul>
+          <li className="navOption">
+            <NavLink
+              to="/admin/dashboard"
+              className="current-page"
+              activeClassName="selected"
+            >
+              <HomeOutlined /> Home{" "}
+            </NavLink>
+          </li>
+          <li className="navOption">
+            <NavLink
+              to="/admin/article"
+              className="current-page"
+              activeClassName="selected"
+            >
+              <UploadOutlined /> Artifact{" "}
+            </NavLink>
+          </li>
+          <li className="navOption">
+            <NavLink
+              to="/admin/category"
+              className="current-page"
+              activeClassName="selected"
+            >
+              <MenuOutlined /> Category{" "}
+            </NavLink>
+          </li>
+          <li className="navOption">
+            <NavLink to="/login" onClick={logout}>
+              <PoweroffOutlined /> Logout{" "}
+            </NavLink>
+          </li>
+        </ul>
     </nav>
   );
 }

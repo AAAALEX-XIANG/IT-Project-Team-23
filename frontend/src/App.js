@@ -182,7 +182,7 @@ const App = observer(
                 render={(props) => <GuestCate />}
               />
 
-              <Redirect to="/404" />
+              {/* <Redirect to="/404" /> */}
             </Switch>
           </Router>
         </div>

@@ -138,7 +138,7 @@ export default class GuestDashboard extends Component {
                 <img
                   src={imageUrl}
                   alt="avatar"
-                  style={{ width: "130%", height: "130%" }}
+                  style={{ width: "10rem", height: "10rem" }}
                 />
               </div>
               </div>
