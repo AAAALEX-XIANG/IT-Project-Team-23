@@ -40,6 +40,7 @@ const props = {
   onChange(info) {
     const { status } = info.file;
     if (status !== "uploading") {
+      file = info.fileList;
       console.log(info.file, info.fileList);
     }
     if (status === "done") {

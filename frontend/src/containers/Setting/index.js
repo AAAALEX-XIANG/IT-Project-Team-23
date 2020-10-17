@@ -25,7 +25,7 @@ export default class Setting extends Component {
     this.state = {
       files: {},
       loadings: [],
-      isLoaded: false,
+      isLoaded: false
     };
     this.showAllCate = this.showAllCate.bind(this);
     this.downloadAttachment = this.downloadAttachment.bind(this);
@@ -172,7 +172,7 @@ export default class Setting extends Component {
         alert(`Sorry, you are not allowed to view ${type} files`);
       }
       this.setState({
-        loadings: [],
+        loadings: []
       });
     }
   }
@@ -181,9 +181,9 @@ export default class Setting extends Component {
     getAttachment(item).then((file) => this.downloadFile(file.res));
     this.enterLoading(1);
   }
-  viewAttachment(item) {
+  viewAttachment(item, num) {
     getAttachment(item).then((file) => this.viewFile(file.res));
-    this.enterLoading(0);
+    this.enterLoading(num);
   }
 
   // helper function to ensure data updating
@@ -205,7 +205,7 @@ export default class Setting extends Component {
           loadings: newLoadings,
         };
       });
-    }, 5000);
+    }, 10000);
   };
 
   render() {
@@ -263,11 +263,10 @@ export default class Setting extends Component {
                         </div>
                       </div>
                       <div className="CateInfo">
-                        <p>Current Privacy State: 
+                          Current Privacy State: 
                           <div className="currentInfo">
                             {files[item][title][1]}
                           </div>
-                        </p>
                       </div>
                       <Button
                         loading={loadings[4]}
@@ -286,23 +285,22 @@ export default class Setting extends Component {
                       <br /><br />
                       <div className="CateInfo">
                       Attachments:
-                      {files[item][title].slice(2).map((file) => (
-                        <div key={file}>
+                      {files[item][title].slice(2).map((file, num) => (
+                        <div key={num+5}>
                           <div className="currentAttachmentInfo">
                           <p>
                             {file}
                           </p>
-                          </div>                          
-
+                          </div>
                             <Button
-                              loading={loadings[0]}
+                              loading={loadings[num+5]}
                               onClick={() =>
                                 this.viewAttachment({
                                   email: localStorage.getItem("email"),
                                   category: item,
                                   artifact: title,
                                   attachment: file,
-                                })
+                                }, num+5)
                               }
                               id="downloadBtn"
                               icon={<PictureOutlined />}
