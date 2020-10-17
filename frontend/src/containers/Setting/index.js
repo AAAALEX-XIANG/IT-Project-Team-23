@@ -17,8 +17,6 @@ import Loading from "../../containers/Loading"
 
 const { Panel } = Collapse;
 
-
-
 export default class Setting extends Component {
   constructor(props) {
     super(props);
@@ -125,9 +123,6 @@ export default class Setting extends Component {
       link.href = "data:application/octet-stream;base64," + b64;
       foo.appendChild(link).click();
     }
-    this.setState({
-      loadings: [],
-    });
   }
 
   viewFile(request) {
@@ -177,9 +172,9 @@ export default class Setting extends Component {
     }
   }
 
-  downloadAttachment(item) {
+  downloadAttachment(item, num) {
     getAttachment(item).then((file) => this.downloadFile(file.res));
-    this.enterLoading(1);
+    this.enterLoading(num);
   }
   viewAttachment(item, num) {
     getAttachment(item).then((file) => this.viewFile(file.res));
@@ -202,10 +197,10 @@ export default class Setting extends Component {
         newLoadings[index] = false;
 
         return {
-          loadings: newLoadings,
+          loadings: newLoadings
         };
       });
-    }, 10000);
+    }, 50000);
   };
 
   render() {
@@ -309,14 +304,14 @@ export default class Setting extends Component {
                               View
                             </Button>
                             <Button
-                              loading={loadings[1]}
+                              loading={loadings[num+files[item][title].length+5]}
                               onClick={() =>
                                 this.downloadAttachment({
                                   email: localStorage.getItem("email"),
                                   category: item,
                                   artifact: title,
                                   attachment: file,
-                                })
+                                }, num+files[item][title].length+5)
                               }
                               id="downloadBtn"
                               icon={<DownloadOutlined />}

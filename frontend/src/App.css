@@ -522,6 +522,7 @@ form a {
   padding-left: 5%;
   width: 100%;
   min-width: 40rem;
+  max-width: 80rem;
   display: grid;
   grid-template-columns: 23% 73%;
   grid-gap: 5px;
