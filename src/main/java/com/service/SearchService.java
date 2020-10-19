@@ -18,12 +18,18 @@ public class SearchService {
     private UserRepository userRepository;
 
     public Map<String, List<String>> showUser(String info) {
+        String[] names = info.split(" ");
         List<User> users = new ArrayList<>();
         User userId = userRepository.findByStudentId(info);
         User userEmail = userRepository.findByEmailaddress(info);
-        List<User> userFirstname = userRepository.findUserByFirstname(info);
-        List<User> userLastname = userRepository.findUserByLastname(info);
-        List<User> userUsername = userRepository.findUserByUsername(info);
+        List<User> userFirstname = new ArrayList<>();
+        List<User> userLastname = new ArrayList<>();
+        List<User> userUsername = new ArrayList<>();
+        for (String name : names) {
+            userFirstname.addAll(userRepository.findUserByFirstname(name));
+            userLastname.addAll(userRepository.findUserByLastname(name));
+            userUsername.addAll(userRepository.findUserByUsername(name));
+        }
         addToUsers(users, userId);
         addToUsers(users, userEmail);
         for (User i : userFirstname) {
