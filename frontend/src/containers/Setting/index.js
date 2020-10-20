@@ -129,17 +129,17 @@ export default class Setting extends Component {
     // Decode Base64 to binary and show some information about the file
     var b64 = request.content;
     var type = request.filetype;
-    let foo = document.getElementsByClassName("pageContainer")[0];
-    if (foo.hasChildNodes()) {
-      let children = foo.childNodes;
-      for (let i = 0; i < children.length; i++) {
-        if (children[i].nodeName === "OBJECT") {
-          foo.removeChild(children[i]);
-        } else if (children[i].nodeName === "A") {
-          foo.removeChild(children[i]);
-          break;
-        }
-      }
+    // let foo = document.getElementsByClassName("pageContainer")[0];
+    // if (foo.hasChildNodes()) {
+    //   let children = foo.childNodes;
+    //   for (let i = 0; i < children.length; i++) {
+    //     if (children[i].nodeName === "OBJECT") {
+    //       foo.removeChild(children[i]);
+    //     } else if (children[i].nodeName === "A") {
+    //       foo.removeChild(children[i]);
+    //       break;
+    //     }
+    //   }
 
       // we can only view pdf, text or image files
       if (
@@ -150,19 +150,25 @@ export default class Setting extends Component {
       ) {
         // view file
         var firstobj = document.createElement("object");
-        firstobj.className = "viewContainer";
-        if (type === "application/pdf" || type === "text/plain") {
-          firstobj.style.height = "700px";
-        } else {
-          firstobj.style.height = "45%";
-          firstobj.style.maxHeight = "650px";
-          firstobj.style.maxWidth = "700px";
-        }
-        firstobj.style.width = "60%";
-        firstobj.style.cssFloat = "center";
-        firstobj.type = type;
+        // firstobj.className = "viewContainer";
+        // if (type === "application/pdf" || type === "text/plain") {
+        //   firstobj.style.height = "700px";
+        // } else {
+        //   firstobj.style.height = "45%";
+        //   firstobj.style.maxHeight = "650px";
+        //   firstobj.style.maxWidth = "700px";
+        // }
+        // firstobj.style.width = "60%";
+        // firstobj.style.cssFloat = "center";
+        // firstobj.type = type;
         firstobj.data = "data:" + type + ";base64," + b64;
-        foo.appendChild(firstobj);
+        // foo.appendChild(firstobj);
+        
+        var iframe = `<iframe height="100%" width="100%" src='${firstobj.data}'></iframe>`
+        var x = window.open();
+        x.document.write(iframe);
+        x.document.title = request.filename;
+        x.document.close();
       } else {
         alert(`Sorry, you are not allowed to view ${type} files`);
       }
@@ -170,7 +176,7 @@ export default class Setting extends Component {
         loadings: []
       });
     }
-  }
+  // }
 
   downloadAttachment(item, num) {
     getAttachment(item).then((file) => this.downloadFile(file.res));
@@ -233,7 +239,7 @@ export default class Setting extends Component {
           <div className="cateContainer">
 
           <Collapse accordion>
-            {cates.map((item) => (
+            {cates.map((item, cateNum) => (
               <Panel header={"Category: "+item} key={item} extra={<DeleteOutlined onClick={() =>
                 this.deleteCate({
                   email: localStorage.getItem("email"),
@@ -242,7 +248,7 @@ export default class Setting extends Component {
               }
               />}>
                 <Collapse accordion>
-                  {categories.get(item).map((title) => (
+                  {categories.get(item).map((title, artiNum) => (
                     <Panel header={"Artifact: "+title} key={title} extra={<DeleteOutlined onClick={() =>
                       this.deleteArti({
                         email: localStorage.getItem("email"),
@@ -281,21 +287,22 @@ export default class Setting extends Component {
                       <div className="CateInfo">
                       Attachments:
                       {files[item][title].slice(2).map((file, num) => (
-                        <div key={num+5}>
+                        <div key={cateNum*cates.length+artiNum*categories.get(item).length+num+5}>
                           <div className="currentAttachmentInfo">
                           <p>
                             {file}
                           </p>
                           </div>
                             <Button
-                              loading={loadings[num+5]}
+                              // assign a loading number to all attachments
+                              loading={loadings[cateNum*cates.length+artiNum*categories.get(item).length+num+5]}
                               onClick={() =>
                                 this.viewAttachment({
                                   email: localStorage.getItem("email"),
                                   category: item,
                                   artifact: title,
                                   attachment: file,
-                                }, num+5)
+                                }, cateNum*cates.length+artiNum*categories.get(item).length+num+5)
                               }
                               id="downloadBtn"
                               icon={<PictureOutlined />}
@@ -304,14 +311,16 @@ export default class Setting extends Component {
                               View
                             </Button>
                             <Button
-                              loading={loadings[num+files[item][title].length+5]}
+                              loading={loadings[cates.length*categories.get(item).length*files[item][title].length+
+                                cateNum*cates.length+artiNum*categories.get(item).length+num*files[item][title].length+5]}
                               onClick={() =>
                                 this.downloadAttachment({
                                   email: localStorage.getItem("email"),
                                   category: item,
                                   artifact: title,
                                   attachment: file,
-                                }, num+files[item][title].length+5)
+                                }, cates.length*categories.get(item).length*files[item][title].length+
+                                cateNum*cates.length+artiNum*categories.get(item).length+num*files[item][title].length+5)
                               }
                               id="downloadBtn"
                               icon={<DownloadOutlined />}
