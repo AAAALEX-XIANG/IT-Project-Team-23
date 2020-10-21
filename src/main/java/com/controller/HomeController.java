@@ -1,6 +1,7 @@
 package com.controller;
 
 import org.springframework.stereotype.Controller;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 
 //This file/class is made for the usage of helping the frontend to route these different web pages.
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class HomeController {
 
     @RequestMapping({ "/*", "/admin/*", "/guest/dashboard/*", "/guest/category/*" })
-    public String index() {
+    public String pageRouter() {
         return "index";
     }
 
