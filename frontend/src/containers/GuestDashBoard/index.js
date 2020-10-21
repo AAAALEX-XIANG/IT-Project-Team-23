@@ -53,18 +53,34 @@ export default class GuestDashboard extends Component {
   };
 
   fetchInfo(currenLink) {
-    getGuestDashboard({ link: currenLink }).then((userInfo) =>
-      this.setState({
-        userInfo: userInfo,
-        isLoaded: true,
-        username: userInfo.res.username,
-        loading: false,
-        firstname: userInfo.res.firstname,
-        lastname: userInfo.res.lastname,
-        description: userInfo.res.description,
-        imageUrl: this.setImage(userInfo.res.avatar),
-      })
-    );
+    getGuestDashboard({ link: currenLink }).then((userInfo) =>{
+      if(userInfo === undefined){
+        window.location.replace("/404");
+        console.log("load guest failed here!");        
+      }else{
+        this.setState({
+          userInfo: userInfo,
+          isLoaded: true,
+          username: userInfo.res.username,
+          loading: false,
+          firstname: userInfo.res.firstname,
+          lastname: userInfo.res.lastname,
+          description: userInfo.res.description,
+          imageUrl: this.setImage(userInfo.res.avatar),
+        })
+      }
+        // this.setState({
+        //   userInfo: userInfo,
+        //   isLoaded: true,
+        //   username: userInfo.res.username,
+        //   loading: false,
+        //   firstname: userInfo.res.firstname,
+        //   lastname: userInfo.res.lastname,
+        //   description: userInfo.res.description,
+        //   imageUrl: this.setImage(userInfo.res.avatar),
+        // })
+    
+    })
   }
 
   setImage(avatar) {

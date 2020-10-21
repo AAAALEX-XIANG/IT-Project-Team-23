@@ -6,8 +6,7 @@ export async function getGuestDashboard(request) {
   const endpoint = BASE_URL + `/showUserProfile`;
   let formData = new FormData();
   formData.append("link", link);
-  //fetch from server api
-  let res;
+let res;
   try {
     res = await fetch(endpoint, {
       method: "POST",
@@ -18,8 +17,13 @@ export async function getGuestDashboard(request) {
     return { error: e };
   }
 
-  //sample res:{"res" : true}
-  return { status: await res.status, res: await res.json() };
+  try{
+    console.log("load guest success!");
+    return { status: await res.status, res: await res.json() };
+  }catch (e) {
+    return undefined;
+  }
+
 }
 
 export async function getGuestPublic(request) {
@@ -40,7 +44,11 @@ export async function getGuestPublic(request) {
   }
 
   //sample res:{"res" : true}
-  return { status: await res.status, res: await res.json() };
+  if(res === null){
+  }else{
+    return { status: await res.status, res: await res.json() };
+  }
+  
 }
 
 export async function getGuestAttachment(request) {

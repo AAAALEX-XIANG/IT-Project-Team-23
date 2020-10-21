@@ -51,8 +51,8 @@ export default class AdminPage extends React.Component {
                 </div>
                 <br/>
                 <br/>
-                <div>
-                    Google
+                <div className="pageTitle">
+                    Fagle
                 </div>
                 <div className="adminSearch">
                 <Search placeholder="search users" onSearch={value => this.searchUser(value)} enterButton />
