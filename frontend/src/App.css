@@ -813,8 +813,6 @@ form a {
 }
 
 /* --------------------------------Admin Page ---------------------------*/
-.adminContainer {
-}
 
 .adminSearch {
   width: 30%;
@@ -827,5 +825,20 @@ form a {
   margin-left: 80%;
 }
 
-.adminList {
+/* --------------------------------404 Page ---------------------------*/
+.NotFoundContainer {
+  display: block;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin: auto;
+  width: 50%;
+}
+
+.NotFoundmessage {
+  color: white;
+}
+
+.NotFoundmessage title {
+  font-size: 1000;
 }

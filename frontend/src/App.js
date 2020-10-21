@@ -11,6 +11,7 @@ import DupLogin from "./containers/DupLogin";
 import AdminPage from "./containers/AdminPage";
 import GuestDashboard from "./containers/GuestDashBoard";
 import GuestCate from "./containers/GuestCate";
+import NotFound from "./containers/NotFound"
 
 import { observer } from "mobx-react";
 
@@ -180,6 +181,11 @@ const App = observer(
               <Route
                 path="/guest/category/:link"
                 render={(props) => <GuestCate />}
+              />
+
+              <Route
+                path="/404"
+                render={(props) => <NotFound />}
               />
 
               <Redirect to="/404" />
