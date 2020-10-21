@@ -61,6 +61,8 @@ const App = observer(
                 render={(props) =>
                   !(localStorage.getItem("email") === null) ? (
                     <Redirect to="/duplogin" />
+                  ) : !(localStorage.getItem("adminEmail") === null) ? (
+                    <Redirect to="/duplogin" />
                   ) : (
                     <LoginPage userStore={this.props.userStore} />
                   )

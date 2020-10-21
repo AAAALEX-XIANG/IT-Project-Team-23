@@ -3,9 +3,9 @@ import React, {Component} from 'react';
 export default class NotFound extends Component {
     render() {
         return (
-            <div className="pageContainer">
+            <div className="pageContainerNotFound">
                 <div className="NotFoundContainer">
-                    <div className="NotFoundmessage Title">
+                    <div className="NotFoundmessage myTitle">
                         404
                     </div>
                     <div className="NotFoundmessage first">

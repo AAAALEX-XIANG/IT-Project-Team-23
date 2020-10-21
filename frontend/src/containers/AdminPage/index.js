@@ -1,8 +1,7 @@
 import React from 'react';
-import { Input } from 'antd';
+import { Input, Button } from 'antd';
 import { List } from 'antd';
 import { search } from '../adminApi';
-import { NavLink } from "react-router-dom";
 
 const { Search } = Input;
 
@@ -11,21 +10,44 @@ export default class AdminPage extends React.Component {
         super(props);
         this.state = {
             initLoading: true,
-            loading: false,
+            loadings: [],
             data: {}
         };
     }    
 
     searchUser = (value) => {
+        this.enterLoading(0);
         search({info: value}).then(
             (info) => {
-                // console.log(info.res)
                 this.setState({
-                    data: info.res
+                    data: info.res,
+                    loadings: []
                 })
             }
         )
     }
+
+    //the loading button is referenced from https://ant.design/components/button-cn/
+    enterLoading = (index) => {
+        this.setState(({ loadings }) => {
+        const newLoadings = [...loadings];
+        newLoadings[index] = true;
+
+        return {
+            loadings: newLoadings,
+        };
+        });
+        setTimeout(() => {
+        this.setState(({ loadings }) => {
+            const newLoadings = [...loadings];
+            newLoadings[index] = false;
+
+            return {
+            loadings: newLoadings,
+            };
+        });
+        }, 10000);
+    };
 
     logout = () => {
         localStorage.clear();
@@ -34,7 +56,7 @@ export default class AdminPage extends React.Component {
 
     render() {
         // source from https://ant.design/components/list/
-        const { data } = this.state;
+        const { data, loadings } = this.state;
         let userID = [];
 
         for (var user in data) {
@@ -43,33 +65,33 @@ export default class AdminPage extends React.Component {
 
         return(
             <div>
-                <div className="adminButton">       
-                    <NavLink to="/login" onClick={this.logout}>
-                        {" "}
+                <div className="adminButton">     
+                    <Button onClick={this.logout}>
                         Logout{" "}
-                    </NavLink>
+                    </Button>
                 </div>
                 <br/>
-                <br/>
-                <div className="pageTitle">
-                    Fagle
+                <div className="adminTitle">
+                    Fate e-Portfolio
                 </div>
                 <div className="adminSearch">
-                <Search placeholder="search users" onSearch={value => this.searchUser(value)} enterButton />
+                    <Search placeholder="search users" onSearch={value => this.searchUser(value)} loading={loadings[0]} enterButton/>
                 </div>
-                <List
-                    className = "adminList"
-                    itemLayout="horizontal"
-                    dataSource={userID}
-                    renderItem={item => (
-                    <List.Item>
-                    <List.Item.Meta
-                        title={<a href={"http://localhost:3000/guest/dashboard/"+ data[item][4]}>{data[item][1]}</a>}
-                        description={data[item][2] + " " + data[item][3] + ", " + data[item][0]}
+                <br />
+                <div className = "adminList">
+                    <List
+                        itemLayout="horizontal"
+                        dataSource={userID}
+                        renderItem={item => (
+                            <List.Item className="adminUser">
+                            <List.Item.Meta
+                                title={<a href={"http://localhost:3000/guest/dashboard/"+ data[item][4]}>{data[item][1]}</a>}
+                                description={data[item][2] + " " + data[item][3] + ", " + data[item][0]}
+                            />
+                            </List.Item>
+                        )}
                     />
-                    </List.Item>
-                    )}
-                />          
+                </div>  
             </div>
         )
     }
