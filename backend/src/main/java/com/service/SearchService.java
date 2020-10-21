@@ -18,23 +18,54 @@ public class SearchService {
     private UserRepository userRepository;
 
     public Map<String, List<String>> showUser(String info) {
-        List<User> users = new ArrayList<>();
+        String[] names = info.split(" ");
+        // If any accurate account has been found
         User userId = userRepository.findByStudentId(info);
+        if (userId != null) {
+            return userToMap(userId);
+        }
         User userEmail = userRepository.findByEmailaddress(info);
-        List<User> userFirstname = userRepository.findUserByFirstname(info);
-        List<User> userLastname = userRepository.findUserByLastname(info);
-        List<User> userUsername = userRepository.findUserByUsername(info);
-        addToUsers(users, userId);
-        addToUsers(users, userEmail);
-        for (User i : userFirstname) {
-            addToUsers(users, i);
+        if (userEmail != null) {
+            return userToMap(userEmail);
         }
-        for (User i : userLastname) {
-            addToUsers(users, i);
+
+        List<User> users = new ArrayList<>();
+
+        for (String name : names) {
+            users.addAll(userRepository.findUserByFirstname(name));
+            users.addAll(userRepository.findUserByLastname(name));
+            users.addAll(userRepository.findUserByUsername(name));
         }
-        for (User i : userUsername) {
-            addToUsers(users, i);
+
+        System.out.println(users.size());
+        // If any accurate name has been found
+        if (!users.isEmpty()) {
+            return usersToMap(users);
         }
+
+        // Search for incompete names at last
+        for (String name : names) {
+            users.addAll(userRepository.findUserByFirstnameRegex(name));
+            users.addAll(userRepository.findUserByLastnameRegex(name));
+            users.addAll(userRepository.findUserByUsernameRegex(name));
+        }
+        return usersToMap(users);
+    }
+
+    private Map<String, List<String>> userToMap(User user) {
+        Map<String, List<String>> map = new HashMap<>();
+        List<String> userInfo = new ArrayList<>();
+        userInfo.add(user.getEmailaddress());
+        userInfo.add(user.getProfile().getUsername());
+        userInfo.add(user.getProfile().getFirstname());
+        userInfo.add(user.getProfile().getLastname());
+        userInfo.add(user.getProfile().getLink());
+        userInfo.add(user.getProfile().getDescription());
+        map.put(user.getStudentId(), userInfo);
+        return map;
+    }
+
+    private Map<String, List<String>> usersToMap(List<User> users) {
         Map<String, List<String>> map = new HashMap<>();
         for (User i : users) {
             List<String> userInfo = new ArrayList<>();
@@ -47,15 +78,5 @@ public class SearchService {
             map.put(i.getStudentId(), userInfo);
         }
         return map;
-    }
-
-    private void addToUsers(List<User> users, User user) {
-        if (user == null) {
-            return;
-        }
-        if (users.contains(user)) {
-            return;
-        }
-        users.add(user);
     }
 }
