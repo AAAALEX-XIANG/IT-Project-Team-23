@@ -123,6 +123,9 @@ export default class Setting extends Component {
       link.href = "data:application/octet-stream;base64," + b64;
       foo.appendChild(link).click();
     }
+    this.setState({
+      loadings: []
+    });
   }
 
   viewFile(request) {
