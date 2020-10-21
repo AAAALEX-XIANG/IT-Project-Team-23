@@ -11,7 +11,6 @@ export default function header() {
         <div className="messageContainer">
           Welcome to Fate e-portfolio
         </div>
-        <div className="userMsg">Hello {localStorage.getItem("email")} !</div>
       </div>
     </header>
   );

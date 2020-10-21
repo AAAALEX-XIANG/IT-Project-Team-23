@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import { Button, Collapse } from "antd";
-import { DownloadOutlined, PictureOutlined,DeleteOutlined,EyeOutlined } from "@ant-design/icons";
+import { DownloadOutlined, PictureOutlined } from "@ant-design/icons";
 
 import { getGuestPublic, getGuestAttachment } from "../guestApi";
 
 import GuestNavbar from "../../components/GuestNavbar";
 import Loading from "../../containers/Loading"
 const { Panel } = Collapse;
-let currenLink = window.location.pathname.split("/").pop();
+let currentLink = window.location.pathname.split("/").pop();
 
 export default class GuestCate extends Component {
   constructor(props) {
@@ -34,8 +34,7 @@ export default class GuestCate extends Component {
   }
 
   showAllCate = () => {
-    getGuestPublic({ link: currenLink }).then((files) =>
-      // console.log(files.res)
+    getGuestPublic({ link: currentLink }).then((files) =>
       this.setState({
         files: files.res,
         isLoaded: true,
@@ -47,7 +46,7 @@ export default class GuestCate extends Component {
     // Decode Base64 to binary and show some information about the file
     var b64 = request.content;
     // var type = request.filetype;
-    let foo = document.getElementsByClassName("pageContainer")[0];
+    let foo = document.getElementsByClassName("pageContainerCate")[0];
     if (foo.hasChildNodes()) {
       let children = foo.childNodes;
       for (let i = 0; i < children.length; i++) {
@@ -73,57 +72,60 @@ export default class GuestCate extends Component {
     // Decode Base64 to binary and show some information about the file
     var b64 = request.content;
     var type = request.filetype;
-    let foo = document.getElementsByClassName("pageContainer")[0];
-    if (foo.hasChildNodes()) {
-      let children = foo.childNodes;
-      for (let i = 0; i < children.length; i++) {
-        console.log(children[i].nodeName);
-        if (children[i].nodeName === "OBJECT") {
-          foo.removeChild(children[i]);
-        } else if (children[i].nodeName === "A") {
-          foo.removeChild(children[i]);
-          break;
+    let foo = document.getElementsByClassName("pageContainerCate")[0];
+    if (foo === undefined){
+      console.log("Loading finished!foo undefine");
+    }else{
+      if (foo.hasChildNodes()) {
+        let children = foo.childNodes;
+        for (let i = 0; i < children.length; i++) {
+          if (children[i].nodeName === "OBJECT") {
+            foo.removeChild(children[i]);
+          } else if (children[i].nodeName === "A") {
+            foo.removeChild(children[i]);
+            break;
+          }
         }
-      }
 
-      // we can only view pdf, text or image files
-      if (
-        type === "application/pdf" ||
-        type === "image/jpeg" ||
-        type === "image/png" ||
-        type === "text/plain"
-      ) {
-        // view file
-        var firstobj = document.createElement("object");
-        firstobj.className = "viewContainer";
-        if (type === "application/pdf" || type === "text/plain") {
-          firstobj.style.height = "700px";
+        // we can only view pdf, text or image files
+        if (
+          type === "application/pdf" ||
+          type === "image/jpeg" ||
+          type === "image/png" ||
+          type === "text/plain"
+        ) {
+          // view file
+          var firstobj = document.createElement("object");
+          firstobj.className = "viewContainer";
+          if (type === "application/pdf" || type === "text/plain") {
+            firstobj.style.height = "700px";
+          } else {
+            firstobj.style.height = "45%";
+            firstobj.style.maxHeight = "650px";
+            firstobj.style.maxWidth = "700px";
+          }
+          firstobj.style.width = "60%";
+          firstobj.style.cssFloat = "center";
+          firstobj.type = type;
+          firstobj.data = "data:" + type + ";base64," + b64;
+          foo.appendChild(firstobj);
         } else {
-          firstobj.style.height = "45%";
-          firstobj.style.maxHeight = "650px";
-          firstobj.style.maxWidth = "700px";
+          alert(`Sorry, you are not allowed to view ${type} files`);
         }
-        firstobj.style.width = "60%";
-        firstobj.style.cssFloat = "center";
-        firstobj.type = type;
-        firstobj.data = "data:" + type + ";base64," + b64;
-        foo.appendChild(firstobj);
-      } else {
-        alert(`Sorry, you are not allowed to view ${type} files`);
+        this.setState({
+          loadings: [],
+        });
       }
-      this.setState({
-        loadings: [],
-      });
     }
   }
 
-  downloadAttachment(item) {
+  downloadAttachment(item, num) {
     getGuestAttachment(item).then((file) => this.downloadFile(file.res));
-    this.enterLoading(1);
+    this.enterLoading(num);
   }
-  viewAttachment(item) {
+  viewAttachment(item, num) {
     getGuestAttachment(item).then((file) => this.viewFile(file.res));
-    this.enterLoading(0);
+    this.enterLoading(num);
   }
 
   enterLoading = (index) => {
@@ -141,7 +143,7 @@ export default class GuestCate extends Component {
         newLoadings[index] = false;
 
         return {
-          loadings: newLoadings,
+          loadings: newLoadings
         };
       });
     }, 50000);
@@ -172,71 +174,41 @@ export default class GuestCate extends Component {
       );
     } else {
       return (
-        <div className="pageContainer">
+        <div className="pageContainerCate">
           <GuestNavbar />
           <div className="cateContainer">
 
           <Collapse accordion>
             {cates.map((item) => (
-              <Panel header={"Category: "+item} key={item} extra={<DeleteOutlined onClick={() =>
-                this.deleteCate({
-                  email: localStorage.getItem("email"),
-                  categoryName: item,
-                })
-              }
-              />}>
+              <Panel header={"Category: "+item} key={item}>
                 <Collapse accordion>
                   {categories.get(item).map((title) => (
-                    <Panel header={"Artifact: "+title} key={title} extra={<DeleteOutlined onClick={() =>
-                      this.deleteArti({
-                        email: localStorage.getItem("email"),
-                        category: item,
-                        artifact: title
-                      })
-                    }
-                    />}>
+                    <Panel header={"Artifact: "+title} key={title}>
                       <div className="CateInfo">
                         Description:
                         <div className="currentInfo">
                           <p>{files[item][title][0]}</p>
                         </div>
                       </div>
-                      
-                      <Button
-                        loading={loadings[4]}
-                        onClick={() =>
-                          this.changePrivacy({
-                            email: localStorage.getItem("email"),
-                            category: item,
-                            artifact: title,
-                            privacy: files[item][title][1]
-                          })
-                        }
-                        icon={<EyeOutlined />}
-                      >
-                      {"Click to switch state"}
-                      </Button>
-                      <br /><br />
                       <div className="CateInfo">
                       Attachments:
-                      {files[item][title].slice(1).map((file) => (
-                        <div key={file}>
+                      {files[item][title].slice(1).map((file, num) => (
+                        <div key={num+1}>
                           <div className="currentAttachmentInfo">
                           <p>
                             {file}
                           </p>
                           </div>
-                          
 
                             <Button
-                              loading={loadings[0]}
+                              loading={loadings[num+1]}
                               onClick={() =>
                                 this.viewAttachment({
-                                  email: localStorage.getItem("email"),
+                                  link: currentLink,
                                   category: item,
                                   artifact: title,
                                   attachment: file,
-                                })
+                                }, num+1)
                               }
                               id="downloadBtn"
                               icon={<PictureOutlined />}
@@ -245,14 +217,14 @@ export default class GuestCate extends Component {
                               View
                             </Button>
                             <Button
-                              loading={loadings[1]}
+                              loading={loadings[num+files[item][title].length]}
                               onClick={() =>
                                 this.downloadAttachment({
-                                  email: localStorage.getItem("email"),
+                                  link: currentLink,
                                   category: item,
                                   artifact: title,
                                   attachment: file,
-                                })
+                                }, num+files[item][title].length)
                               }
                               id="downloadBtn"
                               icon={<DownloadOutlined />}

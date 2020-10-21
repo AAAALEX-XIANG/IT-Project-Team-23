@@ -105,7 +105,6 @@ export default class GuestDashboard extends Component {
 
     if (this.state.status === true) {
       window.location.replace("/admin/dashboard");
-      // console.log("refresh");
     }
     if (error) {
       //couldn't fetch data from server
@@ -147,12 +146,6 @@ export default class GuestDashboard extends Component {
           </div>
           <div className="rightCol">
             <div className="profileHeadings">Profile</div>
-
-            {/* <div className="profileInfo">
-              Email:
-              <div className="currentInfo">{localStorage.getItem("email")}</div>
-            </div> */}
-
             <div className="profileInfo">
               Username:
               <div className="currentInfo">{this.state.username}</div>

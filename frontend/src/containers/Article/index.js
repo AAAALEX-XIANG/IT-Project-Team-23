@@ -40,8 +40,10 @@ const props = {
   onChange(info) {
     const { status } = info.file;
     if (status !== "uploading") {
+      file = info.fileList;
       console.log(info.file, info.fileList);
     }
+    
     if (status === "done") {
       file = info.fileList;
       console.log("file:::", file);
@@ -213,7 +215,6 @@ export default class Article extends Component {
         };
       });
     }, 3000);
-    //window.location.replace('/admin/dashboard')
   };
 
   render() {

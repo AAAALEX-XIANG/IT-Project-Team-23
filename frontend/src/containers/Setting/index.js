@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Button, Collapse } from "antd";
 import { DownloadOutlined, PictureOutlined,DeleteOutlined,EyeOutlined } from "@ant-design/icons";
-//import { showCategory, deleteCategory, showArtifacts } from "../../containers/categoryApi"
+
 import {
   getCategoryArtifact,
   getAttachment, 
@@ -17,15 +17,13 @@ import Loading from "../../containers/Loading"
 
 const { Panel } = Collapse;
 
-
-
 export default class Setting extends Component {
   constructor(props) {
     super(props);
     this.state = {
       files: {},
       loadings: [],
-      isLoaded: false,
+      isLoaded: false
     };
     this.showAllCate = this.showAllCate.bind(this);
     this.downloadAttachment = this.downloadAttachment.bind(this);
@@ -109,7 +107,7 @@ export default class Setting extends Component {
     // Decode Base64 to binary and show some information about the file
     var b64 = request.content;
     // var type = request.filetype;
-    let foo = document.getElementsByClassName("pageContainer")[0];
+    let foo = document.getElementsByClassName("pageContainerCate")[0];
     if (foo.hasChildNodes()) {
       let children = foo.childNodes;
       for (let i = 0; i < children.length; i++) {
@@ -125,65 +123,69 @@ export default class Setting extends Component {
       link.href = "data:application/octet-stream;base64," + b64;
       foo.appendChild(link).click();
     }
-    this.setState({
-      loadings: [],
-    });
   }
 
   viewFile(request) {
     // Decode Base64 to binary and show some information about the file
     var b64 = request.content;
     var type = request.filetype;
-    let foo = document.getElementsByClassName("pageContainer")[0];
-    if (foo.hasChildNodes()) {
-      let children = foo.childNodes;
-      for (let i = 0; i < children.length; i++) {
-        if (children[i].nodeName === "OBJECT") {
-          foo.removeChild(children[i]);
-        } else if (children[i].nodeName === "A") {
-          foo.removeChild(children[i]);
-          break;
-        }
-      }
 
-      // we can only view pdf, text or image files
-      if (
-        type === "application/pdf" ||
-        type === "image/jpeg" ||
-        type === "image/png" ||
-        type === "text/plain"
-      ) {
-        // view file
-        var firstobj = document.createElement("object");
-        firstobj.className = "viewContainer";
-        if (type === "application/pdf" || type === "text/plain") {
-          firstobj.style.height = "700px";
-        } else {
-          firstobj.style.height = "45%";
-          firstobj.style.maxHeight = "650px";
-          firstobj.style.maxWidth = "700px";
+    let foo = document.getElementsByClassName("pageContainerCate")[0];
+    
+    if (foo === undefined){
+      console.log("Loading finished!foo undefine");
+    }else{
+      if (foo.hasChildNodes()) {
+        let children = foo.childNodes;
+        for (let i = 0; i < children.length; i++) {
+          if (children[i].nodeName === "OBJECT") {
+            foo.removeChild(children[i]);
+          } else if (children[i].nodeName === "A") {
+            foo.removeChild(children[i]);
+            break;
+          }
         }
-        firstobj.style.width = "60%";
-        firstobj.style.cssFloat = "center";
-        firstobj.type = type;
-        firstobj.data = "data:" + type + ";base64," + b64;
-        foo.appendChild(firstobj);
-      } else {
-        alert(`Sorry, you are not allowed to view ${type} files`);
+
+        // we can only view pdf, text or image files
+        if (
+          type === "application/pdf" ||
+          type === "image/jpeg" ||
+          type === "image/png" ||
+          type === "text/plain"
+        ) {
+          // view file
+          var firstobj = document.createElement("object");
+          firstobj.className = "viewContainer";
+          if (type === "application/pdf" || type === "text/plain") {
+            firstobj.style.height = "700px";
+          } else {
+            firstobj.style.height = "45%";
+            firstobj.style.maxHeight = "650px";
+            firstobj.style.maxWidth = "700px";
+          }
+          firstobj.style.width = "60%";
+          firstobj.style.cssFloat = "center";
+          firstobj.type = type;
+          firstobj.data = "data:" + type + ";base64," + b64;
+          foo.appendChild(firstobj);
+        } else {
+          alert(`Sorry, you are not allowed to view ${type} files`);
+        }
+        this.setState({
+          loadings: []
+        });
       }
-      this.setState({
-        loadings: [],
-      });
+      console.log("Loading finished!");
     }
   }
 
-  downloadAttachment(item) {
+  downloadAttachment(item, num) {
     getAttachment(item).then((file) => this.downloadFile(file.res));
-    this.enterLoading(1);
+    this.enterLoading(num);
   }
-  viewAttachment(item) {
+  viewAttachment(item, num) {
     getAttachment(item).then((file) => this.viewFile(file.res));
-    this.enterLoading(0);
+    this.enterLoading(num);
   }
 
   // helper function to ensure data updating
@@ -202,13 +204,11 @@ export default class Setting extends Component {
         newLoadings[index] = false;
 
         return {
-          loadings: newLoadings,
+          loadings: newLoadings
         };
       });
-    }, 5000);
+    }, 50000);
   };
-
-
 
   render() {
     const { files, loadings, isLoaded } = this.state;
@@ -235,7 +235,7 @@ export default class Setting extends Component {
       );
     } else {
       return (
-        <div className="pageContainer">
+        <div className="pageContainerCate">
           <Navbar />
           <div className="cateContainer">
 
@@ -265,11 +265,10 @@ export default class Setting extends Component {
                         </div>
                       </div>
                       <div className="CateInfo">
-                        <p>Current Privacy State: 
+                          Current Privacy State: 
                           <div className="currentInfo">
                             {files[item][title][1]}
                           </div>
-                        </p>
                       </div>
                       <Button
                         loading={loadings[4]}
@@ -288,24 +287,22 @@ export default class Setting extends Component {
                       <br /><br />
                       <div className="CateInfo">
                       Attachments:
-                      {files[item][title].slice(2).map((file) => (
-                        <div key={file}>
+                      {files[item][title].slice(2).map((file, num) => (
+                        <div key={num+5}>
                           <div className="currentAttachmentInfo">
                           <p>
                             {file}
                           </p>
                           </div>
-                          
-
                             <Button
-                              loading={loadings[0]}
+                              loading={loadings[num+5]}
                               onClick={() =>
                                 this.viewAttachment({
                                   email: localStorage.getItem("email"),
                                   category: item,
                                   artifact: title,
                                   attachment: file,
-                                })
+                                }, num+5)
                               }
                               id="downloadBtn"
                               icon={<PictureOutlined />}
@@ -314,14 +311,14 @@ export default class Setting extends Component {
                               View
                             </Button>
                             <Button
-                              loading={loadings[1]}
+                              loading={loadings[num+files[item][title].length+5]}
                               onClick={() =>
                                 this.downloadAttachment({
                                   email: localStorage.getItem("email"),
                                   category: item,
                                   artifact: title,
                                   attachment: file,
-                                })
+                                }, num+files[item][title].length+5)
                               }
                               id="downloadBtn"
                               icon={<DownloadOutlined />}
