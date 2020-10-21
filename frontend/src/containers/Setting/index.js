@@ -128,9 +128,6 @@ export default class Setting extends Component {
         for (let i = 0; i < children.length; i++) {
           if (children[i].nodeName === "OBJECT") {
             foo.removeChild(children[i]);
-          } else if (children[i].nodeName === "A") {
-            foo.removeChild(children[i]);
-            break;
           }
         }
 
@@ -278,10 +275,10 @@ export default class Setting extends Component {
                       {files[item][title].slice(2).map((file, num) => (
                         <div key={cateNum*cates.length+artiNum*categories.get(item).length+num+5}>
                           <div className="currentAttachmentInfo">
-                          <p>
-                            {file}
-                          </p>
-                          </div>
+                            <div>
+                              {file}
+                            </div>
+                          
                             <Button
                               // assign a loading number to all attachments
                               loading={loadings[cateNum*cates.length+artiNum*categories.get(item).length+num+5]}
@@ -317,6 +314,7 @@ export default class Setting extends Component {
                             >
                               download
                             </Button>
+                          </div>
                         </div>
                       ))}
                       <br />
