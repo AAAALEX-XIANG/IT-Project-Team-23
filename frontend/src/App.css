@@ -817,10 +817,15 @@ form a {
 }
 
 .adminSearch {
-  width: 800px;
-  height: 128px;
-  padding: auto;
+  width: 30%;
+  height: 100%;
+  margin-left: 35%;
+  margin-top: 2%;
 }
 
-.logOutContainer {
+.adminButton {
+  margin-left: 80%;
+}
+
+.adminList {
 }

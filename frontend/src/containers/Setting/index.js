@@ -59,7 +59,6 @@ export default class Setting extends Component {
     ) {
       deleteCategory(request).then(change =>
         window.location.replace("/admin/category"))
-    } else {
     }
   }
 
@@ -70,7 +69,6 @@ export default class Setting extends Component {
     ) {
       deleteArtifact(request).then(change =>
         window.location.replace("/admin/category"))
-    } else {
     }
   }
   
@@ -86,7 +84,6 @@ export default class Setting extends Component {
           artifact: request.artifact,
           privacy: "private"}).then(change => 
           window.location.replace("/admin/category"))
-      } else {
       }
     } else {
       if (
@@ -97,7 +94,6 @@ export default class Setting extends Component {
           artifact: request.artifact,
           privacy: "public"}).then(change =>
           window.location.replace("/admin/category"))
-      } else {
       }
     }
     
