@@ -43,10 +43,14 @@ export async function getGuestPublic(request) {
     return { error: e };
   }
 
-  //sample res:{"res" : true}
   if(res === null){
   }else{
-    return { status: await res.status, res: await res.json() };
+    try{
+      console.log("load guest success!");
+      return { status: await res.status, res: await res.json() };
+    }catch (e) {
+      return undefined;
+    }
   }
   
 }
@@ -70,6 +74,11 @@ export async function getGuestAttachment(request) {
     console.log(e);
     return { error: e };
   }
-  console.log(await res);
-  return { status: await res.status, res: await res.json() };
+
+  try{
+    console.log("load guest success!");
+    return { status: await res.status, res: await res.json() };
+  }catch (e) {
+    return undefined;
+  }
 }

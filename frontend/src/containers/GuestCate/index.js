@@ -35,11 +35,17 @@ export default class GuestCate extends Component {
 
   showAllCate = () => {
     getGuestPublic({ link: currentLink }).then((files) =>
-      this.setState({
-        files: files.res,
-        isLoaded: true,
-      })
-    );
+    { 
+      if(files === undefined){
+        window.location.replace("/404");
+        console.log("load guest failed here!");        
+      }else{
+        this.setState({
+          files: files.res,
+          isLoaded: true,
+        })
+      }
+    });
   };
 
   downloadFile(request) {
@@ -122,11 +128,25 @@ export default class GuestCate extends Component {
   }
 
   downloadAttachment(item, num) {
-    getGuestAttachment(item).then((file) => this.downloadFile(file.res));
+    getGuestAttachment(item).then((file) =>{ 
+      if(file === undefined){
+        window.location.replace("/404");
+        console.log("load guest failed here!");        
+      }else{
+        this.downloadFile(file.res)
+      }
+    });
     this.enterLoading(num);
   }
   viewAttachment(item, num) {
-    getGuestAttachment(item).then((file) => this.viewFile(file.res));
+    getGuestAttachment(item).then((file) =>{ 
+      if(file === undefined){
+        window.location.replace("/404");
+        console.log("load guest failed here!");        
+      }else{
+        this.viewFile(file.res)
+      }
+    });
     this.enterLoading(num);
   }
 
@@ -197,9 +217,9 @@ export default class GuestCate extends Component {
                       {files[item][title].slice(1).map((file, num) => (
                         <div key={num+1}>
                           <div className="currentAttachmentInfo">
-                          <p>
-                            {file}
-                          </p>
+                            <div>
+                              {file}
+                            </div>
                           </div>
 
                             <Button

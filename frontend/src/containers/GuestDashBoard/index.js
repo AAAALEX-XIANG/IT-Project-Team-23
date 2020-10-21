@@ -69,17 +69,6 @@ export default class GuestDashboard extends Component {
           imageUrl: this.setImage(userInfo.res.avatar),
         })
       }
-        // this.setState({
-        //   userInfo: userInfo,
-        //   isLoaded: true,
-        //   username: userInfo.res.username,
-        //   loading: false,
-        //   firstname: userInfo.res.firstname,
-        //   lastname: userInfo.res.lastname,
-        //   description: userInfo.res.description,
-        //   imageUrl: this.setImage(userInfo.res.avatar),
-        // })
-    
     })
   }
 
