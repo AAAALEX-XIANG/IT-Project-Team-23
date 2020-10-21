@@ -39,14 +39,6 @@ body,
   margin-right: 0.5em;
 }
 
-/* .headerContainer .userMsg {
-  position: absolute;
-  right: 1vw;
-  margin-top: 3vh;
-  margin-right: 1px;
-  font-size: 0.9rem;
-} */
-
 .headerContainer .messageContainer {
   font-size: 0.9rem;
   margin-top: 3vh;
@@ -811,16 +803,48 @@ form a {
 
 /* --------------------------------Admin Page ---------------------------*/
 .adminSearch {
-  width: 30%;
+  width: 35%;
   height: 100%;
-  margin-left: 35%;
+  margin-left: 33%;
   margin-top: 2%;
 }
 
-.adminButton {
-  margin-left: 80%;
+.adminSearch button {
+  border-radius: 15px;
+  border: none;
+  color: #ffffff;
+  background-color: #5394e9ce;
+}
+
+.adminButton button{
+  margin-left: 90%;
+  position: relative;
+  width: 8em;
+  height: 3em;
+  font-size: 12.5px;
+  border-radius: 15px;
+  border: none;
+  color: #ffffff;
+  background-color: #5394e9ce;
+  transition: all 0.3s;
+}
+
+.adminButton button:hover {
+  color: #ffffff;
+  background-color: rgba(54, 161, 223, 0.911);
+}
+
+.adminTitle {
+  position: relative;
+  font-size: 5vh;
+  margin-left: 41%;
 }
 
 .adminList {
-
+  position: relative;
+  margin-left: 10%;
+  width: 80%;
+}
+.adminUser{
+  background-color: rgba(50, 189, 199, 0.548);
 }

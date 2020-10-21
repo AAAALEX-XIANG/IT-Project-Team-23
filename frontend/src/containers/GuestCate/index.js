@@ -45,26 +45,14 @@ export default class GuestCate extends Component {
   downloadFile(request) {
     // Decode Base64 to binary and show some information about the file
     var b64 = request.content;
-    // var type = request.filetype;
-    let foo = document.getElementsByClassName("pageContainerCate")[0];
-    if (foo.hasChildNodes()) {
-      let children = foo.childNodes;
-      for (let i = 0; i < children.length; i++) {
-        console.log(children[i].nodeName);
-        if (children[i].nodeName === "OBJECT") {
-          foo.removeChild(children[i]);
-        }
-      }
-      // Insert a link that allows the user to download the PDF file
-      var link = document.createElement("a");
-      link.style.cssFloat = "right";
-      //link.innerHTML = 'Download file';
-      link.download = request.filename;
-      link.href = "data:application/octet-stream;base64," + b64;
-      foo.appendChild(link).click();
-    }
+    // Insert a link that allows the user to download the PDF file
+    var link = document.createElement("a");
+    //link.innerHTML = 'Download file';
+    link.download = request.filename;
+    link.href = "data:application/octet-stream;base64," + b64;
+    link.click();
     this.setState({
-      loadings: [],
+      loadings: []
     });
   }
 
@@ -179,10 +167,10 @@ export default class GuestCate extends Component {
           <div className="cateContainer">
 
           <Collapse accordion>
-            {cates.map((item) => (
+            {cates.map((item, cateNum) => (
               <Panel header={"Category: "+item} key={item}>
                 <Collapse accordion>
-                  {categories.get(item).map((title) => (
+                  {categories.get(item).map((title, artiNum) => (
                     <Panel header={"Artifact: "+title} key={title}>
                       <div className="CateInfo">
                         Description:
@@ -193,7 +181,7 @@ export default class GuestCate extends Component {
                       <div className="CateInfo">
                       Attachments:
                       {files[item][title].slice(1).map((file, num) => (
-                        <div key={num+1}>
+                        <div key={cateNum*cates.length+artiNum*categories.get(item).length+num+1}>
                           <div className="currentAttachmentInfo">
                           <p>
                             {file}
@@ -201,14 +189,14 @@ export default class GuestCate extends Component {
                           </div>
 
                             <Button
-                              loading={loadings[num+1]}
+                              loading={loadings[cateNum*cates.length+artiNum*categories.get(item).length+num+1]}
                               onClick={() =>
                                 this.viewAttachment({
                                   link: currentLink,
                                   category: item,
                                   artifact: title,
                                   attachment: file,
-                                }, num+1)
+                                }, cateNum*cates.length+artiNum*categories.get(item).length+num+1)
                               }
                               id="downloadBtn"
                               icon={<PictureOutlined />}
@@ -217,14 +205,16 @@ export default class GuestCate extends Component {
                               View
                             </Button>
                             <Button
-                              loading={loadings[num+files[item][title].length]}
+                              loading={loadings[cates.length*categories.get(item).length*files[item][title].length+
+                                cateNum*cates.length+artiNum*categories.get(item).length+num*files[item][title].length+1]}
                               onClick={() =>
                                 this.downloadAttachment({
                                   link: currentLink,
                                   category: item,
                                   artifact: title,
                                   attachment: file,
-                                }, num+files[item][title].length)
+                                }, cates.length*categories.get(item).length*files[item][title].length+
+                                cateNum*cates.length+artiNum*categories.get(item).length+num*files[item][title].length+1)
                               }
                               id="downloadBtn"
                               icon={<DownloadOutlined />}
