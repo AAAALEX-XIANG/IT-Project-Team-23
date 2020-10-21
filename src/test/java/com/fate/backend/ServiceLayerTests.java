@@ -36,8 +36,7 @@ class ServiceLayerTests {
 	@Autowired
 	private SearchService searchService;
 
-	// Note: Change to the path of your own local repository
-	private final String testFilePathOne = "D:/cat.jpg";
+	private final String testFilePathOne = "C:/Users/DELL/Desktop/Git/backend/src/test/java/com/fate/backend/cat.jpg";
 
 	@Test
 	void registerServiceSuccessTest() {
@@ -56,7 +55,7 @@ class ServiceLayerTests {
 	void registerServiceDuplicateEmailTest() {
 		RegisterRequest request = new RegisterRequest();
 		request.setStudentId("910001");
-		request.setEmailaddress("lacey@gmail.com");
+		request.setEmailaddress("alex@gmail.com");
 		request.setFirstname("Zhengkang");
 		request.setLastname("Xiang");
 		request.setPassword("123456");
@@ -80,14 +79,8 @@ class ServiceLayerTests {
 
 	@Test
 	void loginServiceUserTest() {
-		Result result = accountService.login("lacey@gmail.com", "123456");
+		Result result = accountService.login("alex@gmail.com", "123456");
 		assertEquals("User", result.getReason());
-	}
-
-	@Test
-	void loginServiceAdminTest() {
-		Result result = accountService.login("alex@admin.com", "123456");
-		assertEquals("Administrator", result.getReason());
 	}
 
 	@Test
@@ -98,13 +91,13 @@ class ServiceLayerTests {
 
 	@Test
 	void loginServiceFalsepasswordTest() {
-		Result result = accountService.login("lacey@gmail.com", "111111");
+		Result result = accountService.login("alex@gmail.com", "111111");
 		assertEquals("Login Failure", result.getReason());
 	}
 
 	@Test
 	void searchServiceSearchbyUsername() {
-		assertEquals(1, searchService.showUser("Ellen").size());
+		assertEquals(1, searchService.showUser("Alex").size());
 	}
 
 	@Test
@@ -114,17 +107,17 @@ class ServiceLayerTests {
 
 	@Test
 	void searchServiceSearchbyEmailAddress() {
-		assertEquals(1, searchService.showUser("lacey@gmail.com").size());
+		assertEquals(1, searchService.showUser("alex@gmail.com").size());
 	}
 
 	@Test
 	void searchServiceSearchbyFirstname() {
-		assertEquals(1, searchService.showUser("Hongyi").size());
+		assertEquals(1, searchService.showUser("Zhengkang").size());
 	}
 
 	@Test
 	void searchServiceSearchbyLastname() {
-		assertEquals(1, searchService.showUser("Gu").size());
+		assertEquals(1, searchService.showUser("Xiang").size());
 	}
 
 	@Test
@@ -140,26 +133,26 @@ class ServiceLayerTests {
 		FileInputStream fileInputStream = new FileInputStream(image);
 		MultipartFile multipartFile = new MockMultipartFile(image.getName(), image.getName(), "image/jpeg",
 				fileInputStream);
-		Result result = profileService.updateAvatar("lacey@gmail.com", multipartFile);
+		Result result = profileService.updateAvatar("alex@gmail.com", multipartFile);
 		assertEquals("Success", result.getReason());
 	}
 
 	@Test
 	void updateEmptyAvatarTest() throws IOException {
 		MultipartFile multipartFile = null;
-		Result result = profileService.updateAvatar("lacey@gmail.com", multipartFile);
+		Result result = profileService.updateAvatar("alex@gmail.com", multipartFile);
 		assertEquals("Empty File!", result.getReason());
 	}
 
 	@Test
 	void getUserProfile() {
-		Profile profile = new Profile("Hongyi", "Gu", "Ellen");
-		assertEquals(true, profileEquals(profile, profileService.getUserProfile("lacey@gmail.com")));
+		Profile profile = new Profile("Zhengkang", "Xiang", "Alex");
+		assertEquals(true, profileEquals(profile, profileService.getUserProfile("alex@gmail.com")));
 	}
 
 	@Test
 	void updateUserProfile() {
-		Result result = profileService.updateProfile("lacey@gmail.com", "Hongyi", "Gu", "Ellen", "description");
+		Result result = profileService.updateProfile("alex@gmail.com", "Zhengkang", "Xiang", "Alex", "description");
 		assertEquals("Success", result.getReason());
 	}
 
