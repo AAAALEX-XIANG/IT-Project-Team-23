@@ -124,6 +124,9 @@ export default class Setting extends Component {
         loadings: []
       });
     }
+    this.setState({
+      loadings: []
+    });
   }
 
   viewFile(request) {
