@@ -59,7 +59,6 @@ export default class Setting extends Component {
     ) {
       deleteCategory(request).then(change =>
         window.location.replace("/admin/category"))
-    } else {
     }
   }
 
@@ -70,7 +69,6 @@ export default class Setting extends Component {
     ) {
       deleteArtifact(request).then(change =>
         window.location.replace("/admin/category"))
-    } else {
     }
   }
   
@@ -86,7 +84,6 @@ export default class Setting extends Component {
           artifact: request.artifact,
           privacy: "private"}).then(change => 
           window.location.replace("/admin/category"))
-      } else {
       }
     } else {
       if (
@@ -97,7 +94,6 @@ export default class Setting extends Component {
           artifact: request.artifact,
           privacy: "public"}).then(change =>
           window.location.replace("/admin/category"))
-      } else {
       }
     }
     
@@ -113,15 +109,20 @@ export default class Setting extends Component {
       for (let i = 0; i < children.length; i++) {
         if (children[i].nodeName === "OBJECT") {
           foo.removeChild(children[i]);
+        } else if (children[i].nodeName === "A") {
+          foo.removeChild(children[i]);
+          break;
         }
       }
       // Insert a link that allows the user to download the PDF file
       var link = document.createElement("a");
-      link.style.cssFloat = "right";
       //link.innerHTML = 'Download file';
       link.download = request.filename;
       link.href = "data:application/octet-stream;base64," + b64;
-      foo.appendChild(link).click();
+      link.click();
+      this.setState({
+        loadings: []
+      });
     }
   }
 

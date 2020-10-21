@@ -811,6 +811,16 @@ form a {
 
 /* --------------------------------Admin Page ---------------------------*/
 .adminSearch {
-  width: 800px;
-  height: 128px;
+  width: 30%;
+  height: 100%;
+  margin-left: 35%;
+  margin-top: 2%;
+}
+
+.adminButton {
+  margin-left: 80%;
+}
+
+.adminList {
+
 }

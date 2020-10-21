@@ -43,16 +43,19 @@ export default class AdminPage extends React.Component {
 
         return(
             <div>
-                <div className="adminSearch">
-                <Search placeholder="search users" onSearch={value => this.searchUser(value)} enterButton />
-                <div>       
+                <div className="adminButton">       
                     <NavLink to="/login" onClick={this.logout}>
                         {" "}
                         Logout{" "}
                     </NavLink>
                 </div>
+                <br/>
+                <br/>
+                <div className="adminSearch">
+                <Search placeholder="search users" onSearch={value => this.searchUser(value)} enterButton />
                 </div>
                 <List
+                    className = "adminList"
                     itemLayout="horizontal"
                     dataSource={userID}
                     renderItem={item => (
