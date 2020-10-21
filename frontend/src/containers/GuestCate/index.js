@@ -47,25 +47,30 @@ export default class GuestCate extends Component {
     var b64 = request.content;
     // var type = request.filetype;
     let foo = document.getElementsByClassName("pageContainerCate")[0];
-    if (foo.hasChildNodes()) {
-      let children = foo.childNodes;
-      for (let i = 0; i < children.length; i++) {
-        console.log(children[i].nodeName);
-        if (children[i].nodeName === "OBJECT") {
-          foo.removeChild(children[i]);
+
+    if (foo === undefined){
+      console.log("Loading finished!foo undefine");
+    }else{
+      if (foo.hasChildNodes()) {
+        let children = foo.childNodes;
+        for (let i = 0; i < children.length; i++) {
+          console.log(children[i].nodeName);
+          if (children[i].nodeName === "OBJECT") {
+            foo.removeChild(children[i]);
+          }
         }
+        // Insert a link that allows the user to download the PDF file
+        var link = document.createElement("a");
+        link.style.cssFloat = "right";
+        //link.innerHTML = 'Download file';
+        link.download = request.filename;
+        link.href = "data:application/octet-stream;base64," + b64;
+        foo.appendChild(link).click();
       }
-      // Insert a link that allows the user to download the PDF file
-      var link = document.createElement("a");
-      link.style.cssFloat = "right";
-      //link.innerHTML = 'Download file';
-      link.download = request.filename;
-      link.href = "data:application/octet-stream;base64," + b64;
-      foo.appendChild(link).click();
+      this.setState({
+        loadings: [],
+      });
     }
-    this.setState({
-      loadings: [],
-    });
   }
 
   viewFile(request) {
@@ -81,9 +86,6 @@ export default class GuestCate extends Component {
         for (let i = 0; i < children.length; i++) {
           if (children[i].nodeName === "OBJECT") {
             foo.removeChild(children[i]);
-          } else if (children[i].nodeName === "A") {
-            foo.removeChild(children[i]);
-            break;
           }
         }
 

@@ -42,15 +42,15 @@ export default class AdminPage extends React.Component {
         }
 
         return(
-            <div>
+            <div className="adminContainer">
                 <div className="adminSearch">
-                <Search placeholder="search users" onSearch={value => this.searchUser(value)} enterButton />
-                <div>       
-                    <NavLink to="/login" onClick={this.logout}>
-                        {" "}
-                        Logout{" "}
-                    </NavLink>
-                </div>
+                    <Search placeholder="search users" onSearch={value => this.searchUser(value)} enterButton />
+                    <div className="logOutContainer">       
+                        <NavLink to="/login" onClick={this.logout}>
+                            {" "}
+                            Logout{" "}
+                        </NavLink>
+                    </div>
                 </div>
                 <List
                     itemLayout="horizontal"
@@ -63,9 +63,7 @@ export default class AdminPage extends React.Component {
                     />
                     </List.Item>
                     )}
-                />
-
-                
+                />          
             </div>
         )
     }

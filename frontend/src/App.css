@@ -509,9 +509,12 @@ form a {
   padding-left: 20px;
 }
 .CateInfo .currentAttachmentInfo {
-  font-size: medium;
+  font-size: 500;
   font-weight: 100;
   padding-left: 20px;
+  margin-bottom: 5px;
+  padding-bottom: 7px;
+  border-bottom: 1px solid gray;
 }
 
 .viewContainer {
@@ -561,7 +564,7 @@ form a {
 .grid-container .rightCol {
   background-color: rgba(0, 0, 0, 0.3);
 }
- 
+
 .grid-container .leftCol {
   background-color: rgba(0, 0, 0, 0.3);
 }
@@ -810,7 +813,14 @@ form a {
 }
 
 /* --------------------------------Admin Page ---------------------------*/
+.adminContainer {
+}
+
 .adminSearch {
   width: 800px;
   height: 128px;
+  padding: auto;
+}
+
+.logOutContainer {
 }
