@@ -17,12 +17,12 @@ Test cases: [link](tests/TestCases.pdf)
   
 <p>
   <image src="image/cache.png" width="450" height="300" hspace="30" alt="Uploading area">
-  <image src="image/cacheCollection.jpg" width="450" height="300 alt="Cache collection">
+  <image src="image/cacheCollection.jpg" width="450" height="300" alt="Cache collection">
 <p>                                                                                        
 
 <p>
   <image src="image/submit.png" width="450" height="300" hspace="30" alt="Submitting">
-  <image src="image/userSubmitted.png" width="600" height="300 alt="User collection">
+  <image src="image/userSubmitted.png" width="500" height="150" alt="User collection">
 <p> 
 
 - Encoding algorithm:  
