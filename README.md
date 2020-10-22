@@ -22,8 +22,8 @@ Test cases: [link](tests/TestCases.pdf)
           Uploading area                 Cache collection
 
   
-![](mage/cache.png "Uploading area")
-![](mage/cacheCollection.jpg "Cache collection")
+![](image/cache.png "Uploading area")
+![](image/cacheCollection.jpg "Cache collection")
 
 - Encoding algorithm:  
 
