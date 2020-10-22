@@ -24,14 +24,13 @@ Test cases: [link](tests/TestCases.pdf)
   <image src="image/submit.png" width="450" height="300" hspace="30" alt="Submitting">
   <image src="image/userSubmitted.png" width="470" height="200" alt="User collection">
 <p> 
-  
-<p hspace="1000">
-  Submitting
-</p>
 
 - Encoding algorithm:  
+  We used md5 encoder to encode user's password and uploaded files. 
+
     
 - Search algorithm:  
+  Administer can search User's information by 
 
 ## Description of key classes and the application’s layers:
 
