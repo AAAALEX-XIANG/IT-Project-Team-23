@@ -27,7 +27,6 @@ const App = observer(
     componentDidMount() {
       let storedUsername = localStorage.getItem("email");
       if (storedUsername != null) {
-        console.log(storedUsername);
         this.props.userStore.email = storedUsername;
         this.props.userStore.isLoggedIn = true;
       }
