@@ -17,9 +17,11 @@ Test cases: [link](tests/TestCases.pdf)
   
 <p>
   <image src="image/cache.jpg" width="450" height="300" hspace="30">
-  <a align="center">
-    =>
-  </a>
+  <center>
+    <a>
+      =>
+    </a>
+  <center>
   <image src="image/cacheCollection.jpg" width="450" height="300">
 <p>
 
