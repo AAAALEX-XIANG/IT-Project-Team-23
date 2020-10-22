@@ -33,7 +33,6 @@ const App = observer(
       }
     }
 
-    //TODO: page not found
     render() {
       return (
         <div className="App">

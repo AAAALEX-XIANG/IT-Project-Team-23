@@ -50,8 +50,13 @@ export default class AdminPage extends React.Component {
     };
 
     logout = () => {
-        localStorage.clear();
-        window.location.replace("/login");
+        if (
+            window.confirm(
+              "Are you sure to log out?"
+            )){
+                localStorage.clear();
+                window.location.replace("/login");
+            }
     };
 
     render() {
@@ -84,14 +89,15 @@ export default class AdminPage extends React.Component {
                         dataSource={userID}
                         renderItem={item => (
                             <List.Item className="adminUser">
-                            <List.Item.Meta
-                                title={<a href={"http://localhost:3000/guest/dashboard/"+ data[item][4]}>{data[item][1]}</a>}
-                                description={data[item][2] + " " + data[item][3] + ", " + data[item][0]}
-                            />
+                                <List.Item.Meta
+                                    title={<a href={"http://localhost:3000/guest/dashboard/"+ data[item][4]}>{data[item][1]}</a>}
+                                    description={data[item][2] + " " + data[item][3] + ", " + data[item][0]}
+                                />   
                             </List.Item>
                         )}
                     />
-                </div>  
+                </div>
+               <br /> 
             </div>
         )
     }

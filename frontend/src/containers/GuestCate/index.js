@@ -53,7 +53,6 @@ export default class GuestCate extends Component {
     var b64 = request.content;
     // Insert a link that allows the user to download the PDF file
     var link = document.createElement("a");
-    //link.innerHTML = 'Download file';
     link.download = request.filename;
     link.href = "data:application/octet-stream;base64," + b64;
     link.click();

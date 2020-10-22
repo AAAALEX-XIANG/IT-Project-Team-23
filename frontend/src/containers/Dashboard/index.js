@@ -7,7 +7,6 @@ import { viewProfile, updateProfile, shareProfile } from "../profileApi";
 import Loading from "../Loading";
 
 let baseURL = "https://fate-e-portfolio.herokuapp.com/api/profile/updateAvatar";
-//let baseURL = "http://localhost:8080/api/profile/updateAvatar";
 
 function getBase64(img, callback) {
   const reader = new FileReader();
@@ -27,7 +26,6 @@ function beforeUpload(file) {
   return isJpgOrPng && isLt1M;
 }
 
-//export var curShareLink = this.state.shareLink;
 export default class Dashboard extends Component {
   constructor(props) {
     super(props);
@@ -80,16 +78,9 @@ export default class Dashboard extends Component {
     const target = event.target;
     const value = target.value;
     const name = target.name;
-
-    // if (value.length > 200) {
-    //   this.setState({
-    //     [name]: value.substring(0, 200),
-    //   });
-    // } else {
-      this.setState({
-        [name]: value,
-      });
-    // }
+    this.setState({
+      [name]: value,
+    });
   }
 
   submitProfile(detail) {
@@ -178,7 +169,6 @@ export default class Dashboard extends Component {
         email: localStorage.getItem("email"),
       }).then(
         (shareLink) => shareLink.res
-        //console.log(shareLink.res)
       );
       window.location.replace("/admin/dashboard");
     } else {
@@ -200,7 +190,6 @@ export default class Dashboard extends Component {
     } = this.state;
     if (this.state.status === true) {
       window.location.replace("/admin/dashboard");
-      // console.log("refresh");
     }
     if (error) {
       //couldn't fetch data from server

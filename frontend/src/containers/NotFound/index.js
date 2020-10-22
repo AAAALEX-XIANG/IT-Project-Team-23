@@ -1,6 +1,12 @@
 import React, {Component} from 'react';
 
+
+
 export default class NotFound extends Component {
+    returnHome(){
+        window.location.replace("/login");
+    }
+    
     render() {
         return (
             <div className="pageContainerNotFound">
@@ -14,7 +20,7 @@ export default class NotFound extends Component {
                     <div className="NotFoundmessage second">
                         This page has gone missing.
                     </div>
-                    <button className="NotFoundButton">
+                    <button className="NotFoundButton" onClick={this.returnHome}>
                         <span>Go Back Home</span>
                     </button>
                 </div>

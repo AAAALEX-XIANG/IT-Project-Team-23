@@ -4,8 +4,6 @@ import { getGuestDashboard } from "../guestApi";
 import defalutAvatar from "../../resources/default avatar.jpg"
 import Loading from "../../containers/Loading"
 
-//let baseURL = 'https://fatewhole.herokuapp.com/profile/updateAvatar';
-//let baseURL = "http://localhost:8080/api/profile/updateAvatar";
 let currenLink = window.location.pathname.split("/").pop();
 
 function getBase64(img, callback) {

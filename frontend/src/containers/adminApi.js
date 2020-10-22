@@ -16,6 +16,5 @@ export async function search(request) {
       console.log(e);
       return { error: e };
     }
-    console.log(await res);
     return { status: await res.status, res: await res.json() };
   }

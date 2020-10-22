@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Quicksand&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Handlee&family=Righteous&display=swap");
 html,
 body,
 #root,
@@ -20,7 +21,6 @@ body,
 .mainHeader {
   position: relative;
   padding: 0.8em 0;
-  /* background-color: #2B303A; */
   box-shadow: 0px 4px 6px #00000015;
   z-index: 1;
   font-size: small;
@@ -48,9 +48,7 @@ body,
   font-size: 0.9rem;
   background-color: #f5f5f5;
   opacity: 0.8;
-  /*Photo by Brett Sayles from Pexels
-  https://www.pexels.com/photo/mountain-view-under-white-and-blue-skies-1926868/*/
-  background-image: url("../src/resources/sky.jpeg");
+  background-image: url("../src/resources/snow.jpg");
   background-size: cover;
   -webkit-background-size: cover;
   -o-background-size: cover;
@@ -58,6 +56,7 @@ body,
   display: flex;
   min-height: 100vh;
   min-width: 200vh;
+  background-position: center -10px;
 }
 
 .pageContainer > Form {
@@ -71,16 +70,14 @@ body,
   font-size: 1.3rem;
   position: relative;
   margin-left: 15vw;
-  color: #ffffff;
+  color: #2e2e2e;
 }
 
 .pageContainerCate {
   font-size: 0.9rem;
   background-color: #f5f5f5;
   opacity: 0.8;
-  /*Photo by Brett Sayles from Pexels
-  https://www.pexels.com/photo/mountain-view-under-white-and-blue-skies-1926868/*/
-  background-image: url("../src/resources/sky.jpeg");
+  background-image: url("../src/resources/snow.jpg");
   background-size: cover;
   -webkit-background-size: cover;
   -o-background-size: cover;
@@ -88,6 +85,7 @@ body,
   display: flex;
   min-height: 100vh;
   min-width: 200vh;
+  background-position: center -10px;
 }
 
 .pageContainerCate > Form {
@@ -159,13 +157,11 @@ body {
   padding: 7% 0;
   position: absolute;
   opacity: 0.8;
-  /*Photo by Brett Sayles from Pexels
-  https://www.pexels.com/photo/mountain-view-under-white-and-blue-skies-1926868/*/
-  background-image: url("../src/resources/sky.jpeg");
+  background-image: url("../src/resources/snow.jpg");
   background-size: cover;
   -webkit-background-size: cover;
   -o-background-size: cover;
-  background-position: center -120px;
+  background-position: center -10px;
 }
 
 /*register page container*/
@@ -283,11 +279,11 @@ textarea {
   height: 15px;
   z-index: -8;
   border-radius: 50%;
-  box-shadow: inset -30px -30px 75px rgba(174, 212, 240, 0.096),
-    inset 5px 5px 5px rgba(167, 193, 226, 0.103),
-    inset 5px 5px 5px rgba(219, 230, 235, 0.062),
-    0 0 20px rgba(204, 214, 226, 0.164);
-  background-color: rgba(182, 210, 248, 0.158);
+  box-shadow: inset -30px -30px 75px rgba(118, 169, 206, 0.342),
+    inset 5px 5px 5px rgba(118, 169, 206, 0.342),
+    inset 5px 5px 5px rgba(118, 169, 206, 0.342),
+    0 0 20px rgba(118, 169, 206, 0.342);
+  background-color: rgba(118, 169, 206, 0.342);
   animation: square 25s infinite;
   -webkit-animation: square 25s infinite;
 }
@@ -512,6 +508,7 @@ form a {
 .viewContainer {
   margin: auto;
   background-color: rgba(255, 255, 255, 0.712);
+  transform: translate(0, -3rem);
 }
 
 /* --------------------------------profile page ---------------------------*/
@@ -534,8 +531,8 @@ form a {
 
 .profileInfo .currentInfo {
   font-size: large;
-  font-weight: 500;
-  color: rgb(212, 212, 212);
+  font-weight: 100;
+  color: rgb(221, 221, 221);
   margin-right: 40px;
   padding-left: 20px;
   border-bottom: 2px solid rgba(0, 0, 0, 0.5);
@@ -795,17 +792,16 @@ form a {
 
 .variables {
   flex: auto;
-  color: #f3eded;
+  color: #505050;
   font-weight: bold;
 }
 
 .privacy,
 .fileUploaded {
-  color: #ffffff;
+  color: #2e2e2e;
 }
 
 /* --------------------------------Admin Page ---------------------------*/
-
 .adminSearch {
   width: 35%;
   height: 100%;
@@ -828,8 +824,7 @@ form a {
   font-size: 12.5px;
   border-radius: 15px;
   border: none;
-  color: #ffffff;
-  background-color: #5394e9ce;
+  color: rgba(54, 161, 223, 0.911);
   transition: all 0.3s;
 }
 
@@ -840,8 +835,12 @@ form a {
 
 .adminTitle {
   position: relative;
-  font-size: 5vh;
+  font-size: 5.5vh;
   margin-left: 41%;
+  color: #070606;
+  font-family: "Handlee", cursive;
+  font-weight: normal;
+  text-shadow: 0 1px 1px #fff;
 }
 
 .adminList {
@@ -849,23 +848,24 @@ form a {
   margin-left: 10%;
   width: 80%;
 }
+
 .adminUser {
-  background-color: rgba(50, 189, 199, 0.548);
+  background-color: rgba(92, 179, 219, 0.438);
 }
 
 /* --------------------------------404 Page ---------------------------*/
 .pageContainerNotFound {
   font-size: 0.9rem;
   opacity: 0.8;
-  background-image: url("../src/resources/sky.jpeg");
+  background-image: url("../src/resources/NotFound1.jpg");
   background-size: cover;
   -webkit-background-size: cover;
   -o-background-size: cover;
-  /* background: #30273d; */
   align-items: flex-start;
   display: flex;
   min-height: 100vh;
   min-width: 200vh;
+  background-position: center -80px;
 }
 
 .NotFoundButton span {
@@ -882,20 +882,19 @@ form a {
   display: block;
   justify-content: center;
   align-items: center;
-  text-align: center;
+  text-align: right;
   margin: auto;
   width: 50%;
 }
 
 .NotFoundmessage {
-  color: white;
-  font-size: 20px;
-  /* border: 1px solid #970303; */
+  color: rgb(63, 63, 63);
+  font-size: 30px;
 }
 
 .myTitle {
-  font-size: 80px;
-  /* border: 1px solid #970303; */
+  font-size: 90px;
+  font-weight: bold;
 }
 
 .NotFoundButton {

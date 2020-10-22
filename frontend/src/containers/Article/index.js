@@ -32,7 +32,6 @@ const formItemLayout = {
 
 let file = [];
 let baseURL = "https://fate-e-portfolio.herokuapp.com/api/cache/upload";
-//let baseURL = "http://localhost:8080/api/cache/upload";
 const props = {
   name: "file",
   multiple: true,
@@ -41,13 +40,10 @@ const props = {
     const { status } = info.file;
     if (status !== "uploading") {
       file = info.fileList;
-      console.log(info.file, info.fileList);
     }
     
     if (status === "done") {
       file = info.fileList;
-      console.log("file:::", file);
-
       message.success(`${info.file.name} file uploaded successfully.`);
     } else if (status === "error") {
       message.error(`${info.file.name} file upload failed.`);
@@ -100,7 +96,6 @@ export default class Article extends Component {
     this.setState({
       name: event,
     });
-    console.log("event", event);
   };
 
   componentDidMount() {

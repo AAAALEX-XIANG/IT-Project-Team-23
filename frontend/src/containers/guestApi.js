@@ -18,7 +18,6 @@ let res;
   }
 
   try{
-    console.log("load guest success!");
     return { status: await res.status, res: await res.json() };
   }catch (e) {
     return undefined;
@@ -46,7 +45,6 @@ export async function getGuestPublic(request) {
   if(res === null){
   }else{
     try{
-      console.log("load guest success!");
       return { status: await res.status, res: await res.json() };
     }catch (e) {
       return undefined;
@@ -76,7 +74,6 @@ export async function getGuestAttachment(request) {
   }
 
   try{
-    console.log("load guest success!");
     return { status: await res.status, res: await res.json() };
   }catch (e) {
     return undefined;
