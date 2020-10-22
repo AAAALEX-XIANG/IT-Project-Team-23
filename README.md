@@ -21,8 +21,8 @@ Test cases: [link](tests/TestCases.pdf)
 <p>                                                                                        
 
 <p>
-  <image src="image/submit.png" width="450" height="300" alt="Submitting" hspace="30">
-  <image src="image/userSubmitted.png" width="570" height="200" alt="User collection">
+  <image src="image/submit.png" width="450" height="300" hspace="30" alt="Submitting">
+  <image src="image/userSubmitted.png" width="470" height="200" alt="User collection">
 <p> 
 
 - Encoding algorithm:  
