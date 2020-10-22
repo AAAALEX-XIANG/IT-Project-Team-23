@@ -22,7 +22,7 @@ Test cases: [link](tests/TestCases.pdf)
 
 <p>
   <image src="image/submit.png" width="450" height="300" alt="Submitting">
-  <image src="image/userSubmitted.png" align = "left" width="500" height="150" alt="User collection">
+  <image src="image/userSubmitted.png" align = "right" width="500" height="150" alt="User collection">
 <p> 
 
 - Encoding algorithm:  
