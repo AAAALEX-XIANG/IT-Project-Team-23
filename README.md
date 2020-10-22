@@ -12,8 +12,11 @@ Test cases: [link](tests/TestCases.pdf)
 
 ## Description of key algorithms:
 
+- Uploading algorithms:  
 
+- Encoding algorithms:  
 
+- Search algorithms:  
 
 ## Description of key classes and the application’s layers:
 
