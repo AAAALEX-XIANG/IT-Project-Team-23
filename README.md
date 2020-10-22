@@ -22,10 +22,8 @@ Test cases: [link](tests/TestCases.pdf)
           Uploading area                 Cache collection
 
   
-<p>
-  <image src="image/cache.png" width="450" height="300" hspace="30">
-  <image src="image/cacheCollection.jpg" width="450" height="300">
-<p>
+![](mage/cache.png "Uploading area")
+![](mage/cacheCollection.jpg "Cache collection")
 
 - Encoding algorithm:  
 
