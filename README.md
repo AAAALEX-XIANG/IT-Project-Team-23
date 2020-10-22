@@ -12,11 +12,12 @@ Test cases: [link](tests/TestCases.pdf)
 
 ## Description of key algorithms:
 
-- Uploading algorithms:  
+- Uploading algorithm:  
+  There are two main steps in uploading algorithm: Stored the all files in uploading area into ours cache collection of databse.
 
-- Encoding algorithms:  
+- Encoding algorithm:  
 
-- Search algorithms:  
+- Search algorithm:  
 
 ## Description of key classes and the application’s layers:
 
