@@ -21,7 +21,7 @@ Test cases: [link](tests/TestCases.pdf)
 <p>                                                                                        
 
 <p>
-  <image src="image/submit.png" width="450" height="300" alt="Submitting">
+  <image src="image/submit.png" width="450" height="300" alt="Submitting" hspace="30">
   <image src="image/userSubmitted.png" width="500" height="200" alt="User collection">
 <p> 
 
