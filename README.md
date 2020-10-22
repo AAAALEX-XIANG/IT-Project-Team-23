@@ -16,7 +16,7 @@ Test cases: [link](tests/TestCases.pdf)
   There are two main steps in uploading algorithm: Stored the all files in uploading area into ours cache collection of databse and then move the submitted files from the cache to the User collection of database.
   
 <p>
-  <image src="image/cache.jpg"hspace="30">
+  <image src="image/cache.png"hspace="30">
   <image src="image/cacheCollection.jpg" width="450" height="300">
 <p>
 
