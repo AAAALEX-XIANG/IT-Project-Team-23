@@ -15,9 +15,9 @@ Test cases: [link](tests/TestCases.pdf)
 - Uploading algorithm:  
   There are two main steps in uploading algorithm: Stored the all files in uploading area into ours cache collection of databse and then move the submitted files from the cache to the User collection of database.
   
-<p>
-  <image src="image/cache.png" width="300" height="150">
-  <image src="image/cacheCollection.png" width="300" height="150">
+<p align="center">
+  <image src="image/cache.png">
+  <image src="image/cacheCollection.jpg">
 <p>
 
 - Encoding algorithm:  
