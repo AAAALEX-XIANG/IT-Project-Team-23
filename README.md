@@ -19,7 +19,9 @@ Test cases: [link](tests/TestCases.pdf)
   <image src="image/cache.png" width="450" height="300" hspace="30">
   <image src="image/cacheCollection.jpg" width="450" height="300">
 <p>
-Uploading area:
+<a leftmargin="100px">
+ Uploading area:
+</a>
   
 <p>
   <image src="image/cache.png" width="450" height="300" hspace="30">
