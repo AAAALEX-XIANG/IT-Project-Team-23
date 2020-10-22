@@ -5,12 +5,9 @@
 
 ## Documents
 
-Users Stories :[link](docs/UserStory.pdf)  
-Motivational model :[link](docs/4+1models.pdf)  
-Personas :[link](docs/UseCases.pdf)  
-
-| Test | link |
-| :---         |     :---:      |
-| Test cases | [link](tests/TestCases.pdf) |
+Users Stories: [link](docs/UserStory.pdf)  
+Motivational model: [link](docs/4+1models.pdf)  
+Personas: [link](docs/UseCases.pdf)  
+Test cases: [link](tests/TestCases.pdf)  
 
 
