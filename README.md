@@ -3,11 +3,28 @@
 
 
 
-## Documents
+## Documents:
 
 Users Stories: [link](docs/UserStory.pdf)  
-Motivational model: [link](docs/4+1models.pdf)  
+Motivational model: [link](docs/MotivationalModel.pdf)  
 Personas: [link](docs/UseCases.pdf)  
 Test cases: [link](tests/TestCases.pdf)  
+
+## Description of key algorithms:
+
+
+
+
+## Description of key classes and the application’s layers:
+
+
+
+
+## Description of the database structure:
+
+
+
+
+## Deployment guidelines:
 
 
