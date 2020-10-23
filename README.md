@@ -101,6 +101,8 @@ The following image sample shows the main function of our product.
 
 
 ## Description of the database structure:
+related file: [link](image/Logic view.pdf) 
+
 
 
 
