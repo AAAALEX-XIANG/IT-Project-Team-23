@@ -36,32 +36,41 @@ Test cases: [link](tests/TestCases.pdf)
 
 The following image sample shows the main function of our product.
 
-- register: 
+- Register: 
+
 <p align="center">
   <image src="image/register.png">
 <p>
 
 
-- login: 
+- Login: 
+
 <p align="center">
   <image src="image/log in.png">
 <p>
   
   
-- user interface:
+- User interface:
   After logining successfully, the user interface will be as shown in the following image.
+  
 <p align="center">
   <image src="image/user interface.png">
 <p>
   
   
-- edit profile:
+- Edit profile:
   The user could edit their profile optionally like uploading avatar or adding self introduction.
+  
 <p align="center">
   <image src="image/Upload avatar.png">
 <p>  
 
+- Upload artifact:
+  After filling the information needed to upload the artifact and clicking "submit", the user could add the artifact to any category they want.
   
+<p align="center">
+  <image src="image/Upload avatar.png">
+<p>  
 
 
 
