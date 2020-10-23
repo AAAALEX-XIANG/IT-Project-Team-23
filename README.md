@@ -40,17 +40,20 @@ The following image sample shows the main function of our product.
 <p align="center">
   <image src="image/register.png">
 <p>
-  
+
+
 - login: 
 <p align="center">
   <image src="image/log in.png">
 <p>
+  
   
 - user interface:
   After logining successfully, the user interface will be as shown in the following image.
 <p align="center">
   <image src="image/user interface.png">
 <p>
+  
   
 - edit profile:
   The user could edit their profile optionally like uploading avatar or adding self introduction.
