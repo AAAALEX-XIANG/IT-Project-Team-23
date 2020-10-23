@@ -79,7 +79,23 @@ The following image sample shows the main function of our product.
   <image src="image/sharable link.png">
 <p> 
 
-
+- Administrator interface:
+<p align="center">
+  <image src="image/administrator interface.png">
+<p> 
+  
+- Search function:
+  The administrator could search for users by their email, student id, part name and full name. The corresponding results will be shown in the green box.
+<p align="center">
+  <image src="image/search function.png">
+<p>
+ 
+- Search result:
+  After clicking the result of search, the admistrator could visit the homepage of that user.
+<p align="center">
+  <image src="image/search Result.png">
+<p>
+  
 
 
 
