@@ -37,40 +37,48 @@ Test cases: [link](tests/TestCases.pdf)
 The following image sample shows the main function of our product.
 
 - Register: 
-
 <p align="center">
   <image src="image/register.png">
 <p>
 
 
 - Login: 
-
 <p align="center">
   <image src="image/log in.png">
 <p>
   
   
 - User interface:
-  After logining successfully, the user interface will be as shown in the following image.
-  
+  After logining successfully, the user interface will be as shown in the following image. 
 <p align="center">
   <image src="image/user interface.png">
 <p>
   
   
 - Edit profile:
-  The user could edit their profile optionally like uploading avatar or adding self introduction.
-  
+  The user could edit their profile optionally like uploading avatar or adding self introduction. 
 <p align="center">
   <image src="image/Upload avatar.png">
 <p>  
 
 - Upload artifact:
   After filling the information needed to upload the artifact and clicking "submit", the user could add the artifact to any category they want.
-  
 <p align="center">
-  <image src="image/Upload avatar.png">
+  <image src="image/upload artifact.png">
 <p>  
+  
+- Category/Artifact management:
+  The user could manage category/artifact (adding or deleting). Besides, the user could also view or download artifacts which they uploaded before.
+<p align="center">
+  <image src="image/regulate category.png">
+<p> 
+  
+- Sharable link:
+  The user could share the link of their homepage with anyone they like. After clicking the sharable link, the user's homepage will be as shown in the following image.
+<p align="center">
+  <image src="image/sharable link.png">
+<p> 
+
 
 
 
