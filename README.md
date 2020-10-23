@@ -30,7 +30,7 @@ Test cases: [link](tests/TestCases.pdf)
 
     
 - Search algorithm:  
-  Administer can search User's information by 
+  We used regular expression to make the search results more accurate. Administer can search User's information by their email, student id, part name and full name.
 
 ## Description of key classes and the application’s layers:
 
