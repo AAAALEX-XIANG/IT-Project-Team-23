@@ -101,7 +101,7 @@ The following image sample shows the main function of our product.
 
 
 ## Description of the database structure:
-related file: [link](image/Logical View.pdf) 
+related file: [link](image/LogicalView.pdf) 
 
 
 
