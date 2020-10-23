@@ -34,7 +34,9 @@ Test cases: [link](tests/TestCases.pdf)
 
 ## Description of key classes and the application’s layers:
 
-login-in: 
+The following image sample shows the main function of our product
+
+-login in: 
 <p align="center">
   <image src="image/log in.png">
 <p>
