@@ -26,11 +26,11 @@ Test cases: [link](tests/TestCases.pdf)
 <p> 
 
 - Encoding algorithm:  
-  We used md5 encoder to encode user's password and uploaded files. 
+  Ours group used md5 encryption technology to encrypt user’s password and uploaded files. The md5 (Message digest 5) is an encryption function that allows you to generate 128 bits to "hash" any string as input.The reason that we used md5 encryption is that the encryption function is irreversible, you cannot get the original password only from the hash. For the encryption of uploaded files, we also use a “salt” to make hask more difficult to crack. We used md5 to encrypt the name of file and combine the hash with the bytes of the file.
 
     
 - Search algorithm:  
-  We used regular expression to make the search results more accurate. Administer can search User's information by their email, student id, part name and full name.
+  We used regular expression to make the search results more accurate. Administer can search User's information by any relatively letters of their email, student id, part name , usename and full name.
 
 ## Description of key classes and the application’s layers:
 
