@@ -15,6 +15,7 @@ import { upload } from "../../containers/artifactApi";
 import { addCategory, showCategory } from "../../containers/categoryApi";
 
 import Navbar from "../../components/Navbar";
+import TextArea from "antd/lib/input/TextArea";
 
 const { Option } = Select;
 const { Dragger } = Upload;
@@ -248,7 +249,7 @@ export default class Article extends Component {
           </Form.Item>
 
           <Form.Item label={<label className="variables" >Description</label>}>
-            <Input
+            <TextArea
               placeholder="Enter Description"
               style={{ flex: "auto" }}
               value={description}
