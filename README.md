@@ -107,12 +107,10 @@ related file: [link](image/LogicalView.pdf)
 
 
 ## Developing Environment:
-_Prepare_
 - JRE 11
 - SpringBoot v 2.3.3
 - npm/yarn
 - MongoDB Atlas
-- Heroku
 1. Nevigate to the React frontend repository
 2. Start the React frontend with `npm start`
 3. The client listens on [port 3000]
@@ -130,5 +128,6 @@ _Prepare_
 6. Move static components of frontend to src/main/resources/static
 7. Move index.html to src/main/resources/template
 8. Run the Spring Server, the server listens on [port 8080] with the frontend component built
+9. Now the Spring Server is well prepared to be built and deployed in Heroku
 
 
