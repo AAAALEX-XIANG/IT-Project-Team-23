@@ -1,5 +1,6 @@
-const BASE_URL = "https://fate-e-portfolio.herokuapp.com/api/profile";
-//const BASE_URL = "http://localhost:8080/api/profile";
+import {serverAddress} from "../ServerAddress";
+
+const BASE_URL = serverAddress+"api/profile";
 
 export async function updateProfile(request) {
   const { email, firstname, lastname, username, description } = request;
@@ -24,7 +25,6 @@ export async function updateProfile(request) {
     return { error: e };
   }
 
-  //sample res:{"res" : true}
   return { status: await res.status, res: await res.json() };
 }
 
@@ -33,7 +33,6 @@ export async function viewProfile(request) {
   const endpoint = BASE_URL + `/viewprofile`;
   let formData = new FormData();
   formData.append("email", email);
-  console.log(email);
   //fetch from server api
   let res;
   try {
@@ -45,7 +44,6 @@ export async function viewProfile(request) {
     console.log(e);
     return { error: e };
   }
-  console.log(res);
   return { status: await res.status, res: await res.json() };
 }
 
@@ -66,6 +64,5 @@ export async function shareProfile(request) {
     return { error: e };
   }
 
-  //sample res:{"res" : true}
   return { status: await res.status, res: await res.text() };
 }

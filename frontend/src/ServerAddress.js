@@ -1,0 +1,1 @@
+export let serverAddress = "https://fate-e-portfolio.herokuapp.com/"

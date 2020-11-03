@@ -1,5 +1,7 @@
-const BASE_URL = "https://fate-e-portfolio.herokuapp.com/api/account";
-//const BASE_URL = "http://localhost:8080/api/account";
+import {serverAddress} from "../ServerAddress";
+
+const BASE_URL = serverAddress+"api/account";
+
 
 /*=========================================================================*/
 /*========================     Login/reg        ===========================*/
@@ -15,11 +17,11 @@ export async function login(userDetails) {
   requestBody.append("email", email);
   requestBody.append("password", password);
   if (!email) {
-    alert("please enter your email"); //TODO: change to not alert
+    alert("please enter your email"); 
     return;
   }
   if (!password) {
-    alert("please enter your password"); //TODO
+    alert("please enter your password");
     return;
   }
   //fetch from server api
@@ -27,9 +29,6 @@ export async function login(userDetails) {
   try {
     res = await fetch(endpoint, {
       method: "POST",
-      // headers: {
-      //     'Access-Control-Allow-Origin': '*'
-      // },
       body: requestBody,
     });
   } catch (e) {
@@ -53,7 +52,7 @@ export async function register(userDetails) {
     studentId,
   } = userDetails;
   const endpoint = BASE_URL + `/register`;
-  console.log("register");
+
 
   //fetch from server api
   let res;
@@ -76,6 +75,5 @@ export async function register(userDetails) {
     console.log(e);
     return { error: e };
   }
-  console.log(res);
   return { status: res.status, res: await res.json() };
 }

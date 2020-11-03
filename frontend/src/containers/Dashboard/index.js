@@ -1,13 +1,13 @@
 /* eslint-disable no-restricted-globals */
 import React, { Component } from "react";
+import {serverAddress} from "../../ServerAddress";
 import Navbar from "../../components/Navbar";
 import { Button, Upload, message } from "antd";
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import { viewProfile, updateProfile, shareProfile } from "../profileApi";
 import Loading from "../Loading";
 
-let baseURL = "https://fate-e-portfolio.herokuapp.com/api/profile/updateAvatar";
-//let baseURL = "http://localhost:8080/api/profile/updateAvatar";
+let baseURL = serverAddress+"api/profile/updateAvatar";
 
 function getBase64(img, callback) {
   const reader = new FileReader();
@@ -27,7 +27,6 @@ function beforeUpload(file) {
   return isJpgOrPng && isLt1M;
 }
 
-//export var curShareLink = this.state.shareLink;
 export default class Dashboard extends Component {
   constructor(props) {
     super(props);
@@ -80,16 +79,9 @@ export default class Dashboard extends Component {
     const target = event.target;
     const value = target.value;
     const name = target.name;
-
-    // if (value.length > 200) {
-    //   this.setState({
-    //     [name]: value.substring(0, 200),
-    //   });
-    // } else {
-      this.setState({
-        [name]: value,
-      });
-    // }
+    this.setState({
+      [name]: value,
+    });
   }
 
   submitProfile(detail) {
@@ -178,10 +170,8 @@ export default class Dashboard extends Component {
         email: localStorage.getItem("email"),
       }).then(
         (shareLink) => shareLink.res
-        //console.log(shareLink.res)
       );
       window.location.replace("/admin/dashboard");
-    } else {
     }
   }
 
@@ -200,7 +190,6 @@ export default class Dashboard extends Component {
     } = this.state;
     if (this.state.status === true) {
       window.location.replace("/admin/dashboard");
-      // console.log("refresh");
     }
     if (error) {
       //couldn't fetch data from server
@@ -356,11 +345,11 @@ export default class Dashboard extends Component {
                   <div className="currentInfo">
                     <a
                       href={
-                        "http://localhost:3000/guest/dashboard/" +
+                        serverAddress+"guest/dashboard/" +
                         this.state.shareLink
                       }
                     >
-                      {"http://localhost:3000/guest/dashboard/" +
+                      {serverAddress+"guest/dashboard/" +
                         this.state.shareLink}
                     </a>
                   </div>
@@ -446,11 +435,11 @@ export default class Dashboard extends Component {
                   <div className="currentInfo">
                     <a
                       href={
-                        "http://localhost:3000/guest/dashboard/" +
+                        serverAddress+"guest/dashboard/" +
                         this.state.shareLink
                       }
                     >
-                      {"http://localhost:3000/guest/dashboard/" +
+                      {serverAddress+"guest/dashboard/" +
                         this.state.shareLink}
                     </a>
                   </div>

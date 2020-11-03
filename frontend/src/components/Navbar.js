@@ -1,6 +1,7 @@
 import React from "react";
 
 import { NavLink } from "react-router-dom";
+import {serverAddress} from "../ServerAddress";
 
 import {
   HomeOutlined,
@@ -9,17 +10,20 @@ import {
   PoweroffOutlined,
 } from "@ant-design/icons";
 
-//let clearURL = 'https://fate-server.herokuapp.com/api/cache/clear/';
-//let clearURL = "http://localhost:8080/api/cache/clear/";
-let clearURL = "https://fate-e-portfolio.herokuapp.com/api/cache/clear/";
+let clearURL = serverAddress+"api/cache/clear/";
 export default function Navbar() {
   const logout = () => {
-    const actionURL = clearURL + `${localStorage.getItem("email")}`;
-    fetch(actionURL, {
-      method: "GET",
-    });
-    localStorage.clear();
-    window.location.replace("/login");
+    if (
+      window.confirm(
+        "Are you sure to log out?"
+      )){
+      const actionURL = clearURL + `${localStorage.getItem("email")}`;
+      fetch(actionURL, {
+        method: "GET",
+      });
+      localStorage.clear();
+      window.location.replace("/login");
+    }
   };
   return (
     <nav className="navbar">
@@ -54,7 +58,7 @@ export default function Navbar() {
             </NavLink>
           </li>
           <li className="navOption">
-            <NavLink to="/login" onClick={logout}>
+            <NavLink to= "#"  onClick={logout}>
               <PoweroffOutlined /> Logout{" "}
             </NavLink>
           </li>

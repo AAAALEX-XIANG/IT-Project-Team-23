@@ -58,7 +58,6 @@ class RegForm extends React.Component {
             });
 
         
-        console.log(status);
         if (res.result) {
             this.setState({success: status===200, res: res})
         } else {

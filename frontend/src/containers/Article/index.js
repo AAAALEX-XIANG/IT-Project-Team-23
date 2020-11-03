@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import {serverAddress} from "../../ServerAddress";
 import {
   Form,
   Upload,
@@ -15,6 +16,7 @@ import { upload } from "../../containers/artifactApi";
 import { addCategory, showCategory } from "../../containers/categoryApi";
 
 import Navbar from "../../components/Navbar";
+import TextArea from "antd/lib/input/TextArea";
 
 const { Option } = Select;
 const { Dragger } = Upload;
@@ -31,8 +33,7 @@ const formItemLayout = {
 };
 
 let file = [];
-let baseURL = "https://fate-e-portfolio.herokuapp.com/api/cache/upload";
-//let baseURL = "http://localhost:8080/api/cache/upload";
+let baseURL = serverAddress+"api/cache/upload";
 const props = {
   name: "file",
   multiple: true,
@@ -41,13 +42,10 @@ const props = {
     const { status } = info.file;
     if (status !== "uploading") {
       file = info.fileList;
-      console.log(info.file, info.fileList);
     }
     
     if (status === "done") {
       file = info.fileList;
-      console.log("file:::", file);
-
       message.success(`${info.file.name} file uploaded successfully.`);
     } else if (status === "error") {
       message.error(`${info.file.name} file upload failed.`);
@@ -100,7 +98,6 @@ export default class Article extends Component {
     this.setState({
       name: event,
     });
-    console.log("event", event);
   };
 
   componentDidMount() {
@@ -253,7 +250,7 @@ export default class Article extends Component {
           </Form.Item>
 
           <Form.Item label={<label className="variables" >Description</label>}>
-            <Input
+            <TextArea
               placeholder="Enter Description"
               style={{ flex: "auto" }}
               value={description}

@@ -6,7 +6,6 @@ import {
   MenuOutlined
 } from "@ant-design/icons";
 
-//let clearURL = 'https://fate-e-portfolio.herokuapp.com/api/cache/clear/';
 let currentLink = window.location.pathname.split("/").pop();
 let cateLink = "/guest/category/";
 let profileLink = "/guest/dashboard/";

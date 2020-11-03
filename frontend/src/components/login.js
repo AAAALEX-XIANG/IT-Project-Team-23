@@ -1,9 +1,9 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 import { login } from "../containers/accountApi";
+import {serverAddress} from "../ServerAddress";
 
-let clearURL = "https://fate-e-portfolio.herokuapp.com/api/cache/clear/";
-//let clearURL = "http://localhost:8080/api/cache/clear/";
+let clearURL = serverAddress+"api/cache/clear/";
 class LoginForm extends React.Component {
   constructor(props) {
     super(props);

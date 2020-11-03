@@ -1,4 +1,6 @@
-const BASE_URL = "https://fate-e-portfolio.herokuapp.com/api/search";
+import {serverAddress} from "../ServerAddress";
+
+const BASE_URL = serverAddress+"api/search";
 
 export async function search(request) {
     const { info } = request;
@@ -16,6 +18,5 @@ export async function search(request) {
       console.log(e);
       return { error: e };
     }
-    console.log(await res);
     return { status: await res.status, res: await res.json() };
   }

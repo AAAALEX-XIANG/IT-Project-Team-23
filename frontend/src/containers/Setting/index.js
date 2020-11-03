@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Button, Collapse } from "antd";
 import { DownloadOutlined, PictureOutlined,DeleteOutlined,EyeOutlined } from "@ant-design/icons";
-//import { showCategory, deleteCategory, showArtifacts } from "../../containers/categoryApi"
+
 import {
   getCategoryArtifact,
   getAttachment, 
@@ -44,7 +44,6 @@ export default class Setting extends Component {
   showAllCate = () => {
     getCategoryArtifact({ email: localStorage.getItem("email") }).then(
       (files) =>
-        // console.log(files.res)
         this.setState({
           files: files.res,
           isLoaded: true,
@@ -59,7 +58,6 @@ export default class Setting extends Component {
     ) {
       deleteCategory(request).then(change =>
         window.location.replace("/admin/category"))
-    } else {
     }
   }
 
@@ -70,7 +68,6 @@ export default class Setting extends Component {
     ) {
       deleteArtifact(request).then(change =>
         window.location.replace("/admin/category"))
-    } else {
     }
   }
   
@@ -86,7 +83,6 @@ export default class Setting extends Component {
           artifact: request.artifact,
           privacy: "private"}).then(change => 
           window.location.replace("/admin/category"))
-      } else {
       }
     } else {
       if (
@@ -97,7 +93,6 @@ export default class Setting extends Component {
           artifact: request.artifact,
           privacy: "public"}).then(change =>
           window.location.replace("/admin/category"))
-      } else {
       }
     }
     
@@ -106,69 +101,64 @@ export default class Setting extends Component {
   downloadFile(request) {
     // Decode Base64 to binary and show some information about the file
     var b64 = request.content;
-    // var type = request.filetype;
-    let foo = document.getElementsByClassName("pageContainer")[0];
-    if (foo.hasChildNodes()) {
-      let children = foo.childNodes;
-      for (let i = 0; i < children.length; i++) {
-        if (children[i].nodeName === "OBJECT") {
-          foo.removeChild(children[i]);
-        }
-      }
-      // Insert a link that allows the user to download the PDF file
-      var link = document.createElement("a");
-      link.style.cssFloat = "right";
-      //link.innerHTML = 'Download file';
-      link.download = request.filename;
-      link.href = "data:application/octet-stream;base64," + b64;
-      foo.appendChild(link).click();
-    }
+    // Insert a link that allows the user to download the PDF file
+    var link = document.createElement("a");
+    link.download = request.filename;
+    link.href = "data:application/octet-stream;base64," + b64;
+    link.click();
+    this.setState({
+      loadings: []
+    });
   }
 
   viewFile(request) {
     // Decode Base64 to binary and show some information about the file
     var b64 = request.content;
     var type = request.filetype;
-    let foo = document.getElementsByClassName("pageContainer")[0];
-    if (foo.hasChildNodes()) {
-      let children = foo.childNodes;
-      for (let i = 0; i < children.length; i++) {
-        if (children[i].nodeName === "OBJECT") {
-          foo.removeChild(children[i]);
-        } else if (children[i].nodeName === "A") {
-          foo.removeChild(children[i]);
-          break;
-        }
-      }
 
-      // we can only view pdf, text or image files
-      if (
-        type === "application/pdf" ||
-        type === "image/jpeg" ||
-        type === "image/png" ||
-        type === "text/plain"
-      ) {
-        // view file
-        var firstobj = document.createElement("object");
-        firstobj.className = "viewContainer";
-        if (type === "application/pdf" || type === "text/plain") {
-          firstobj.style.height = "700px";
-        } else {
-          firstobj.style.height = "45%";
-          firstobj.style.maxHeight = "650px";
-          firstobj.style.maxWidth = "700px";
+    let foo = document.getElementsByClassName("pageContainerCate")[0];
+    
+    if (foo === undefined){
+      console.log("Loading finished!foo undefine");
+    }else{
+      if (foo.hasChildNodes()) {
+        let children = foo.childNodes;
+        for (let i = 0; i < children.length; i++) {
+          if (children[i].nodeName === "OBJECT") {
+            foo.removeChild(children[i]);
+          }
         }
-        firstobj.style.width = "60%";
-        firstobj.style.cssFloat = "center";
-        firstobj.type = type;
-        firstobj.data = "data:" + type + ";base64," + b64;
-        foo.appendChild(firstobj);
-      } else {
-        alert(`Sorry, you are not allowed to view ${type} files`);
+
+        // we can only view pdf, text or image files
+        if (
+          type === "application/pdf" ||
+          type === "image/jpeg" ||
+          type === "image/png" ||
+          type === "text/plain"
+        ) {
+          // view file
+          var firstobj = document.createElement("object");
+          firstobj.className = "viewContainer";
+          if (type === "application/pdf" || type === "text/plain") {
+            firstobj.style.height = "700px";
+          } else {
+            firstobj.style.height = "45%";
+            firstobj.style.maxHeight = "650px";
+            firstobj.style.maxWidth = "700px";
+          }
+          firstobj.style.width = "60%";
+          firstobj.style.cssFloat = "center";
+          firstobj.type = type;
+          firstobj.data = "data:" + type + ";base64," + b64;
+          foo.appendChild(firstobj);
+        } else {
+          alert(`Sorry, you are not allowed to view ${type} files`);
+        }
+        this.setState({
+          loadings: []
+        });
       }
-      this.setState({
-        loadings: []
-      });
+      console.log("Loading finished!");
     }
   }
 
@@ -228,12 +218,12 @@ export default class Setting extends Component {
       );
     } else {
       return (
-        <div className="pageContainer">
+        <div className="pageContainerCate">
           <Navbar />
           <div className="cateContainer">
 
           <Collapse accordion>
-            {cates.map((item) => (
+            {cates.map((item, cateNum) => (
               <Panel header={"Category: "+item} key={item} extra={<DeleteOutlined onClick={() =>
                 this.deleteCate({
                   email: localStorage.getItem("email"),
@@ -242,7 +232,7 @@ export default class Setting extends Component {
               }
               />}>
                 <Collapse accordion>
-                  {categories.get(item).map((title) => (
+                  {categories.get(item).map((title, artiNum) => (
                     <Panel header={"Artifact: "+title} key={title} extra={<DeleteOutlined onClick={() =>
                       this.deleteArti({
                         email: localStorage.getItem("email"),
@@ -275,27 +265,28 @@ export default class Setting extends Component {
                         }
                         icon={<EyeOutlined />}
                       >
-                      {"Click to switch state"}
+                      {(files[item][title][1]==="public")?"Switch to private":"Switch to public"}
                       </Button>
                       <br /><br />
                       <div className="CateInfo">
                       Attachments:
                       {files[item][title].slice(2).map((file, num) => (
-                        <div key={num+5}>
+                        <div key={cateNum*cates.length+artiNum*categories.get(item).length+num+5}>
                           <div className="currentAttachmentInfo">
-                          <p>
-                            {file}
-                          </p>
-                          </div>
+                            <div>
+                              {file}
+                            </div>
+                          
                             <Button
-                              loading={loadings[num+5]}
+                              // assign a loading number to all attachments
+                              loading={loadings[cateNum*cates.length+artiNum*categories.get(item).length+num+5]}
                               onClick={() =>
                                 this.viewAttachment({
                                   email: localStorage.getItem("email"),
                                   category: item,
                                   artifact: title,
                                   attachment: file,
-                                }, num+5)
+                                }, cateNum*cates.length+artiNum*categories.get(item).length+num+5)
                               }
                               id="downloadBtn"
                               icon={<PictureOutlined />}
@@ -304,14 +295,16 @@ export default class Setting extends Component {
                               View
                             </Button>
                             <Button
-                              loading={loadings[num+files[item][title].length+5]}
+                              loading={loadings[cates.length*categories.get(item).length*files[item][title].length+
+                                cateNum*cates.length+artiNum*categories.get(item).length+num*files[item][title].length+5]}
                               onClick={() =>
                                 this.downloadAttachment({
                                   email: localStorage.getItem("email"),
                                   category: item,
                                   artifact: title,
                                   attachment: file,
-                                }, num+files[item][title].length+5)
+                                }, cates.length*categories.get(item).length*files[item][title].length+
+                                cateNum*cates.length+artiNum*categories.get(item).length+num*files[item][title].length+5)
                               }
                               id="downloadBtn"
                               icon={<DownloadOutlined />}
@@ -319,6 +312,7 @@ export default class Setting extends Component {
                             >
                               download
                             </Button>
+                          </div>
                         </div>
                       ))}
                       <br />

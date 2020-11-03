@@ -1,8 +1,8 @@
 import React from 'react';
-import { Input } from 'antd';
+import { Input, Button } from 'antd';
 import { List } from 'antd';
 import { search } from '../adminApi';
-import { NavLink } from "react-router-dom";
+import {serverAddress} from '../../ServerAddress'
 
 const { Search } = Input;
 
@@ -11,30 +11,58 @@ export default class AdminPage extends React.Component {
         super(props);
         this.state = {
             initLoading: true,
-            loading: false,
+            loadings: [],
             data: {}
         };
     }    
 
     searchUser = (value) => {
+        this.enterLoading(0);
         search({info: value}).then(
             (info) => {
-                // console.log(info.res)
                 this.setState({
-                    data: info.res
+                    data: info.res,
+                    loadings: []
                 })
             }
         )
     }
 
+    //the loading button is referenced from https://ant.design/components/button-cn/
+    enterLoading = (index) => {
+        this.setState(({ loadings }) => {
+        const newLoadings = [...loadings];
+        newLoadings[index] = true;
+
+        return {
+            loadings: newLoadings,
+        };
+        });
+        setTimeout(() => {
+        this.setState(({ loadings }) => {
+            const newLoadings = [...loadings];
+            newLoadings[index] = false;
+
+            return {
+            loadings: newLoadings,
+            };
+        });
+        }, 10000);
+    };
+
     logout = () => {
-        localStorage.clear();
-        window.location.replace("/login");
+        if (
+            window.confirm(
+              "Are you sure to log out?"
+            )){
+                localStorage.clear();
+                window.location.replace("/login");
+            }
     };
 
     render() {
         // source from https://ant.design/components/list/
-        const { data } = this.state;
+        const { data, loadings } = this.state;
         let userID = [];
 
         for (var user in data) {
@@ -43,29 +71,34 @@ export default class AdminPage extends React.Component {
 
         return(
             <div>
-                <div className="adminSearch">
-                <Search placeholder="search users" onSearch={value => this.searchUser(value)} enterButton />
-                <div>       
-                    <NavLink to="/login" onClick={this.logout}>
-                        {" "}
+                <div className="adminButton">     
+                    <Button onClick={this.logout}>
                         Logout{" "}
-                    </NavLink>
+                    </Button>
                 </div>
+                <br/>
+                <div className="adminTitle">
+                    Fate e-Portfolio
                 </div>
-                <List
-                    itemLayout="horizontal"
-                    dataSource={userID}
-                    renderItem={item => (
-                    <List.Item>
-                    <List.Item.Meta
-                        title={<a href={"http://localhost:3000/guest/dashboard/"+ data[item][4]}>{data[item][1]}</a>}
-                        description={data[item][2] + " " + data[item][3] + ", " + data[item][0]}
+                <div className="adminSearch">
+                    <Search placeholder="search users" onSearch={value => this.searchUser(value)} loading={loadings[0]} enterButton/>
+                </div>
+                <br />
+                <div className = "adminList">
+                    <List
+                        itemLayout="horizontal"
+                        dataSource={userID}
+                        renderItem={item => (
+                            <List.Item className="adminUser">
+                                <List.Item.Meta
+                                    title={<a href={serverAddress+"guest/dashboard/"+ data[item][4]}>{data[item][1]}</a>}
+                                    description={data[item][2] + " " + data[item][3] + ", " + data[item][0]}
+                                />   
+                            </List.Item>
+                        )}
                     />
-                    </List.Item>
-                    )}
-                />
-
-                
+                </div>
+               <br /> 
             </div>
         )
     }

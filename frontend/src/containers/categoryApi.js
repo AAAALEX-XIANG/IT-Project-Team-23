@@ -1,5 +1,6 @@
-const BASE_URL = "https://fate-e-portfolio.herokuapp.com/api/categories";
-//const BASE_URL = "http://localhost:8080/api/categories";
+import {serverAddress} from "../ServerAddress";
+
+const BASE_URL = serverAddress+ "api/categories";
 
 export async function addCategory(request) {
   const { email, categoryName } = request;
@@ -22,8 +23,6 @@ export async function addCategory(request) {
     console.log(e);
     return { error: e };
   }
-  console.log(await res);
-  //Sample res:{"res": "true"}
   return { status: await res.status, res: await res.json() };
 }
 
@@ -48,8 +47,6 @@ export async function deleteCategory(request) {
     console.log(e);
     return { error: e };
   }
-  console.log(await res);
-  //Sample res:{"res": "true"}
   return { status: await res.status, res: await res.json() };
 }
 
@@ -70,8 +67,6 @@ export async function showCategory(request) {
     console.log(e);
     return { error: e };
   }
-  // console.log(await res);
-  //Sample A list of names of categories
   return { status: await res.status, res: await res.json() };
 }
 
@@ -96,7 +91,5 @@ export async function showArtifacts(request) {
     console.log(e);
     return { error: e };
   }
-  // console.log(await res);
-  //Sample A list of names of Artifacts
   return { status: await res.status, res: await res.json() };
 }

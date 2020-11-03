@@ -11,6 +11,7 @@ import DupLogin from "./containers/DupLogin";
 import AdminPage from "./containers/AdminPage";
 import GuestDashboard from "./containers/GuestDashBoard";
 import GuestCate from "./containers/GuestCate";
+import NotFound from "./containers/NotFound"
 
 import { observer } from "mobx-react";
 
@@ -26,13 +27,11 @@ const App = observer(
     componentDidMount() {
       let storedUsername = localStorage.getItem("email");
       if (storedUsername != null) {
-        console.log(storedUsername);
         this.props.userStore.email = storedUsername;
         this.props.userStore.isLoggedIn = true;
       }
     }
 
-    //TODO: page not found
     render() {
       return (
         <div className="App">
@@ -59,6 +58,8 @@ const App = observer(
                 path="/login"
                 render={(props) =>
                   !(localStorage.getItem("email") === null) ? (
+                    <Redirect to="/duplogin" />
+                  ) : !(localStorage.getItem("adminEmail") === null) ? (
                     <Redirect to="/duplogin" />
                   ) : (
                     <LoginPage userStore={this.props.userStore} />
@@ -182,7 +183,12 @@ const App = observer(
                 render={(props) => <GuestCate />}
               />
 
-              {/* <Redirect to="/404" /> */}
+              <Route
+                path="/404"
+                render={(props) => <NotFound />}
+              />
+
+              <Redirect to="/404" />
             </Switch>
           </Router>
         </div>

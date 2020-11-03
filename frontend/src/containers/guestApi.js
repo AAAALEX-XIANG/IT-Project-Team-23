@@ -1,13 +1,14 @@
-const BASE_URL = "https://fate-e-portfolio.herokuapp.com/api/guest";
-const BASE_URL_ARTIFACT = "https://fate-e-portfolio.herokuapp.com/api/artifacts";
+import {serverAddress} from "../ServerAddress";
+
+const BASE_URL = serverAddress+"api/guest";
+const BASE_URL_ARTIFACT = serverAddress+"api/artifacts";
 
 export async function getGuestDashboard(request) {
   const { link } = request;
   const endpoint = BASE_URL + `/showUserProfile`;
   let formData = new FormData();
   formData.append("link", link);
-  //fetch from server api
-  let res;
+let res;
   try {
     res = await fetch(endpoint, {
       method: "POST",
@@ -18,8 +19,12 @@ export async function getGuestDashboard(request) {
     return { error: e };
   }
 
-  //sample res:{"res" : true}
-  return { status: await res.status, res: await res.json() };
+  try{
+    return { status: await res.status, res: await res.json() };
+  }catch (e) {
+    return undefined;
+  }
+
 }
 
 export async function getGuestPublic(request) {
@@ -39,8 +44,14 @@ export async function getGuestPublic(request) {
     return { error: e };
   }
 
-  //sample res:{"res" : true}
-  return { status: await res.status, res: await res.json() };
+  if(res !== null){
+    try{
+      return { status: await res.status, res: await res.json() };
+    }catch (e) {
+      return undefined;
+    }
+  }
+  
 }
 
 export async function getGuestAttachment(request) {
@@ -62,6 +73,10 @@ export async function getGuestAttachment(request) {
     console.log(e);
     return { error: e };
   }
-  console.log(await res);
-  return { status: await res.status, res: await res.json() };
+
+  try{
+    return { status: await res.status, res: await res.json() };
+  }catch (e) {
+    return undefined;
+  }
 }
