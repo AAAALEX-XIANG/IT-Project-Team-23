@@ -9,6 +9,7 @@ Users Stories: [link](docs/UserStory.pdf)
 Motivational model: [link](docs/MotivationalModel.pdf)  
 Personas: [link](docs/UseCases.pdf)  
 Test cases: [link](tests/TestCases.pdf)
+
 API document: https://documenter.getpostman.com/view/12492240/TVCmSQie
 
 ## Description of key algorithms:
