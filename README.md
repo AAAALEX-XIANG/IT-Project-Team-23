@@ -109,7 +109,7 @@ related file: [link](image/LogicalView.pdf)
 
 
 ## Developing Environment:
-- JRE 11
+- JDK 11
 - SpringBoot v 2.3.3
 - npm/yarn
 - MongoDB Atlas
