@@ -18,13 +18,13 @@ API document: https://documenter.getpostman.com/view/12492240/TVCmSQie
   There are two main steps in uploading algorithm: Stored the all files in uploading area into ours cache collection of databse and then move the submitted files from the cache to the User collection of database.
   
 <p>
-  <image src="image/cache.png" width="450" height="300" hspace="30" alt="Uploading area">
-  <image src="image/cacheCollection.jpg" width="450" height="300" alt="Cache collection">
+  <image src="image/cache.png" width="440" height="300" hspace="30" alt="Uploading area">
+  <image src="image/cacheCollection.jpg" width="440" height="300" alt="Cache collection">
 <p>                                                                                        
 
 <p>
-  <image src="image/submit.png" width="450" height="300" hspace="30" alt="Submitting">
-  <image src="image/userSubmitted.png" width="470" height="200" alt="User collection">
+  <image src="image/submit.png" width="440" height="300" hspace="30" alt="Submitting">
+  <image src="image/userSubmitted.png" width="440" height="200" alt="User collection">
 <p> 
 
 - Encoding algorithm:  
